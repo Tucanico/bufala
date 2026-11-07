@@ -1,5 +1,7 @@
 import { expect, test, vi } from "vitest";
 import { analyseMessage, MODEL_RUNS } from "../src/lib/check/analyse";
+import { findFacts } from "../src/lib/check/facts";
+import { ORGANISATIONS, PREMIUM } from "./fixtures/organisations";
 import { MAX_MESSAGE_LENGTH } from "../src/lib/check/limits";
 import { ModelError } from "../src/lib/check/mistral";
 
@@ -54,6 +56,34 @@ test("turns the model reply into a verdict, up to two reasons and the sender", a
     ok: true,
     result: { verdict: "scam", reasons: ["threat", "urgency"], sender: "bank" },
   });
+});
+
+test("a look-alike link makes it a scam even when the model sees nothing", async () => {
+  const clearReply = { ...scamReply, claimed_sender: "other", requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const outcome = await analyseMessage(
+    "Il tuo pacco ti aspetta: poste-consegne.info/pacco",
+    async () => clearReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+  );
+  expect(outcome).toEqual({
+    ok: true,
+    result: {
+      verdict: "scam",
+      reasons: ["lookalike_link"],
+      sender: "poste",
+      organisationName: "Poste Italiane",
+      officialPhone: "06 0000 1111",
+      imitatedName: "Poste Italiane",
+    },
+  });
+});
+
+test("an unreviewed organisation's number is never shown", async () => {
+  const outcome = await analyseMessage("TIM: la tua SIM verrà disattivata", async () => scamReply, (text) =>
+    findFacts(text, ORGANISATIONS, PREMIUM),
+  );
+  expect(outcome.ok && outcome.result.organisationName).toBe("TIM");
+  expect(outcome.ok && outcome.result.officialPhone).toBeUndefined();
 });
 
 test("model failures become 'unavailable' and log no message text", async () => {

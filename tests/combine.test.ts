@@ -3,6 +3,7 @@ import { combineRuns, type ModelRun } from "../src/lib/check/combine";
 
 const run = (verdict: ModelRun["verdict"], signs: ModelRun["signs"] = [], sender: ModelRun["sender"] = "bank"): ModelRun => ({
   verdict,
+  modelVerdict: verdict,
   signs,
   sender,
 });

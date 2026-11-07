@@ -28,7 +28,7 @@ export type RequestedAction = (typeof REQUESTED_ACTIONS)[number];
 export const PRESSURE_LEVELS = ["low", "medium", "high"] as const;
 export type Pressure = (typeof PRESSURE_LEVELS)[number];
 
-// Most telling first: the answer shows the first two that apply.
+// The signs the model can report. Their display order is SIGN_ORDER below.
 export const WARNING_SIGNS = [
   "asks_for_code",
   "asks_for_payment",
@@ -47,6 +47,33 @@ export const WARNING_SIGNS = [
   "secrecy",
 ] as const;
 export type WarningSign = (typeof WARNING_SIGNS)[number];
+
+// Signs our own code finds in the links and numbers, never asked of the model.
+export const CHECK_SIGNS = ["lookalike_link", "premium_number", "shortened_link"] as const;
+export type CheckSign = (typeof CHECK_SIGNS)[number];
+
+export type Sign = WarningSign | CheckSign;
+
+// Every sign, most telling first: the answer shows the first two that apply.
+// A look-alike link leads because it is a fact our code checked, not a reading.
+export const SIGN_ORDER: readonly Sign[] = [
+  "lookalike_link",
+  "asks_for_code",
+  "asks_for_payment",
+  "asks_for_personal_data",
+  "install_app",
+  "new_number_family",
+  "premium_number",
+  "prize_or_refund",
+  "threat",
+  "urgency",
+  "link_to_act",
+  "call_this_number",
+  "shortened_link",
+  "shows_code",
+  "parcel_problem",
+  "secrecy",
+];
 
 // Mildest first, so a higher index means a stricter verdict.
 export const VERDICTS = ["no_signs", "suspicious", "scam"] as const;

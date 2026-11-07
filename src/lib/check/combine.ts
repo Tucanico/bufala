@@ -1,13 +1,13 @@
-import {
-  VERDICTS,
-  WARNING_SIGNS,
-  type SenderType,
-  type Verdict,
-  type WarningSign,
-} from "./schema";
+import { SIGN_ORDER, VERDICTS, type SenderType, type Sign, type Verdict } from "./schema";
 
-export type ModelRun = { verdict: Verdict; signs: WarningSign[]; sender: SenderType };
-export type Combined = { verdict: Verdict; reasons: WarningSign[]; sender: SenderType };
+export type ModelRun = {
+  verdict: Verdict;
+  // Kept for the test report: what the model itself said, before our rules.
+  modelVerdict: Verdict;
+  signs: Sign[];
+  sender: SenderType;
+};
+export type Combined = { verdict: Verdict; reasons: Sign[]; sender: SenderType };
 
 // The model doesn't give the same message the same answer every time, even at
 // temperature 0: in testing, normal messages flipped to 🟠, and once to 🔴, in
@@ -37,7 +37,7 @@ export function combineRuns(runs: ModelRun[]): Combined {
   // reasons shown are ones that actually led to it.
   const agreeing = runs.filter((run) => run.verdict === verdict);
   const pool = agreeing.length > 0 ? agreeing : runs;
-  const shared = WARNING_SIGNS.filter(
+  const shared = SIGN_ORDER.filter(
     (sign) => pool.filter((run) => run.signs.includes(sign)).length * 2 > pool.length,
   );
   return {

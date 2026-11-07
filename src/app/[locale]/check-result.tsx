@@ -31,7 +31,11 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
           <h3 className="mt-5 text-lg font-bold">{t("whyTitle")}</h3>
           <ul className="mt-1 list-disc space-y-1 pl-6">
             {result.reasons.map((reason) => (
-              <li key={reason}>{t(`signs.${reason}`)}</li>
+              <li key={reason}>
+                {reason === "lookalike_link" && result.imitatedName
+                  ? t("lookalikeOf", { name: result.imitatedName })
+                  : t(`signs.${reason}`)}
+              </li>
             ))}
             {showGenericReason && <li>{t("genericReason")}</li>}
           </ul>
@@ -43,7 +47,14 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
       {result.verdict !== "no_signs" && (
         <>
           <h3 className="mt-5 text-lg font-bold">{t("safeStepTitle")}</h3>
-          <p className="mt-1">{t(`safeStep.${result.sender}`)}</p>
+          <p className="mt-1">
+            {result.organisationName && result.officialPhone
+              ? t("safeStepOfficial", {
+                  name: result.organisationName,
+                  phone: result.officialPhone,
+                })
+              : t(`safeStep.${result.sender}`)}
+          </p>
         </>
       )}
 

@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 14:26 — feat(check): our own link and phone checks, and 12 organisations from their official sites
+
+The model can only guess whether a link or number belongs to who the message claims; our own code can check. A link or email domain that borrows a known organisation's brand without being its official site is now a high-risk sign (🔴), with look-alike letters folded first (`amaz0n`, Cyrillic letters through punycode, `rn` for `m`), and its reason names who it imitates. Shortened links add a warning, and so do premium-rate numbers from AGCOM's numbering plan (892 to 899; 6-digit ones only after a calling word, so one-time codes don't count). The organisation a message is about is recognised from its name, links or numbers, and replaces the model's guess of the sender type. 12 organisations (Poste Italiane, Intesa Sanpaolo, UniCredit, Telepass, INPS, Agenzia delle Entrate, Enel Energia, TIM, Vodafone, BRT, DHL, Amazon) were researched on their own sites, every fact with its source page and date, plus notes on anything unclear. None is reviewed yet: until a person reviews an entry it can add warnings but never remove one, and its phone number is never shown; once reviewed, its official links and numbers lift the matching warning and "What to do" gives its official number. Tests check every source is on the organisation's own site, that the real list catches scam-style sites and leaves real sites and ordinary words alone, and that our checks add no warning to any normal test-set message.
+
+(SHA: add after committing)
+
 ## 2026-11-07 13:57 — feat(check): ask the model three times and go with the majority
 
 The test set judges by a majority of three runs, but the app made a single call, so the occasional flips the tests saw (normal messages turning 🟠, once 🔴) reached people. Each check now makes three calls in parallel and goes with the majority colour, or 🟠 when there is none; reasons and sender come from the answers that reached that colour. One or two failed calls no longer make the check fail. It costs about €0.001 a check and takes no longer than before (1.8 s for the bank test message). The test set combines its runs with the same code, and has 12 new "held-" messages written after the prompt's examples and unlike them: 10 of 12 as expected. The code pattern and all five new scams carry over. A real UPS tracking link on `ups.com` gets 🟠 every time, because the model can't know the domain is official (added to the link-check TODO), and a toll-pass scam was rightly 🔴 without its penalty counting as a threat.
 
-(SHA: add after committing)
+62c6ba1
 
 ## 2026-11-07 13:04 — fix(check): examples in the prompt, and only our rules can give 🔴
 

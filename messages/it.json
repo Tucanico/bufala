@@ -40,7 +40,12 @@
     },
     "whyTitle": "Perché:",
     "genericReason": "Il messaggio somiglia alle truffe più diffuse.",
+    "lookalikeOf": "Il link porta a un sito che imita {name}, ma non è il suo sito ufficiale.",
+    "safeStepOfficial": "Chiama {name} al numero ufficiale {phone}, oppure apri tu la sua app o il suo sito. Non usare link o numeri del messaggio.",
     "signs": {
+      "lookalike_link": "Il link porta a un sito che imita quello di un'azienda nota, ma non è il suo sito ufficiale.",
+      "premium_number": "Contiene un numero a pagamento: chiamarlo può costare molto.",
+      "shortened_link": "Contiene un link accorciato, che nasconde il sito a cui porta davvero.",
       "asks_for_code": "Chiede un codice, un PIN o una password. Banche e uffici non li chiedono mai per messaggio.",
       "asks_for_payment": "Chiede di pagare o di trasferire soldi.",
       "asks_for_personal_data": "Chiede i tuoi dati personali, della carta o del conto.",

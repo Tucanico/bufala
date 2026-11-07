@@ -60,10 +60,26 @@ export function redact(text: string): string {
     if (groups.iban) return "[IBAN]";
     if (groups.card) return passesLuhn(groups.card) ? "[card number]" : match;
     if (groups.domain) {
-      const looksLikeLink =
-        groups.path !== undefined || BARE_TLDS.has(groups.tld!.toLowerCase());
-      return looksLikeLink ? `[link: ${hostOf(groups.domain)}]` : match;
+      return isBareLink(groups) ? `[link: ${hostOf(groups.domain)}]` : match;
     }
     return match;
   });
+}
+
+function isBareLink(groups: Record<string, string | undefined>): boolean {
+  return groups.path !== undefined || BARE_TLDS.has(groups.tld!.toLowerCase());
+}
+
+// The same matching as redact(), so "what counts as a link" lives in one place.
+// Hosts come back lower case, with look-alike letters as xn-- punycode.
+export function findHosts(text: string): { links: string[]; emailDomains: string[] } {
+  const links = new Set<string>();
+  const emailDomains = new Set<string>();
+  for (const match of text.matchAll(PATTERN)) {
+    const groups = match.groups ?? {};
+    if (groups.email) emailDomains.add(hostOf(groups.emailDomain!));
+    else if (groups.url) links.add(hostOf(groups.url));
+    else if (groups.domain && isBareLink(groups)) links.add(hostOf(groups.domain));
+  }
+  return { links: [...links], emailDomains: [...emailDomains] };
 }

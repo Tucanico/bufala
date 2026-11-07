@@ -1,10 +1,10 @@
 # TODO
 
 ## MVP
-- Link checks: follow short links without opening the page, domain age, look-alike domains (including lookalike characters), blocklists (Google Web Risk, PhishTank, URLhaus). For text read from a screenshot, treat 0/O and 1/l/I as the same: OCR read "amaz0n" as "amazOn". A link to the claimed company's official domain (from the database) should not count as "open a link to act": today a real UPS tracking link on `ups.com` gets 🟠 every time
+- Review the 12 organisations in `src/data/organisations.ts` (see `docs/data-review.md`), including the "first number shown" choices and the DHL 199 number. Until then no official number is shown and official links don't lift warnings
+- Grow the organisation list to about 30 (for example UPS, GLS, SDA, WindTre, Iliad, Fastweb, BPER, Banco BPM, PayPal, Nexi, Hera, A2A, Iren). UPS first: its real tracking links on `ups.com` get 🟠 every time today
+- Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
 - Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
-- Phone checks: compare with the claimed company's official numbers, flag premium-rate numbers
-- Database of the top ~30 Italian banks, phone operators, utilities and public bodies (official domains, phone numbers, SMS sender names, stated rules), taken from official sources
 - Language switcher between Italian and English
 - Installable web app (manifest and icons)
 - Disclaimer and privacy wording (GDPR). Redaction before the AI call covers IBANs, card numbers, email addresses and link paths; names and one-time codes still go through
@@ -12,6 +12,8 @@
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
 
 ## Undecided
+- Genuine payment requests: DHL asks for customs duties by SMS and email, and Telepass may send payment links for unpaid amounts. Both get 🔴 today because "asks for payment" is high risk
+- Amazon's own check ("Verifica una chiamata o un messaggio" on account-status.amazon.it, or forwarding to verify@amazon.it): add it to the Amazon advice?
 - "Read aloud" on the answer screen: MVP or later
 - Redis queue for link checks: proposed to skip until forwarding arrives
 

@@ -47,6 +47,7 @@ All made on 2026-11-07.
 | Our code decides the colour; the AI's own verdict can only make it stricter, and at most 🟠 | A message that talks the AI into "safe" still gets the colour its warning signs call for. And the AI alone can't make a 🔴: in testing it called a genuine bank code SMS a scam, and a red people learn to distrust protects nobody. |
 | Each check asks the AI three times and goes with the majority (🟠 if there is none) | The AI doesn't give the same message the same answer every time: in testing, normal messages flipped to 🟠, and once to 🔴, in one run of three. About €0.001 a check, no slower. |
 | A message that shows a security code gets 🟠 with its own reason | We can't know whether the person started the operation. An unexpected code means someone may be using their account, or a scammer is about to phone and ask for it. |
+| A list of the most imitated organisations, every fact taken from their own site, checked by a person before it can lift a warning or show a number | Our own code can then prove things the AI can only guess: a link to `poste-consegne.info` imitates Poste, `poste.it` is Poste's own. A wrong number on the answer screen could send someone straight to a scammer, so unreviewed data can only add warnings. |
 | Screenshots are read on our server (OCR), not by the AI | The image never leaves our server, so other notifications and contact names on the screen go nowhere. Only the text, with personal details hidden, reaches Mistral. Tested on made-up screenshots: 93 to 100% of words read. |
 | A separate Mistral organisation for Bufala | Zero data retention and invoices are set per organisation, and grant reporting needs Bufala's costs on their own invoices. |
 
@@ -66,7 +67,7 @@ All made on 2026-11-07.
 
 ## Phases
 
-1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link checks, phone checks, a database of the top ~30 Italian banks, phone operators, utilities and public bodies (official domains, numbers, SMS sender names, their stated rules), a language switcher, and an installable web app.
+1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link and phone checks that need no outside service (done), a list of 12 organisations (entered, awaiting review) growing to about 30, link checks that need outside services (blocklists, domain age), a language switcher, and an installable web app.
 2. **Next.** Forwarding by WhatsApp and by email, and an "ask a family member" button.
 3. **Later.** A native app for SMS and calls. Android can screen calls; iPhone can only identify or block numbers from a list. Also advise families to agree a safe word against fake voices of relatives.
 

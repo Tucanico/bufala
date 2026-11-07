@@ -1,7 +1,13 @@
 import { expect, test } from "vitest";
 import enMessages from "../messages/en.json";
 import itMessages from "../messages/it.json";
-import { SENDER_TYPES, VERDICTS, WARNING_SIGNS } from "../src/lib/check/schema";
+import {
+  CHECK_SIGNS,
+  SENDER_TYPES,
+  SIGN_ORDER,
+  VERDICTS,
+  WARNING_SIGNS,
+} from "../src/lib/check/schema";
 
 const locales = { it: itMessages, en: enMessages };
 
@@ -22,10 +28,14 @@ test("every locale has exactly the Italian keys", () => {
   }
 });
 
+test("the display order lists every sign exactly once", () => {
+  expect([...SIGN_ORDER].sort()).toEqual([...WARNING_SIGNS, ...CHECK_SIGNS].sort());
+});
+
 // The model only returns codes, so every code needs our own wording.
 test("every code the model can return has a translation", () => {
   const keys = Object.keys(flatten(itMessages));
-  for (const sign of WARNING_SIGNS) expect(keys).toContain(`result.signs.${sign}`);
+  for (const sign of SIGN_ORDER) expect(keys).toContain(`result.signs.${sign}`);
   for (const sender of SENDER_TYPES) expect(keys).toContain(`result.safeStep.${sender}`);
   for (const verdict of VERDICTS) expect(keys).toContain(`result.verdict.${verdict}.title`);
 });

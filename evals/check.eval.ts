@@ -2,16 +2,12 @@ import { Console } from "node:console";
 import { writeFileSync } from "node:fs";
 import { Writable } from "node:stream";
 import { afterAll, describe, expect, test } from "vitest";
-import { combineRuns } from "../src/lib/check/combine";
+import { buildRun } from "../src/lib/check/analyse";
+import { combineRuns, type ModelRun } from "../src/lib/check/combine";
+import { findFacts, type MessageFacts } from "../src/lib/check/facts";
 import { callMistral, ModelError } from "../src/lib/check/mistral";
 import { redact } from "../src/lib/check/redact";
-import {
-  parseModelOutput,
-  type SenderType,
-  type Verdict,
-  type WarningSign,
-} from "../src/lib/check/schema";
-import { collectSigns, decideVerdict } from "../src/lib/check/verdict";
+import { parseModelOutput } from "../src/lib/check/schema";
 import { CASES } from "./cases";
 
 // Paid: each case runs RUNS real Mistral calls (about €0.0003 each). Run it with
@@ -23,8 +19,6 @@ import { CASES } from "./cases";
 // colour. A single run can't judge a change, so each case runs several times
 // and is judged by the majority.
 const RUNS = Number(process.env.EVAL_RUNS ?? 3);
-
-type Once = { verdict: Verdict; modelVerdict: Verdict; signs: WarningSign[]; sender: SenderType };
 
 // The account allows 100,000 tokens a minute, and a full run sends 120 calls
 // in quick succession: wait and retry on a rate limit instead of failing the case.
@@ -40,17 +34,10 @@ async function callWithRetry(text: string): Promise<unknown> {
   }
 }
 
-async function checkOnce(text: string): Promise<Once | null> {
-  // The same steps as analyseMessage, keeping every sign for the report.
+// The same steps as analyseMessage, one model call at a time.
+async function checkOnce(text: string, facts: MessageFacts): Promise<ModelRun | null> {
   const output = parseModelOutput(await callWithRetry(redact(text)));
-  if (!output) return null;
-  const signs = collectSigns(output);
-  return {
-    verdict: decideVerdict(signs, output.verdict),
-    modelVerdict: output.verdict,
-    signs,
-    sender: output.claimed_sender,
-  };
+  return output ? buildRun(output, facts) : null;
 }
 
 function majority<T>(values: T[]): T {
@@ -77,9 +64,10 @@ const rows: Row[] = [];
 describe.concurrent("made-up messages through the real model", () => {
   for (const c of CASES) {
     test(c.id, async () => {
-      const results: Once[] = [];
+      const facts = findFacts(c.text);
+      const results: ModelRun[] = [];
       for (let i = 0; i < RUNS; i++) {
-        const once = await checkOnce(c.text);
+        const once = await checkOnce(c.text, facts);
         if (once) results.push(once);
       }
       if (results.length === 0) {

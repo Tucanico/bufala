@@ -11,7 +11,7 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 5. **The model calls** ([mistral.ts](../src/lib/check/mistral.ts), [analyse.ts](../src/lib/check/analyse.ts)). Three identical REST calls in parallel, because the model doesn't answer the same message the same way every time; see "Combining three answers" below. Each goes to `mistral-small-2603` with temperature 0, at most 400 output tokens, a 20-second timeout and a strict JSON schema. The message goes inside `<message>` tags, and any such tag inside the message is neutralised so it can't close the block early. The system prompt tells the model to treat the message as data, and to count an attempt to instruct it as suspicious. It defines every warning sign and ends with six made-up example messages and the exact answer we want for each: in testing, the model followed examples where reworded definitions alone didn't help. The key comes from `MISTRAL_API_KEY` and only exists on the server.
 6. **Checking the reply** ([schema.ts](../src/lib/check/schema.ts)). The reply must name a sender type, a pressure level and a verdict from fixed lists, plus lists of requested actions and warning signs. Unknown list entries are dropped; anything else malformed becomes "unavailable", never a wrong answer.
 7. **The verdict** ([verdict.ts](../src/lib/check/verdict.ts)). See the rules below.
-8. **The answer** ([check-result.tsx](../src/app/[locale]/check-result.tsx)). Every word comes from [messages/it.json](../messages/it.json) and [messages/en.json](../messages/en.json): the title and line for the verdict, up to two reasons, the safe next step for the sender type (warnings only), and the standing reminder.
+8. **The answer** ([check-result.tsx](../src/app/[locale]/check-result.tsx)). Every word comes from [messages/it.json](../messages/it.json) and [messages/en.json](../messages/en.json): the title and line for the verdict, up to two reasons, the safe next step for the sender type (warnings only), and the standing reminder. When the message is about a reviewed organisation with a phone number, the safe next step names it and gives its official number instead. A look-alike link's reason names the organisation it imitates.
 
 ## What is hidden before the model
 
@@ -24,24 +24,39 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 | Phone numbers | unchanged | The model needs them to spot "call this number". |
 | Names, one-time codes | unchanged | Not hidden yet. |
 
+## Our own checks on links and numbers
+
+[facts.ts](../src/lib/check/facts.ts) runs once per check on the message before redaction (it never leaves the server), using the organisations in [src/data/organisations.ts](../src/data/organisations.ts) and the premium-rate prefixes in [src/data/phone-prefixes.ts](../src/data/phone-prefixes.ts).
+
+| Finding | Effect | Needs a reviewed entry? |
+|---|---|---|
+| A link or email domain borrows an organisation's brand word but isn't its official domain ([links.ts](../src/lib/check/links.ts)). Look-alike letters are folded first: `0`/`o`, `1`/`l`, Cyrillic and Greek look-alikes (through punycode), `rn`/`m`. Brand words under 5 letters must be a whole part of the name. | adds "look-alike link" (high risk: 🔴) | no |
+| A link shortener (`bit.ly`, `tinyurl.com`, …) | adds "shortened link" | no |
+| A number starting with a premium-rate prefix (892, 893, 894, 895, 899, from AGCOM's numbering plan) ([phones.ts](../src/lib/check/phones.ts)). Runs of 8 to 11 digits count; a shorter 89x number counts only a few words after a calling word ("chiama il 892 424"), so one-time codes, amounts and dates don't | adds "premium-rate number" (high risk: 🔴) | no |
+| Every link is on a reviewed organisation's official domain | removes the model's "open a link" sign | yes |
+| Every number is a reviewed organisation's official number | removes the model's "call this number" sign | yes |
+
+The facts also say who the message claims to be from: the organisation named earliest in the text, otherwise the owner of an official link, the organisation a look-alike site poses as, or the owner of an official number. That organisation's type replaces the model's guess of the sender type. How an entry gets reviewed is in [data-review.md](data-review.md).
+
 ## The verdict rules
 
 The model reports warning signs, the actions the message asks for and how hard it pushes. Our code collects the signs:
 
 - every warning sign the model listed;
 - a sign for each risky request, even if the model didn't list it: pay, give a code, give personal data, install an app;
-- "urgency" when the pressure is high.
+- "urgency" when the pressure is high;
+- the signs our own checks add or remove (above).
 
 Then:
 
 | Signs | Verdict |
 |---|---|
-| any of: asks for a code, asks for payment, asks for personal data, install an app, relative on a new number | 🔴 scam |
+| any of: look-alike link, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
 | two or more of any kind | 🔴 scam |
 | exactly one | 🟠 suspicious |
 | none | ⚪ no warning signs |
 
-The model's own verdict can raise the answer to 🟠 but never to 🔴, so only these rules give 🔴; a milder verdict from the model is ignored. In testing, the model alone called a genuine bank code SMS a scam. The reasons shown are the first two signs in the priority order of `WARNING_SIGNS` in [schema.ts](../src/lib/check/schema.ts).
+The model's own verdict can raise the answer to 🟠 but never to 🔴, so only these rules give 🔴; a milder verdict from the model is ignored. In testing, the model alone called a genuine bank code SMS a scam. The reasons shown are the first two signs in the priority order of `SIGN_ORDER` in [schema.ts](../src/lib/check/schema.ts).
 
 ## Combining three answers
 
@@ -77,6 +92,10 @@ Link checks, phone checks and the company database. See [TODO.md](../TODO.md).
 | `tests/verdict.test.ts` | the verdict rules and the order of reasons |
 | `tests/schema.test.ts` | checking the model's reply |
 | `tests/mistral.test.ts` | the request (pinned model, quoted data, strict schema) and reply handling, with a fake `fetch` |
+| `tests/links.test.ts` | official, look-alike and shortened links, folding of look-alike letters |
+| `tests/phones.test.ts` | finding numbers without catching codes, amounts, dates or card numbers; premium and official numbers |
+| `tests/facts.test.ts` | added and removed signs, the review rule, which organisation a message is about |
+| `tests/data.test.ts` | the real organisation list: every source on the organisation's own site, real-looking scam sites caught, real sites and ordinary words left alone |
 | `tests/combine.test.ts` | the majority of three answers: outvoting a flip, no majority, reasons and sender |
 | `tests/analyse.test.ts` | the whole check with a fake model: three calls, majority, one failed call, and logs without message text |
 | `tests/screenshot.test.ts` | image checks, unreadable images, rejoined links |
