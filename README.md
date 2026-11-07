@@ -31,7 +31,7 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 | `npm run lint` | ESLint |
 | `npm run typecheck` | Generate route types, then `tsc --noEmit` |
 | `npm test` | Unit tests (Vitest) |
-| `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: about €0.01 a run, needs the key in `.env.local` |
+| `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 120 calls, about €0.04 a run; needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
 
 ## Translations
 

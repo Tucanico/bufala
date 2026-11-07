@@ -10,7 +10,8 @@ try {
 export default defineConfig({
   test: {
     include: ["evals/**/*.eval.ts"],
-    testTimeout: 60_000,
+    // Each case makes several calls and may wait out a rate limit.
+    testTimeout: 300_000,
     // Well under the account's rate limit.
     maxConcurrency: 5,
   },

@@ -37,9 +37,13 @@ export function collectSigns(output: ModelOutput): WarningSign[] {
   return WARNING_SIGNS.filter((sign) => signs.has(sign));
 }
 
-// The code decides from the signs; the model's own verdict can only make the
-// answer stricter. A message that talks the model into "no_signs" still gets
-// the verdict its signs call for.
+// The model's own verdict can raise the answer, but only up to this. In testing
+// it called a genuine bank code SMS a scam (2026-11-07), and a red that people
+// learn to distrust protects nobody, so only our rules give "scam".
+const MODEL_VERDICT_CAP: Verdict = "suspicious";
+
+// The code decides from the signs. A message that talks the model into
+// "no_signs" still gets the verdict its signs call for.
 export function decideVerdict(
   signs: WarningSign[],
   modelVerdict: Verdict,
@@ -50,7 +54,9 @@ export function decideVerdict(
   } else if (signs.length === 1) {
     byRules = "suspicious";
   }
-  return VERDICTS.indexOf(modelVerdict) > VERDICTS.indexOf(byRules)
-    ? modelVerdict
-    : byRules;
+  const fromModel = Math.min(
+    VERDICTS.indexOf(modelVerdict),
+    VERDICTS.indexOf(MODEL_VERDICT_CAP),
+  );
+  return VERDICTS[Math.max(VERDICTS.indexOf(byRules), fromModel)];
 }

@@ -59,9 +59,14 @@ describe("decideVerdict", () => {
     expect(decideVerdict(["asks_for_code"], "no_signs")).toBe("scam");
   });
 
-  test("the model can make the verdict stricter", () => {
+  test("the model can make the verdict stricter, but only up to suspicious", () => {
     expect(decideVerdict([], "suspicious")).toBe("suspicious");
-    expect(decideVerdict(["link_to_act"], "scam")).toBe("scam");
+    expect(decideVerdict([], "scam")).toBe("suspicious");
+  });
+
+  test("only the rules can make it a scam", () => {
+    expect(decideVerdict(["link_to_act"], "scam")).toBe("suspicious");
+    expect(decideVerdict(["link_to_act", "urgency"], "no_signs")).toBe("scam");
   });
 
   test("the model cannot make the verdict milder", () => {

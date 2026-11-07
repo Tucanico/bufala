@@ -8,7 +8,7 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 2. **Reading the screenshot** ([screenshot.ts](../src/lib/check/screenshot.ts), [ocr.ts](../src/lib/check/ocr.ts)). Only files up to 3 MB whose bytes really are JPEG, PNG or WebP are read; the Server Action body limit is 4 MB ([next.config.ts](../next.config.ts)). tesseract.js reads the text with the Italian and English models in [ocr-data/](../ocr-data/), using one worker per server process. Lines ending in a hyphen are rejoined, because chat bubbles wrap long links there. A confidence under 50 or fewer than 15 characters counts as unreadable and stops before any paid call. The image is only held in memory.
 3. **Combining** ([submission.ts](../src/lib/check/submission.ts)). Pasted text and screenshot text are checked as one message. Screenshot text is cut to fit the 4,000-character limit rather than failing as too long.
 4. **Hiding personal details** ([redact.ts](../src/lib/check/redact.ts)). See the table below.
-5. **The model call** ([mistral.ts](../src/lib/check/mistral.ts)). One REST call to `mistral-small-2603` with temperature 0, at most 400 output tokens, a 20-second timeout and a strict JSON schema. The message goes inside `<message>` tags, and any such tag inside the message is neutralised so it can't close the block early. The system prompt tells the model to treat the message as data, and to count an attempt to instruct it as suspicious. The key comes from `MISTRAL_API_KEY` and only exists on the server.
+5. **The model call** ([mistral.ts](../src/lib/check/mistral.ts)). One REST call to `mistral-small-2603` with temperature 0, at most 400 output tokens, a 20-second timeout and a strict JSON schema. The message goes inside `<message>` tags, and any such tag inside the message is neutralised so it can't close the block early. The system prompt tells the model to treat the message as data, and to count an attempt to instruct it as suspicious. It defines every warning sign and ends with six made-up example messages and the exact answer we want for each: in testing, the model followed examples where reworded definitions alone didn't help. The key comes from `MISTRAL_API_KEY` and only exists on the server.
 6. **Checking the reply** ([schema.ts](../src/lib/check/schema.ts)). The reply must name a sender type, a pressure level and a verdict from fixed lists, plus lists of requested actions and warning signs. Unknown list entries are dropped; anything else malformed becomes "unavailable", never a wrong answer.
 7. **The verdict** ([verdict.ts](../src/lib/check/verdict.ts)). See the rules below.
 8. **The answer** ([check-result.tsx](../src/app/[locale]/check-result.tsx)). Every word comes from [messages/it.json](../messages/it.json) and [messages/en.json](../messages/en.json): the title and line for the verdict, up to two reasons, the safe next step for the sender type (warnings only), and the standing reminder.
@@ -41,7 +41,7 @@ Then:
 | exactly one | 🟠 suspicious |
 | none | ⚪ no warning signs |
 
-If the model's own verdict is stricter, it wins; if it is milder, it is ignored. The reasons shown are the first two signs in the priority order of `WARNING_SIGNS` in [schema.ts](../src/lib/check/schema.ts).
+The model's own verdict can raise the answer to 🟠 but never to 🔴, so only these rules give 🔴; a milder verdict from the model is ignored. In testing, the model alone called a genuine bank code SMS a scam. The reasons shown are the first two signs in the priority order of `WARNING_SIGNS` in [schema.ts](../src/lib/check/schema.ts).
 
 ## Errors
 
@@ -73,7 +73,7 @@ Link checks, phone checks and the company database. See [TODO.md](../TODO.md).
 | `tests/ocr.test.ts` | real OCR on a made-up screenshot in `tests/fixtures/` |
 | `tests/messages.test.ts` | both languages have the same keys, every code has wording, no empty strings or em dashes |
 
-No test calls Mistral. The model's own answers are measured separately by `npm run eval`: 40 made-up messages in [evals/cases.ts](../evals/cases.ts), each with the verdicts that count as right and the signs that must be found, run through the real model (about €0.01 a run).
+No test calls Mistral. The model's own answers are measured separately by `npm run eval`: 40 made-up messages in [evals/cases.ts](../evals/cases.ts), each with the verdicts that count as right and the signs that must be found, run through the real model. The model doesn't answer identically twice, even at temperature 0, so each case runs 3 times (`EVAL_RUNS` changes that) and is judged by the majority; a case whose colour varies is marked unstable. A run makes 120 calls (about €0.04), waits and retries when Mistral's rate limit is hit, and writes its table to `evals/last-run.txt`.
 
 ## Changing things safely
 

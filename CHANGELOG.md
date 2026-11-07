@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 13:04 — fix(check): examples in the prompt, and only our rules can give 🔴
+
+Reworded definitions kept fixing one case and breaking another: the model labels by topic (a parcel, a code) more than by definition. Three identical test runs also disagreed (10 of 40 cases changed signs, 3 changed colour), so a single run couldn't judge a change. Now the prompt ends with six made-up example messages and the exact answer we want, three of them normal messages that look alarming. The definitions describe intent ("call this number" means to fix a problem, not an appointment line; keeping a code private is not secrecy). The model's own verdict can raise the answer only to 🟠, because it called a genuine bank code SMS a scam on its own. The test set now runs each case 3 times and judges by majority, retries when the rate limit is hit, and writes its table to `evals/last-run.txt`. Result: 40 of 40 by majority. Two normal messages are unstable: a doctor's reminder (one 🟠 in three) and a parcel notice (one 🔴 in three).
+
+(SHA: add after committing)
+
 ## 2026-11-07 12:54 — fix(check): a code SMS is suspicious, and three warning signs are sharper
 
 From the first test run. A genuine code SMS can't be called safe: we can't know whether the person started the operation, and an unexpected code means someone may be using their account or a scammer is about to ask for it. A new ordinary sign, "shows a code", gives it 🟠 with its own reason. The refund sign now covers money the reader is told they are owed, and passwords and credentials count only as codes, no longer also as personal data. The test report now shows the signs found and the model's own verdict. Result: 38 of 40. Still wrong: the code SMS comes out 🔴, because the model reads "don't give it to anyone" as asking for the code and as secrecy, and its own verdict is "scam"; and a doctor's reminder with a cancellation number gets 🟠 for "call this number".
 
-(SHA: add after committing)
+17ea10f
 
 ## 2026-11-07 12:44 — test(eval): measure the model's answers on 40 made-up messages
 

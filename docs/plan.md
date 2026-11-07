@@ -31,7 +31,7 @@ An AI reading the text cannot prove a sender is real: good scams copy the real w
 | Answer | When | What it adds |
 |---|---|---|
 | 🔴 Very likely a scam | a high-risk sign, or two or more signs | one or two reasons, the safe next step |
-| 🟠 Suspicious: don't do what it asks | one sign | one reason, the safe next step |
+| 🟠 Suspicious: don't do what it asks | one sign, or the AI alone thinks something is off | one reason, the safe next step |
 | ⚪ No warning signs found | no signs | grey, not green, and it says this doesn't mean the message is safe |
 
 Every answer ends with the same reminder: if they ask for money or codes, contact the company or the person yourself, on a number you already know.
@@ -44,7 +44,7 @@ All made on 2026-11-07.
 |---|---|
 | The AI is Mistral, and only Mistral Small for now (`mistral-small-2603`, pinned) | Chosen instead of Claude. An EU provider also suits the privacy plan. Pinning the dated model means behaviour only changes when we change it. |
 | The AI only picks codes; every reason and step is wording we wrote | A scam message can't steer what people read, and both languages are always correct. |
-| Our code decides the colour; the AI's own verdict can only make it stricter | A message that talks the AI into "safe" still gets the colour its warning signs call for. |
+| Our code decides the colour; the AI's own verdict can only make it stricter, and at most 🟠 | A message that talks the AI into "safe" still gets the colour its warning signs call for. And the AI alone can't make a 🔴: in testing it called a genuine bank code SMS a scam, and a red people learn to distrust protects nobody. |
 | A message that shows a security code gets 🟠 with its own reason | We can't know whether the person started the operation. An unexpected code means someone may be using their account, or a scammer is about to phone and ask for it. |
 | Screenshots are read on our server (OCR), not by the AI | The image never leaves our server, so other notifications and contact names on the screen go nowhere. Only the text, with personal details hidden, reaches Mistral. Tested on made-up screenshots: 93 to 100% of words read. |
 | A separate Mistral organisation for Bufala | Zero data retention and invoices are set per organisation, and grant reporting needs Bufala's costs on their own invoices. |
