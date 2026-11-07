@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "title": "Bufala",
+    "description": "Got a strange message? Bufala helps you tell whether it's a scam."
+  },
+  "home": {
+    "title": "Bufala",
+    "tagline": "Got a strange message? Let's check it together.",
+    "comingSoon": "We're still building this. Soon you'll be able to paste a message here and check it."
+  }
+}
