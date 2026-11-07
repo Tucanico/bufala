@@ -35,4 +35,3 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 ## Translations
 
 Every user-visible string lives in `messages/it.json` and `messages/en.json`. Both files must have the same keys; `npm test` and `npm run typecheck` fail otherwise.
-# bufala
