@@ -5,6 +5,13 @@
   --color-paper: #fffaf3;
   --color-muted: #52606d;
   --color-brand: #b4441d;
+
+  --color-scam: #b42318;
+  --color-scam-soft: #fef3f2;
+  --color-suspicious: #b54708;
+  --color-suspicious-soft: #fffaeb;
+  --color-clear: #667085;
+  --color-clear-soft: #f2f4f7;
 }
 
 /* The readers are older people: a 20px base means nothing needs zooming, and

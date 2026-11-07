@@ -5,7 +5,60 @@
   },
   "home": {
     "title": "Bufala",
-    "tagline": "Got a strange message? Let's check it together.",
-    "comingSoon": "We're still building this. Soon you'll be able to paste a message here and check it."
+    "tagline": "Got a strange message? Let's check it together."
+  },
+  "check": {
+    "label": "Paste the message you received here",
+    "submit": "Check the message",
+    "checking": "Checking...",
+    "errors": {
+      "empty": "First paste the message you want to check.",
+      "too_long": "The message is too long. Paste just the main part.",
+      "unavailable": "We couldn't check the message. Please try again in a few minutes."
+    }
+  },
+  "result": {
+    "verdict": {
+      "scam": {
+        "title": "Very likely a scam",
+        "body": "Don't open any links, don't call any numbers and don't reply to this message."
+      },
+      "suspicious": {
+        "title": "Suspicious: don't do what it asks",
+        "body": "Something isn't right. Before you do anything, check another way."
+      },
+      "no_signs": {
+        "title": "No warning signs found",
+        "body": "We didn't find any signs of a scam, but that doesn't mean the message is safe."
+      }
+    },
+    "whyTitle": "Why:",
+    "genericReason": "The message looks like the most common scams.",
+    "signs": {
+      "asks_for_code": "It asks for a code, a PIN or a password. Banks and public offices never ask for these by message.",
+      "asks_for_payment": "It asks you to pay or transfer money.",
+      "asks_for_personal_data": "It asks for your personal, card or account details.",
+      "install_app": "It asks you to install an app, which could be used to control your phone.",
+      "new_number_family": "It says it's a relative or friend writing from a new number.",
+      "threat": "It threatens consequences, like a blocked account or a fine, to scare you.",
+      "urgency": "It rushes you. Someone genuinely writing to you gives you time to check.",
+      "link_to_act": "It asks you to open a link to sort out a problem.",
+      "call_this_number": "It asks you to call a number written in the message.",
+      "prize_or_refund": "It promises a prize, a refund or a bonus you weren't expecting.",
+      "parcel_problem": "It talks about a parcel that's held up or a delivery you have to pay for.",
+      "secrecy": "It asks you not to tell anyone."
+    },
+    "safeStepTitle": "What to do:",
+    "safeStep": {
+      "bank": "Call your bank on the number on the back of your card, or open the bank's app yourself. Don't use any links or numbers from the message.",
+      "poste": "Open the Poste Italiane app yourself or go to a post office. Don't use any links or numbers from the message.",
+      "phone_operator": "Open your phone company's app yourself, or call the number on its official website.",
+      "utility": "Check your bills in your supplier's customer area, opening it yourself, or call the number printed on your bill.",
+      "public_body": "Check the office's official website, typing the address yourself, or call the number listed there.",
+      "courier": "Check the delivery on the website of the shop you bought from, or on the courier's website, typing the address yourself.",
+      "family": "Call the person on the number you've always used, not the new one. Or ask them something only they would know.",
+      "other": "Don't use any links or numbers from the message. If you know who it claims to be from, contact them yourself using details you already have."
+    },
+    "reminder": "Remember: if they ask for money or codes, contact the company or the person yourself, on a number you already know."
   }
 }

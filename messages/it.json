@@ -5,7 +5,60 @@
   },
   "home": {
     "title": "Bufala",
-    "tagline": "Ti è arrivato un messaggio strano? Controlliamolo insieme.",
-    "comingSoon": "Ci stiamo ancora lavorando. Presto potrai incollare qui un messaggio e controllarlo."
+    "tagline": "Ti è arrivato un messaggio strano? Controlliamolo insieme."
+  },
+  "check": {
+    "label": "Incolla qui il messaggio che hai ricevuto",
+    "submit": "Controlla il messaggio",
+    "checking": "Sto controllando...",
+    "errors": {
+      "empty": "Incolla prima il messaggio da controllare.",
+      "too_long": "Il messaggio è troppo lungo. Incolla solo la parte principale.",
+      "unavailable": "Non siamo riusciti a controllare il messaggio. Riprova tra qualche minuto."
+    }
+  },
+  "result": {
+    "verdict": {
+      "scam": {
+        "title": "Molto probabilmente è una truffa",
+        "body": "Non aprire link, non chiamare numeri e non rispondere a questo messaggio."
+      },
+      "suspicious": {
+        "title": "Sospetto: non fare quello che chiede",
+        "body": "Qualcosa non torna. Prima di fare qualsiasi cosa, controlla per un'altra strada."
+      },
+      "no_signs": {
+        "title": "Nessun segnale di truffa trovato",
+        "body": "Non abbiamo trovato segnali di truffa, ma questo non vuol dire che il messaggio sia sicuro."
+      }
+    },
+    "whyTitle": "Perché:",
+    "genericReason": "Il messaggio somiglia alle truffe più diffuse.",
+    "signs": {
+      "asks_for_code": "Chiede un codice, un PIN o una password. Banche e uffici non li chiedono mai per messaggio.",
+      "asks_for_payment": "Chiede di pagare o di trasferire soldi.",
+      "asks_for_personal_data": "Chiede i tuoi dati personali, della carta o del conto.",
+      "install_app": "Chiede di installare un'app, che potrebbe servire a controllare il tuo telefono.",
+      "new_number_family": "Dice di essere un familiare o un amico che scrive da un numero nuovo.",
+      "threat": "Minaccia conseguenze, come un conto bloccato o una multa, per spaventarti.",
+      "urgency": "Ti mette fretta. Chi ti scrive davvero ti lascia il tempo di controllare.",
+      "link_to_act": "Ti chiede di aprire un link per risolvere un problema.",
+      "call_this_number": "Ti chiede di chiamare un numero scritto nel messaggio.",
+      "prize_or_refund": "Promette un premio, un rimborso o un bonus che non aspettavi.",
+      "parcel_problem": "Parla di un pacco bloccato o di una consegna da pagare.",
+      "secrecy": "Ti chiede di non dirlo a nessuno."
+    },
+    "safeStepTitle": "Cosa fare:",
+    "safeStep": {
+      "bank": "Chiama la tua banca al numero scritto sul retro della carta, oppure apri tu l'app della banca. Non usare link o numeri del messaggio.",
+      "poste": "Apri tu l'app di Poste Italiane o vai in un ufficio postale. Non usare link o numeri del messaggio.",
+      "phone_operator": "Apri tu l'app del tuo operatore telefonico, o chiama il numero indicato sul suo sito ufficiale.",
+      "utility": "Controlla le bollette nell'area clienti del tuo fornitore, aprendola tu, o chiama il numero scritto sulla bolletta.",
+      "public_body": "Controlla sul sito ufficiale dell'ufficio, scrivendo tu l'indirizzo, o chiama il numero indicato lì.",
+      "courier": "Controlla la spedizione sul sito del negozio dove hai comprato, o su quello del corriere scrivendo tu l'indirizzo.",
+      "family": "Chiama la persona al numero che hai sempre usato, non a quello nuovo. Oppure falle una domanda a cui solo lei saprebbe rispondere.",
+      "other": "Non usare link o numeri del messaggio. Se conosci chi dice di scriverti, contattalo tu con un recapito che hai già."
+    },
+    "reminder": "Ricorda: se ti chiedono soldi o codici, contatta tu l'azienda o la persona, con un numero che conosci già."
   }
 }

@@ -3,14 +3,13 @@
 ## MVP
 - Link checks: follow short links without opening the page, domain age, look-alike domains (including lookalike characters), blocklists (Google Web Risk, PhishTank, URLhaus)
 - Phone checks: compare with the claimed company's official numbers, flag premium-rate numbers
-- Mistral call, Mistral Small only for now: extract who the message claims to be from, what it asks the user to do and how much pressure it applies; treat the message as data only, structured output, hard rules overrule the AI
 - Screenshot input (Mistral Small 4 accepts images: the API's model list shows `vision` for `mistral-small-2603`, checked 2026-11-07)
-- Answer screen: three levels (very likely a scam, suspicious, no warning signs found), never "safe", one or two reasons and the exact safe next step
 - Database of the top ~30 Italian banks, phone operators, utilities and public bodies (official domains, phone numbers, SMS sender names, stated rules), taken from official sources
 - Language switcher between Italian and English
 - Installable web app (manifest and icons)
-- Disclaimer and privacy wording (GDPR): no message storage by default, remove sensitive details before the AI call
-- Ask Mistral support for zero data retention on the paid plan
+- Disclaimer and privacy wording (GDPR). Redaction before the AI call covers IBANs, card numbers, email addresses and link paths; names and one-time codes still go through
+- Limit how many checks one visitor can run before going public: every check costs Mistral credit
+- Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention
 
 ## Undecided
 - "Read aloud" on the answer screen: MVP or later
@@ -25,4 +24,3 @@
 
 ## Outside the code
 - Name: trademark check (UIBM, EUIPO), check the overlap with Bufale.net, register bufala.app
-- Connect the git repository
