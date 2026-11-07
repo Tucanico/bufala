@@ -56,7 +56,7 @@ export const CASES: EvalCase[] = [
     text: "Agenzia delle Entrate: risulta un debito non pagato. Per evitare il pignoramento paghi entro oggi su agenzia-entrate-pagamenti.com" },
   { id: "police-fine", verdict: SCAM, signs: ["threat", "asks_for_payment"], sender: "public_body",
     text: "Polizia Stradale: multa non pagata n. 48291. Paghi entro 24 ore per evitare la sospensione della patente: multe-pagamento.it/48291" },
-  { id: "spid-renewal", verdict: SCAM, signs: ["asks_for_personal_data"], sender: "public_body",
+  { id: "spid-renewal", verdict: SCAM, signs: ["asks_for_code"], sender: "public_body",
     text: "SPID: la sua identità digitale scade oggi. La rinnovi gratuitamente qui inserendo le sue credenziali: spid-rinnovo.online" },
   // Utilities and phone operators
   { id: "utility-cut-off", verdict: SCAM, signs: ["threat", "asks_for_payment"], sender: "utility",
@@ -96,7 +96,8 @@ export const CASES: EvalCase[] = [
     text: "Hi Margaret, lovely to see you at church on Sunday. Shall we have coffee on Thursday?" },
   { id: "ok-doctor-reminder", verdict: CLEAR,
     text: "Promemoria: visita oculistica lunedì 12 alle 9:30 presso lo studio del Dott. Bianchi. Per disdire chiamare lo 051 234567." },
-  { id: "ok-bank-otp-notice", verdict: CLEAR, sender: "bank",
+  // A genuine code SMS is 🟠 on purpose: we can't know who started the operation.
+  { id: "bank-code-notice", verdict: ["suspicious"], signs: ["shows_code"], sender: "bank",
     text: "Intesa Sanpaolo: il codice per autorizzare l'operazione di 45,00 € è 482913. Non comunicarlo a nessuno, nemmeno a un nostro operatore." },
   { id: "ok-bank-never-asks", verdict: CLEAR, sender: "bank",
     text: "UniCredit: ti ricordiamo che non ti chiederemo mai codici o password via SMS, email o telefono." },

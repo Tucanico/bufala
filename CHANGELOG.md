@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 12:54 — fix(check): a code SMS is suspicious, and three warning signs are sharper
+
+From the first test run. A genuine code SMS can't be called safe: we can't know whether the person started the operation, and an unexpected code means someone may be using their account or a scammer is about to ask for it. A new ordinary sign, "shows a code", gives it 🟠 with its own reason. The refund sign now covers money the reader is told they are owed, and passwords and credentials count only as codes, no longer also as personal data. The test report now shows the signs found and the model's own verdict. Result: 38 of 40. Still wrong: the code SMS comes out 🔴, because the model reads "don't give it to anyone" as asking for the code and as secrecy, and its own verdict is "scam"; and a doctor's reminder with a cancellation number gets 🟠 for "call this number".
+
+(SHA: add after committing)
+
 ## 2026-11-07 12:44 — test(eval): measure the model's answers on 40 made-up messages
 
 The unit tests prove our own code but not what the model answers, and the model's labels can flip on small changes in a message (the same parcel scam got two different sender types from two screenshots). `npm run eval` runs 40 made-up messages through the real Mistral call: 26 scams across banks, Poste, couriers, family, public bodies, utilities and prizes, 3 messages that try to instruct the model, and 11 normal ones. Each case lists the verdicts that count as right and the signs that must be found. It is paid (about €0.01 a run), reads the key from `.env.local`, and is never part of `npm test`. First run: 37 of 40 as expected. The only wrong verdict was a false alarm: a genuine bank code SMS got 🔴. Two scams were rightly 🔴 but missed a required sign (an INPS refund, SPID credentials).
 
-(SHA: add after committing)
+2cb20b1
 
 ## 2026-11-07 12:23 — feat(check): check a screenshot of the message
 

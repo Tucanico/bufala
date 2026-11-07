@@ -40,6 +40,9 @@ export const WARNING_SIGNS = [
   "urgency",
   "link_to_act",
   "call_this_number",
+  // An ordinary sign on purpose: a genuine code SMS gets 🟠, because we can't
+  // know whether the person started the operation (2026-11-07 decision).
+  "shows_code",
   "parcel_problem",
   "secrecy",
 ] as const;

@@ -51,6 +51,10 @@ describe("decideVerdict", () => {
     expect(decideVerdict(["urgency", "link_to_act"], "no_signs")).toBe("scam");
   });
 
+  test("a code shown on its own is suspicious, not a scam", () => {
+    expect(decideVerdict(["shows_code"], "no_signs")).toBe("suspicious");
+  });
+
   test("one high-risk sign is enough for a scam", () => {
     expect(decideVerdict(["asks_for_code"], "no_signs")).toBe("scam");
   });

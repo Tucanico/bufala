@@ -50,6 +50,7 @@
       "urgency": "It rushes you. Someone genuinely writing to you gives you time to check.",
       "link_to_act": "It asks you to open a link to sort out a problem.",
       "call_this_number": "It asks you to call a number written in the message.",
+      "shows_code": "It contains a security code. If you didn't start this yourself, someone may be trying to use your account: don't give the code to anyone.",
       "prize_or_refund": "It promises a prize, a refund or a bonus you weren't expecting.",
       "parcel_problem": "It talks about a parcel that's held up or a delivery you have to pay for.",
       "secrecy": "It asks you not to tell anyone."

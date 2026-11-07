@@ -50,6 +50,7 @@
       "urgency": "Ti mette fretta. Chi ti scrive davvero ti lascia il tempo di controllare.",
       "link_to_act": "Ti chiede di aprire un link per risolvere un problema.",
       "call_this_number": "Ti chiede di chiamare un numero scritto nel messaggio.",
+      "shows_code": "Contiene un codice di sicurezza. Se non hai avviato tu l'operazione, qualcuno potrebbe provare a usare il tuo conto: non dare il codice a nessuno.",
       "prize_or_refund": "Promette un premio, un rimborso o un bonus che non aspettavi.",
       "parcel_problem": "Parla di un pacco bloccato o di una consegna da pagare.",
       "secrecy": "Ti chiede di non dirlo a nessuno."

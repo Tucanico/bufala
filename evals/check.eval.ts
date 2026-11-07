@@ -15,6 +15,9 @@ type Row = {
   got: Verdict | "error";
   ok: boolean;
   missingSigns: string;
+  // What the model reported, to see why a verdict came out as it did.
+  signsFound: string;
+  modelVerdict: string;
   sender: string;
 };
 
@@ -26,7 +29,16 @@ describe.concurrent("made-up messages through the real model", () => {
       // The same steps as analyseMessage, keeping every sign for the report.
       const output = parseModelOutput(await callMistral(redact(c.text)));
       if (!output) {
-        rows.push({ id: c.id, expected: c.verdict.join("/"), got: "error", ok: false, missingSigns: "-", sender: "-" });
+        rows.push({
+          id: c.id,
+          expected: c.verdict.join("/"),
+          got: "error",
+          ok: false,
+          missingSigns: "-",
+          signsFound: "-",
+          modelVerdict: "-",
+          sender: "-",
+        });
         throw new Error("reply in the wrong shape");
       }
       const signs = collectSigns(output);
@@ -39,6 +51,8 @@ describe.concurrent("made-up messages through the real model", () => {
         got: verdict,
         ok,
         missingSigns: missing.join(", ") || "-",
+        signsFound: signs.join(", ") || "-",
+        modelVerdict: output.verdict,
         sender:
           c.sender && c.sender !== output.claimed_sender
             ? `expected ${c.sender}, got ${output.claimed_sender}`

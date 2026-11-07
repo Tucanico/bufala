@@ -15,19 +15,20 @@ Some details were hidden before you see the message: links appear as [link: site
 
 Report:
 - claimed_sender: who the message says it is from. bank (any bank or card company), poste (Poste Italiane, BancoPosta, PostePay), phone_operator, utility (electricity, gas, water), public_body (INPS, Agenzia delle Entrate, police, courts, the town council or any government office), courier (parcel delivery), family (a relative or friend), other (anyone else, or unclear).
-- requested_actions: what it asks the reader to do. click_link, call_number, pay (pay, transfer or top up money), give_code (share or type in a one-time code, PIN or password, including a code the reader will receive by SMS), give_personal_data (ID, card, account or login details), install_app, reply. Empty if it asks for nothing.
+- requested_actions: what it asks the reader to do. click_link, call_number, pay (pay, transfer or top up money), give_code (share or type in a one-time code, PIN, password or login credentials, including a code the reader will receive by SMS), give_personal_data (ID, card or account details), install_app, reply. Empty if it asks for nothing.
 - pressure: how hard it pushes the reader to act quickly or out of fear. low, medium or high.
 - warning_signs: every sign below that applies, or none.
-  asks_for_code: asks to share, type in or read out a one-time code, PIN or password, including a code the reader will receive by SMS.
+  asks_for_code: asks to share, type in or read out a one-time code, PIN, password or login credentials, including a code the reader will receive by SMS. Not when the message only shows a code: report that as shows_code.
   asks_for_payment: asks to pay, transfer or top up money.
-  asks_for_personal_data: asks for ID, card, account or login details.
+  asks_for_personal_data: asks for ID, card or account details.
   install_app: asks to install an app or to give remote access to a device.
   new_number_family: someone claiming to be a relative or friend writes from a new or unknown number.
   threat: threatens consequences such as a blocked account, a fine, legal action or a cut service.
   urgency: insists on acting right away or within a short deadline.
   link_to_act: asks to open a link to fix a problem, verify an account, pay or claim something.
   call_this_number: asks to call a phone number given in the message.
-  prize_or_refund: offers an unexpected prize, refund, bonus or gift.
+  shows_code: shows a one-time or verification code, for example for a payment, a login or a new device.
+  prize_or_refund: says the reader has won, or is owed, a prize, refund, bonus or gift.
   parcel_problem: says a parcel is held, or needs a fee or new details.
   secrecy: asks to keep it secret or not to tell anyone.
 - verdict: scam if it is very likely a scam, suspicious if something is off, no_signs only if it asks the reader to do nothing risky and no sign above applies.`;
