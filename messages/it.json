@@ -9,12 +9,18 @@
   },
   "check": {
     "label": "Incolla qui il messaggio che hai ricevuto",
+    "or": "oppure",
+    "screenshotButton": "Carica uno screenshot del messaggio",
+    "screenshotPreview": "Anteprima dello screenshot da controllare",
+    "removeScreenshot": "Togli lo screenshot",
     "submit": "Controlla il messaggio",
     "checking": "Sto controllando...",
     "errors": {
-      "empty": "Incolla prima il messaggio da controllare.",
+      "empty": "Incolla prima il messaggio da controllare, oppure carica uno screenshot.",
       "too_long": "Il messaggio è troppo lungo. Incolla solo la parte principale.",
-      "unavailable": "Non siamo riusciti a controllare il messaggio. Riprova tra qualche minuto."
+      "unavailable": "Non siamo riusciti a controllare il messaggio. Riprova tra qualche minuto.",
+      "invalid_image": "Questo file non sembra uno screenshot. Carica un'immagine JPG o PNG, oppure incolla il testo.",
+      "unreadable_image": "Non riusciamo a leggere il testo in questa immagine. Prova con uno screenshot più nitido, oppure incolla il testo."
     }
   },
   "result": {

@@ -1,11 +1,16 @@
 "use server";
 
-import { analyseMessage, type CheckOutcome } from "@/lib/check/analyse";
+import type { CheckOutcome } from "@/lib/check/analyse";
+import { checkSubmission } from "@/lib/check/submission";
 
 export async function checkMessageAction(
   _previous: CheckOutcome | null,
   formData: FormData,
 ): Promise<CheckOutcome> {
   const message = formData.get("message");
-  return analyseMessage(typeof message === "string" ? message : "");
+  const screenshot = formData.get("screenshot");
+  return checkSubmission({
+    text: typeof message === "string" ? message : "",
+    screenshot: screenshot instanceof Blob && screenshot.size > 0 ? screenshot : null,
+  });
 }

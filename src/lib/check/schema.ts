@@ -35,11 +35,11 @@ export const WARNING_SIGNS = [
   "asks_for_personal_data",
   "install_app",
   "new_number_family",
+  "prize_or_refund",
   "threat",
   "urgency",
   "link_to_act",
   "call_this_number",
-  "prize_or_refund",
   "parcel_problem",
   "secrecy",
 ] as const;

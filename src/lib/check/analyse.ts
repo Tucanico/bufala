@@ -17,7 +17,10 @@ export type CheckResult = {
 
 export type CheckOutcome =
   | { ok: true; result: CheckResult }
-  | { ok: false; error: "empty" | "too_long" | "unavailable" };
+  | {
+      ok: false;
+      error: "empty" | "too_long" | "unavailable" | "invalid_image" | "unreadable_image";
+    };
 
 const UNAVAILABLE: CheckOutcome = { ok: false, error: "unavailable" };
 

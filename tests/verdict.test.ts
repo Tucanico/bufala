@@ -30,6 +30,12 @@ describe("collectSigns", () => {
       }),
     ).toEqual(["asks_for_payment", "threat", "link_to_act"]);
   });
+
+  test("a prize explains the scam better than being rushed", () => {
+    expect(
+      collectSigns({ ...base, warning_signs: ["urgency", "link_to_act", "prize_or_refund"] }),
+    ).toEqual(["prize_or_refund", "urgency", "link_to_act"]);
+  });
 });
 
 describe("decideVerdict", () => {

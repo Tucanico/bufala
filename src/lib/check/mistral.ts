@@ -15,10 +15,10 @@ Some details were hidden before you see the message: links appear as [link: site
 
 Report:
 - claimed_sender: who the message says it is from. bank (any bank or card company), poste (Poste Italiane, BancoPosta, PostePay), phone_operator, utility (electricity, gas, water), public_body (INPS, Agenzia delle Entrate, police, courts, the town council or any government office), courier (parcel delivery), family (a relative or friend), other (anyone else, or unclear).
-- requested_actions: what it asks the reader to do. click_link, call_number, pay (pay, transfer or top up money), give_code (a one-time code, PIN or password), give_personal_data (ID, card, account or login details), install_app, reply. Empty if it asks for nothing.
+- requested_actions: what it asks the reader to do. click_link, call_number, pay (pay, transfer or top up money), give_code (share or type in a one-time code, PIN or password, including a code the reader will receive by SMS), give_personal_data (ID, card, account or login details), install_app, reply. Empty if it asks for nothing.
 - pressure: how hard it pushes the reader to act quickly or out of fear. low, medium or high.
 - warning_signs: every sign below that applies, or none.
-  asks_for_code: asks for a one-time code, PIN or password.
+  asks_for_code: asks to share, type in or read out a one-time code, PIN or password, including a code the reader will receive by SMS.
   asks_for_payment: asks to pay, transfer or top up money.
   asks_for_personal_data: asks for ID, card, account or login details.
   install_app: asks to install an app or to give remote access to a device.

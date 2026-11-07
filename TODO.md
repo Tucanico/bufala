@@ -1,9 +1,9 @@
 # TODO
 
 ## MVP
-- Link checks: follow short links without opening the page, domain age, look-alike domains (including lookalike characters), blocklists (Google Web Risk, PhishTank, URLhaus)
+- Link checks: follow short links without opening the page, domain age, look-alike domains (including lookalike characters), blocklists (Google Web Risk, PhishTank, URLhaus). For text read from a screenshot, treat 0/O and 1/l/I as the same: OCR read "amaz0n" as "amazOn"
+- Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
 - Phone checks: compare with the claimed company's official numbers, flag premium-rate numbers
-- Screenshot input (Mistral Small 4 accepts images: the API's model list shows `vision` for `mistral-small-2603`, checked 2026-11-07)
 - Database of the top ~30 Italian banks, phone operators, utilities and public bodies (official domains, phone numbers, SMS sender names, stated rules), taken from official sources
 - Language switcher between Italian and English
 - Installable web app (manifest and icons)
@@ -20,6 +20,7 @@
 - "Ask a family member" button
 
 ## Maintenance
+- tesseract.js 7.0.0 breaks languages passed as data (it uses `l.data` as the language name). Once fixed, `ocr-data/` could come from the `@tesseract.js-data` packages again
 - Remove the `minimatch` override from package.json once typescript-eslint itself depends on minimatch 11.0.1 or later (check with `npm view @typescript-eslint/typescript-estree@latest dependencies.minimatch`)
 
 ## Outside the code
