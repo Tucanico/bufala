@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 12:44 — test(eval): measure the model's answers on 40 made-up messages
+
+The unit tests prove our own code but not what the model answers, and the model's labels can flip on small changes in a message (the same parcel scam got two different sender types from two screenshots). `npm run eval` runs 40 made-up messages through the real Mistral call: 26 scams across banks, Poste, couriers, family, public bodies, utilities and prizes, 3 messages that try to instruct the model, and 11 normal ones. Each case lists the verdicts that count as right and the signs that must be found. It is paid (about €0.01 a run), reads the key from `.env.local`, and is never part of `npm test`. First run: 37 of 40 as expected. The only wrong verdict was a false alarm: a genuine bank code SMS got 🔴. Two scams were rightly 🔴 but missed a required sign (an INPS refund, SPID credentials).
+
+(SHA: add after committing)
+
 ## 2026-11-07 12:23 — feat(check): check a screenshot of the message
 
 People can now upload a screenshot instead of, or as well as, pasting the text. The browser shrinks it to a 1600px JPEG, and our server reads the text with tesseract.js (Italian and English) and runs it through the same redaction, model call and answer as pasted text. The image itself never reaches Mistral, so other notifications, contact names and numbers on the screen are not sent anywhere, and it is not stored. An image with too little readable text stops with its own message before any paid call. The language files live in `ocr-data/` because tesseract.js 7.0.0 cannot load languages passed as data. Tested on five made-up screenshots (SMS and chat, light and dark, a blurred photo of a screen): 93 to 100% of words read, under half a second per image, all three end-to-end checks answered 🔴. Two follow-ups from those checks: the "asks for a code" sign now also covers typing in a code that will arrive by SMS (the prize scam asked for one and the model missed it), and a prize or refund now ranks above being rushed among the reasons shown.
 
-(SHA: add after committing)
+461e837
 
 ## 2026-11-07 11:21 — feat(check): check a pasted message with Mistral Small and show the answer
 

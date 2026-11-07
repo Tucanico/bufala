@@ -73,9 +73,9 @@ Link checks, phone checks and the company database. See [TODO.md](../TODO.md).
 | `tests/ocr.test.ts` | real OCR on a made-up screenshot in `tests/fixtures/` |
 | `tests/messages.test.ts` | both languages have the same keys, every code has wording, no empty strings or em dashes |
 
-No test calls Mistral.
+No test calls Mistral. The model's own answers are measured separately by `npm run eval`: 40 made-up messages in [evals/cases.ts](../evals/cases.ts), each with the verdicts that count as right and the signs that must be found, run through the real model (about €0.01 a run).
 
 ## Changing things safely
 
 - **A new warning sign or sender type:** add the code to [schema.ts](../src/lib/check/schema.ts), its definition to `SYSTEM_PROMPT` in [mistral.ts](../src/lib/check/mistral.ts), and its wording to both messages files. The tests fail until all three are done.
-- **A prompt or model change:** run a few made-up messages through the app afterwards. The model's answers are not covered by the tests.
+- **A prompt, schema or model change:** run `npm run eval` before and after, and compare. The unit tests don't cover the model's answers.
