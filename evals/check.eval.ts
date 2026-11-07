@@ -2,9 +2,15 @@ import { Console } from "node:console";
 import { writeFileSync } from "node:fs";
 import { Writable } from "node:stream";
 import { afterAll, describe, expect, test } from "vitest";
+import { combineRuns } from "../src/lib/check/combine";
 import { callMistral, ModelError } from "../src/lib/check/mistral";
 import { redact } from "../src/lib/check/redact";
-import { parseModelOutput, type Verdict, type WarningSign } from "../src/lib/check/schema";
+import {
+  parseModelOutput,
+  type SenderType,
+  type Verdict,
+  type WarningSign,
+} from "../src/lib/check/schema";
 import { collectSigns, decideVerdict } from "../src/lib/check/verdict";
 import { CASES } from "./cases";
 
@@ -18,7 +24,7 @@ import { CASES } from "./cases";
 // and is judged by the majority.
 const RUNS = Number(process.env.EVAL_RUNS ?? 3);
 
-type Once = { verdict: Verdict; modelVerdict: Verdict; signs: WarningSign[]; sender: string };
+type Once = { verdict: Verdict; modelVerdict: Verdict; signs: WarningSign[]; sender: SenderType };
 
 // The account allows 100,000 tokens a minute, and a full run sends 120 calls
 // in quick succession: wait and retry on a rate limit instead of failing the case.
@@ -82,7 +88,9 @@ describe.concurrent("made-up messages through the real model", () => {
         throw new Error("every reply was in the wrong shape");
       }
 
-      const verdict = majority(results.map((r) => r.verdict));
+      // The app makes the same number of calls and combines them the same way,
+      // so this is the answer a person would get.
+      const verdict = combineRuns(results).verdict;
       // A sign counts when more than half of the runs found it.
       const signs = [...new Set(results.flatMap((r) => r.signs))].filter(
         (sign) => results.filter((r) => r.signs.includes(sign)).length * 2 > results.length,

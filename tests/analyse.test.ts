@@ -1,5 +1,5 @@
 import { expect, test, vi } from "vitest";
-import { analyseMessage } from "../src/lib/check/analyse";
+import { analyseMessage, MODEL_RUNS } from "../src/lib/check/analyse";
 import { MAX_MESSAGE_LENGTH } from "../src/lib/check/limits";
 import { ModelError } from "../src/lib/check/mistral";
 
@@ -24,7 +24,28 @@ test("empty and over-long messages never reach the model", async () => {
 test("the model only sees the redacted message", async () => {
   const callModel = vi.fn(async () => scamReply);
   await analyseMessage("Conto bloccato: https://banca-x.com/u?id=42", callModel);
+  expect(callModel).toHaveBeenCalledTimes(MODEL_RUNS);
   expect(callModel).toHaveBeenCalledWith("Conto bloccato: [link: banca-x.com]");
+});
+
+test("the majority of the model's answers decides", async () => {
+  const clearReply = { ...scamReply, requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const replies = [clearReply, scamReply, clearReply];
+  const outcome = await analyseMessage("Ciao", async () => replies.shift());
+  expect(outcome).toEqual({ ok: true, result: { verdict: "no_signs", reasons: [], sender: "bank" } });
+});
+
+test("one failed call out of three still gives an answer", async () => {
+  const log = vi.spyOn(console, "error").mockImplementation(() => {});
+  let calls = 0;
+  const outcome = await analyseMessage("Conto bloccato", async () => {
+    calls += 1;
+    if (calls === 2) throw new ModelError("http_429");
+    return scamReply;
+  });
+  expect(outcome.ok).toBe(true);
+  expect(log.mock.calls[0].join(" ")).toContain("1 of 3 model calls failed: http_429");
+  log.mockRestore();
 });
 
 test("turns the model reply into a verdict, up to two reasons and the sender", async () => {

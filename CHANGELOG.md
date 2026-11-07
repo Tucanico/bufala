@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 13:57 — feat(check): ask the model three times and go with the majority
+
+The test set judges by a majority of three runs, but the app made a single call, so the occasional flips the tests saw (normal messages turning 🟠, once 🔴) reached people. Each check now makes three calls in parallel and goes with the majority colour, or 🟠 when there is none; reasons and sender come from the answers that reached that colour. One or two failed calls no longer make the check fail. It costs about €0.001 a check and takes no longer than before (1.8 s for the bank test message). The test set combines its runs with the same code, and has 12 new "held-" messages written after the prompt's examples and unlike them: 10 of 12 as expected. The code pattern and all five new scams carry over. A real UPS tracking link on `ups.com` gets 🟠 every time, because the model can't know the domain is official (added to the link-check TODO), and a toll-pass scam was rightly 🔴 without its penalty counting as a threat.
+
+(SHA: add after committing)
+
 ## 2026-11-07 13:04 — fix(check): examples in the prompt, and only our rules can give 🔴
 
 Reworded definitions kept fixing one case and breaking another: the model labels by topic (a parcel, a code) more than by definition. Three identical test runs also disagreed (10 of 40 cases changed signs, 3 changed colour), so a single run couldn't judge a change. Now the prompt ends with six made-up example messages and the exact answer we want, three of them normal messages that look alarming. The definitions describe intent ("call this number" means to fix a problem, not an appointment line; keeping a code private is not secrecy). The model's own verdict can raise the answer only to 🟠, because it called a genuine bank code SMS a scam on its own. The test set now runs each case 3 times and judges by majority, retries when the rate limit is hit, and writes its table to `evals/last-run.txt`. Result: 40 of 40 by majority. Two normal messages are unstable: a doctor's reminder (one 🟠 in three) and a parcel notice (one 🔴 in three).
 
-(SHA: add after committing)
+f716ff4
 
 ## 2026-11-07 12:54 — fix(check): a code SMS is suspicious, and three warning signs are sharper
 
