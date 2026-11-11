@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-11 13:59 — fix(deploy): ship the OCR engine on Vercel
+
+Vercel only ships the files Next.js's build trace finds, and the trace missed what screenshot reading needs at runtime: tesseract.js starts its worker from a file path and picks one of six WebAssembly engine builds by CPU, so the worker's code and `tesseract.js-core` were left out. On Vercel every screenshot would have failed; pasted text was unaffected. Reproduced locally with a standalone build, which ships only traced files: uploading a screenshot crashed the worker with "Cannot find module '..'". `outputFileTracingIncludes` in `next.config.ts` now ships tesseract.js's full dependency tree (12 packages, about 49 MB) and `ocr-data/`; with it, the same standalone build read the screenshot and reached the Mistral step. Still to confirm on the real deployment: one screenshot, and that the Italian home page loads (the local standalone server looped on `/`, the normal one doesn't).
+
+(SHA: add after committing)
+
 ## 2026-11-11 12:58 — docs: the visitor limit is 10 checks per 10 minutes
 
 The founder chose 10 checks per 10 minutes per IP (at most 60 an hour), so families or care homes sharing one connection are rarely blocked, at a worst case of about €0.06 an hour per IP. It is set in the Vercel Firewall rule, not in the code: the README's deployment steps, the privacy draft and the TODO now give the numbers.
 
-(SHA: add after committing)
+bc3e8bc
 
 ## 2026-11-11 12:51 — feat(check): a per-visitor limit through the Vercel Firewall
 

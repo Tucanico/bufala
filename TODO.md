@@ -5,7 +5,7 @@
 - Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, and the domain of A2A's bill-payment platform
 - Grow the list to about 30, for example Iren, Edison, Sorgenia, Mediolanum, Fineco, Satispay, Mooney
 - Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
-- Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
+- After the first Vercel deployment: upload one made-up screenshot to confirm OCR works there, and check that the Italian home page (`/`) loads (a local standalone test server looped on `/` and `/it`; the normal server doesn't)
 - Installable web app (manifest and icons)
 - Privacy notice and disclaimer: approve the drafts in `docs/legal/`, fill in the controller and contact email, confirm the Vercel and Mistral facts, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
 - When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
