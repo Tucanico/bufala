@@ -9,7 +9,20 @@ import { CheckResultCard } from "./check-result";
 
 type Screenshot = { blob: Blob; previewUrl: string };
 
+// "Check another message" starts a fresh form by remounting it: the answer
+// lives in useActionState, which has no way to be cleared from outside.
 export function CheckForm() {
+  const [round, setRound] = useState(0);
+  return <CheckRound key={round} onCheckAnother={() => setRound((n) => n + 1)} autoFocus={round > 0} />;
+}
+
+function CheckRound({
+  onCheckAnother,
+  autoFocus,
+}: {
+  onCheckAnother: () => void;
+  autoFocus: boolean;
+}) {
   const t = useTranslations("check");
   const [outcome, formAction, pending] = useActionState(checkMessageAction, null);
   // Controlled on purpose: React resets uncontrolled fields after a form
@@ -66,6 +79,7 @@ export function CheckForm() {
           rows={7}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
+          autoFocus={autoFocus}
           className="mt-3 w-full rounded-xl border-2 border-muted bg-white p-4 text-lg focus:border-brand focus:outline-none"
         />
 
@@ -127,6 +141,17 @@ export function CheckForm() {
           </p>
         )}
       </div>
+
+      {/* Not after "paste a message first": there is nothing to clear yet. */}
+      {outcome && !(outcome.ok === false && outcome.error === "empty") && (
+        <button
+          type="button"
+          onClick={onCheckAnother}
+          className="mt-6 block w-full rounded-xl border-2 border-brand px-6 py-4 text-xl font-bold text-brand sm:w-auto"
+        >
+          {t("checkAnother")}
+        </button>
+      )}
     </>
   );
 }

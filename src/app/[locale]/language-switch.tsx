@@ -1,19 +1,22 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
 // With two languages, one link to the other one, written in that language so
-// someone who can't read the current page still recognises it. The site has a
-// single page, so it always links to the home page.
+// someone who can't read the current page still recognises it. It stays on the
+// same page: "/chi-siamo" switches to "/en/about".
 export function LanguageSwitch() {
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("language");
   const other = routing.locales.find((each) => each !== locale) ?? routing.defaultLocale;
 
   return (
     <nav aria-label={t("label")} className="flex justify-end">
       <Link
-        href="/"
+        href={pathname}
         locale={other}
         lang={other}
         hrefLang={other}

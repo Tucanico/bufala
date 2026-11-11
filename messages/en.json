@@ -7,6 +7,54 @@
     "label": "Language",
     "switchTo": "Italiano"
   },
+  "footer": {
+    "label": "Other pages",
+    "home": "Check a message",
+    "about": "About us"
+  },
+  "about": {
+    "metaTitle": "About us · Bufala",
+    "title": "About us",
+    "what": {
+      "title": "What Bufala is",
+      "body": "Bufala helps you tell whether a message is a scam. We built it above all for older people, whom scammers target most often."
+    },
+    "free": {
+      "title": "Free, with no advertising",
+      "body": "Bufala is free, shows no advertising and doesn't sell your data. We plan to fund it through grants and donations."
+    },
+    "never": {
+      "title": "Bufala will never ask you for anything",
+      "body": "Bufala will never ask you for money, codes, passwords or personal details, and it will never contact you by phone, SMS or email. If someone does so in Bufala's name, it's a scam."
+    },
+    "independent": {
+      "title": "Independent",
+      "body": "Bufala is not connected to any bank, company or public office, and doesn't speak for them."
+    },
+    "how": {
+      "title": "How it works",
+      "body": "We compare the message's links and numbers with our own list of official sites and numbers, and have an artificial-intelligence system read the message after hiding its most sensitive details. We don't store the message."
+    },
+    "who": {
+      "title": "Who is behind it",
+      "body": "[TO COMPLETE: who runs Bufala]"
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Write to us at [TO COMPLETE: email address]."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "This page doesn't exist. Maybe the address is mistyped, or the link is old.",
+    "home": "Back to the main page"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "body": "It's not your fault. Please try again in a moment.",
+    "retry": "Try again",
+    "home": "Back to the main page"
+  },
   "home": {
     "title": "Bufala",
     "tagline": "Got a strange message? Let's check it together."
@@ -18,6 +66,7 @@
     "screenshotPreview": "Preview of the screenshot to check",
     "removeScreenshot": "Remove the screenshot",
     "submit": "Check the message",
+    "checkAnother": "Check another message",
     "checking": "Checking...",
     "errors": {
       "empty": "First paste the message you want to check, or upload a screenshot.",

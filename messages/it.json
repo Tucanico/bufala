@@ -7,6 +7,54 @@
     "label": "Lingua",
     "switchTo": "English"
   },
+  "footer": {
+    "label": "Altre pagine",
+    "home": "Controlla un messaggio",
+    "about": "Chi siamo"
+  },
+  "about": {
+    "metaTitle": "Chi siamo · Bufala",
+    "title": "Chi siamo",
+    "what": {
+      "title": "Cos'è Bufala",
+      "body": "Bufala ti aiuta a capire se un messaggio è una truffa. Lo abbiamo pensato soprattutto per le persone più anziane, che i truffatori prendono di mira più spesso."
+    },
+    "free": {
+      "title": "Gratis, senza pubblicità",
+      "body": "Bufala è gratuito, non mostra pubblicità e non vende i tuoi dati. Contiamo di sostenerlo con contributi e donazioni."
+    },
+    "never": {
+      "title": "Bufala non ti chiederà mai nulla",
+      "body": "Bufala non ti chiederà mai soldi, codici, password o dati personali, e non ti contatterà per telefono, SMS o email. Se qualcuno lo fa a nome di Bufala, è una truffa."
+    },
+    "independent": {
+      "title": "Indipendente",
+      "body": "Bufala non è collegato a banche, aziende o enti pubblici, e non parla a loro nome."
+    },
+    "how": {
+      "title": "Come funziona",
+      "body": "Confrontiamo i link e i numeri del messaggio con un nostro elenco di siti e numeri ufficiali, e facciamo leggere il messaggio, dopo aver nascosto i dati più delicati, a un sistema di intelligenza artificiale. Non salviamo il messaggio."
+    },
+    "who": {
+      "title": "Chi c'è dietro",
+      "body": "[DA COMPLETARE: chi gestisce Bufala]"
+    },
+    "contact": {
+      "title": "Contatti",
+      "body": "Scrivici a [DA COMPLETARE: indirizzo email]."
+    }
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "body": "Questa pagina non esiste. Forse l'indirizzo è scritto male, o il link è vecchio.",
+    "home": "Torna alla pagina principale"
+  },
+  "errorPage": {
+    "title": "Qualcosa è andato storto",
+    "body": "Non è colpa tua. Riprova tra un momento.",
+    "retry": "Riprova",
+    "home": "Torna alla pagina principale"
+  },
   "home": {
     "title": "Bufala",
     "tagline": "Ti è arrivato un messaggio strano? Controlliamolo insieme."
@@ -18,6 +66,7 @@
     "screenshotPreview": "Anteprima dello screenshot da controllare",
     "removeScreenshot": "Togli lo screenshot",
     "submit": "Controlla il messaggio",
+    "checkAnother": "Controlla un altro messaggio",
     "checking": "Sto controllando...",
     "errors": {
       "empty": "Incolla prima il messaggio da controllare, oppure carica uno screenshot.",

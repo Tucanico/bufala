@@ -11,7 +11,19 @@
 - When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
 
+- "Chi siamo" page: fill in who runs Bufala and the contact email (`about.who` and `about.contact` in `messages/*.json`, now `[DA COMPLETARE]` / `[TO COMPLETE]`). Use the same email in the privacy notice; a dedicated address on bufala.app (for example ciao@bufala.app, forwarded to your inbox) needs the domain registered first
+
+## After launch
+- An "Incolla" (Paste) button next to the text box: long-press paste is hard for many older people. The browser asks permission the first time
+- "Was this answer right?" feedback, so mistakes can improve the data. Needs storage (Supabase) and a line in the privacy notice
+- Usage numbers for grant reports: how many checks and which colours, with no message content and no cookies
+- An alert when checks start failing: today errors only sit in Vercel's logs
+- A link preview (Open Graph title and image), so a link shared on WhatsApp shows Bufala's name and picture
+- A screen-reader and contrast check of every page
+- A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it
+
 ## Undecided
+- "If you already clicked, paid or gave a code" on the answer screen (text drafted in `docs/legal/disclaimer.md`): asked 2026-11-11, waiting for an answer
 - Amazon's own check ("Verifica una chiamata o un messaggio" on account-status.amazon.it, or forwarding to verify@amazon.it): add it to the Amazon advice?
 - "Read aloud" on the answer screen: MVP or later
 - Redis queue for link checks: proposed to skip until forwarding arrives
@@ -19,6 +31,11 @@
 ## Phase 2
 - Forwarding by WhatsApp and by email
 - "Ask a family member" button
+
+## Later
+Both after email forwarding (phase 2), which works on any phone and provider with nothing to install.
+- Chrome extension: a "Controlla con Bufala" button while reading an email in Gmail on the web (about 2 to 4 days), then Outlook on the web and Libero (about 1 to 2 days each). Limits: computers only (Chrome on Android and iPhone has no extensions); it sees only what's on screen, not the headers needed for the SPF/DKIM/DMARC check; it breaks whenever a provider changes its pages; Chrome Web Store review. Needs a public check endpoint with the same visitor limit
+- Gmail add-on and Outlook add-in: they also run inside the Gmail and Outlook phone apps and can read the headers. Publishing a Gmail add-on means Google's review of its access to email; check whether that includes the paid security assessment for the permissions it needs
 
 ## Maintenance
 - tesseract.js 7.0.0 breaks languages passed as data (it uses `l.data` as the language name). Once fixed, `ocr-data/` could come from the `@tesseract.js-data` packages again
