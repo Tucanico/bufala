@@ -22,32 +22,36 @@ export default function AboutPage() {
   const t = useTranslations("about");
 
   return (
-    <main className="mx-auto max-w-xl px-4 pb-12 pt-4">
-      <h1 className="text-4xl font-bold text-brand">{t("title")}</h1>
-      {SECTIONS.map((section) => (
-        <section key={section} className="mt-8">
-          <h2 className="text-2xl font-bold">{t(`${section}.title`)}</h2>
-          <p className="mt-2 text-lg">{t(`${section}.body`)}</p>
+    <main className="mx-auto max-w-page px-5 pb-12 pt-2">
+      <h1 className="mt-5 font-display text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em]">
+        {t("title")}
+      </h1>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {SECTIONS.map((section) => (
+          <section key={section} className="card p-5">
+            <h2 className="font-display text-[1.2rem] font-bold tracking-[-0.01em]">{t(`${section}.title`)}</h2>
+            <p className="mt-2">{t(`${section}.body`)}</p>
+          </section>
+        ))}
+        <section className="card p-5">
+          <h2 className="font-display text-[1.2rem] font-bold tracking-[-0.01em]">{t("contact.title")}</h2>
+          <p className="mt-2">
+            {t.rich("contact.body", {
+              email: CONTACT_EMAIL,
+              link: (chunks) => (
+                // overflow-wrap: the address is one long word that pushed the
+                // page sideways on a 320px screen.
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="font-bold text-brand underline underline-offset-4 [overflow-wrap:anywhere]"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
         </section>
-      ))}
-      <section className="mt-8">
-        <h2 className="text-2xl font-bold">{t("contact.title")}</h2>
-        <p className="mt-2 text-lg">
-          {t.rich("contact.body", {
-            email: CONTACT_EMAIL,
-            link: (chunks) => (
-              // overflow-wrap: the address is one long word that pushed the
-              // page sideways on a 320px screen.
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="font-semibold text-brand underline [overflow-wrap:anywhere]"
-              >
-                {chunks}
-              </a>
-            ),
-          })}
-        </p>
-      </section>
+      </div>
     </main>
   );
 }

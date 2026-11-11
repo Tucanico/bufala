@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-11 15:40 — feat(design): a new look, dark mode and a paste button
+
+The site looked like a plain form. It now has a warm, rounded look: cards on a soft cream background, the logo in the header, and two fonts chosen for reading, Lexend for headings and Atkinson Hyperlegible (designed for low vision) for text. next/font downloads them at build time and serves them from our own domain, so visitors never contact Google. The answer opens with a coloured card (red, orange, or grey for ⚪, never green) with its own icon and a risk meter: three bars "Rischio alto", two "Rischio medio", none and "Nessun segnale trovato" for ⚪, so it never reads as "safe". Under 🔴 and 🟠 come three tiles, "Non aprire link · Non chiamare numeri · Non rispondere", then "Perché" with an icon for each reason, "Cosa fare", and the "already acted" steps. On a computer the answer sits beside the form, which stays in view; on a phone it stays below the form. Dark mode follows the device's setting, with a dark background, a warm glow and an orange main button. New: an "Incolla" button that pastes from the clipboard (shown only where the browser supports it; a refusal or an empty clipboard explains the long-press way), and three chips under the form: "Gratis · Senza account · Non salviamo il messaggio". "Chi siamo", the 404 and the error page use the same cards and buttons. Checked with one real check per colour at 1280, 390 and 320 px, in light and dark; the paste button was tested allowed, empty and refused.
+
 ## 2026-11-11 14:45 — feat(site): who runs Bufala, a contact email, and what to do if you already acted
 
 "Chi siamo" / "About us" now says "Bufala è un progetto di Tucanico" and gives tech@jacopolombardo.com as a tappable email link, in place of the placeholders. The address lives in one place, `src/lib/contact.ts`, so it can change to a bufala.app address once the domain and free forwarding exist; the privacy draft uses the same address. On a 320 px screen the address, one long word, pushed the page sideways (332 px wide); it now wraps. Under every 🔴 and 🟠 answer a new box, "Hai già cliccato, pagato o dato un codice?", gives three steps: call your bank and block cards and account, change the passwords you may have typed, report it to the Polizia Postale (commissariatodips.it, checked as its site) or any police or Carabinieri station. It isn't shown under ⚪, where there is nothing to have fallen for. Seen on screen after one real check: at 320 px "commissariatodips.it" ran out of the box, so the box's text now wraps too.
+
+b269692, 40f4d34
 
 ## 2026-11-11 14:31 — feat(site): who we are, Italian error pages, security headers, "check another message"
 

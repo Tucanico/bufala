@@ -56,17 +56,23 @@
     "home": "Back to the main page"
   },
   "home": {
-    "title": "Bufala",
-    "tagline": "Got a strange message? Let's check it together."
+    "title": "Got a strange message?",
+    "subtitle": "Let's check it together."
   },
   "check": {
     "label": "Paste the message you received here",
-    "or": "or",
+    "paste": "Paste",
     "screenshotButton": "Upload a screenshot of the message",
     "screenshotPreview": "Preview of the screenshot to check",
     "removeScreenshot": "Remove the screenshot",
+    "pasteFailed": "We couldn't find any text to paste. Copy the message first, or press and hold in the box and choose Paste.",
     "submit": "Check the message",
     "checkAnother": "Check another message",
+    "trust": {
+      "free": "Free",
+      "noAccount": "No account needed",
+      "notStored": "We don't store the message"
+    },
     "checking": "Checking...",
     "errors": {
       "empty": "First paste the message you want to check, or upload a screenshot.",
@@ -92,7 +98,17 @@
         "body": "We didn't find any signs of a scam, but that doesn't mean the message is safe."
       }
     },
-    "whyTitle": "Why:",
+    "meter": {
+      "scam": "High risk",
+      "suspicious": "Medium risk",
+      "no_signs": "No signs found"
+    },
+    "donts": {
+      "links": "Don't open links",
+      "numbers": "Don't call numbers",
+      "reply": "Don't reply"
+    },
+    "whyTitle": "Why",
     "genericReason": "The message looks like the most common scams.",
     "lookalikeOf": "The link goes to a site that imitates {name}, but it isn't its official site.",
     "safeStepOfficial": "Call {name} on its official {count, plural, one {number} other {numbers}} {phones}, or open its app or website yourself. Don't use any links or numbers from the message.",
@@ -132,7 +148,7 @@
       "parcel_problem": "It talks about a parcel that's held up or a delivery you have to pay for.",
       "secrecy": "It asks you not to tell anyone."
     },
-    "safeStepTitle": "What to do:",
+    "safeStepTitle": "What to do",
     "safeStep": {
       "bank": "Call your bank on the number on the back of your card, or open the bank's app yourself. Don't use any links or numbers from the message.",
       "poste": "Open the Poste Italiane app yourself or go to a post office. Don't use any links or numbers from the message.",

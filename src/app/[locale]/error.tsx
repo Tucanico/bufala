@@ -9,20 +9,20 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
   const t = useTranslations("errorPage");
 
   return (
-    <main className="mx-auto max-w-xl px-4 pb-12 pt-4">
-      <h1 className="text-4xl font-bold text-brand">{t("title")}</h1>
-      <p className="mt-4 text-xl">{t("body")}</p>
-      <div className="mt-8 flex flex-wrap gap-4">
-        <button
-          type="button"
-          onClick={reset}
-          className="rounded-xl bg-brand px-6 py-4 text-xl font-bold text-white"
-        >
-          {t("retry")}
-        </button>
-        <Link href="/" className="rounded-xl border-2 border-brand px-6 py-4 text-xl font-bold text-brand">
-          {t("home")}
-        </Link>
+    <main className="mx-auto max-w-xl px-5 pb-12 pt-2">
+      <div className="card mt-8 p-6">
+        <h1 className="font-display text-[1.9rem] font-extrabold leading-[1.08] tracking-[-0.03em]">
+          {t("title")}
+        </h1>
+        <p className="mt-3">{t("body")}</p>
+        <div className="mt-6 grid gap-3 sm:flex">
+          <button type="button" onClick={reset} className="btn btn-primary py-[0.9rem] text-[1.05rem] sm:w-auto sm:px-7">
+            {t("retry")}
+          </button>
+          <Link href="/" className="btn btn-outline py-[0.9rem] text-[1.05rem] sm:w-auto sm:px-7">
+            {t("home")}
+          </Link>
+        </div>
       </div>
     </main>
   );

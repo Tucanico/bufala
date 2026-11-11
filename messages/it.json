@@ -56,17 +56,23 @@
     "home": "Torna alla pagina principale"
   },
   "home": {
-    "title": "Bufala",
-    "tagline": "Ti è arrivato un messaggio strano? Controlliamolo insieme."
+    "title": "Ti è arrivato un messaggio strano?",
+    "subtitle": "Controlliamolo insieme."
   },
   "check": {
     "label": "Incolla qui il messaggio che hai ricevuto",
-    "or": "oppure",
+    "paste": "Incolla",
     "screenshotButton": "Carica uno screenshot del messaggio",
     "screenshotPreview": "Anteprima dello screenshot da controllare",
     "removeScreenshot": "Togli lo screenshot",
+    "pasteFailed": "Non abbiamo trovato un testo da incollare. Copia prima il messaggio, oppure tieni premuto nel riquadro e scegli «Incolla».",
     "submit": "Controlla il messaggio",
     "checkAnother": "Controlla un altro messaggio",
+    "trust": {
+      "free": "Gratis",
+      "noAccount": "Senza account",
+      "notStored": "Non salviamo il messaggio"
+    },
     "checking": "Sto controllando...",
     "errors": {
       "empty": "Incolla prima il messaggio da controllare, oppure carica uno screenshot.",
@@ -92,7 +98,17 @@
         "body": "Non abbiamo trovato segnali di truffa, ma questo non vuol dire che il messaggio sia sicuro."
       }
     },
-    "whyTitle": "Perché:",
+    "meter": {
+      "scam": "Rischio alto",
+      "suspicious": "Rischio medio",
+      "no_signs": "Nessun segnale trovato"
+    },
+    "donts": {
+      "links": "Non aprire link",
+      "numbers": "Non chiamare numeri",
+      "reply": "Non rispondere"
+    },
+    "whyTitle": "Perché",
     "genericReason": "Il messaggio somiglia alle truffe più diffuse.",
     "lookalikeOf": "Il link porta a un sito che imita {name}, ma non è il suo sito ufficiale.",
     "safeStepOfficial": "Chiama {name} {count, plural, one {al numero ufficiale} other {ai numeri ufficiali}} {phones}, oppure apri tu la sua app o il suo sito. Non usare link o numeri del messaggio.",
@@ -132,7 +148,7 @@
       "parcel_problem": "Parla di un pacco bloccato o di una consegna da pagare.",
       "secrecy": "Ti chiede di non dirlo a nessuno."
     },
-    "safeStepTitle": "Cosa fare:",
+    "safeStepTitle": "Cosa fare",
     "safeStep": {
       "bank": "Chiama la tua banca al numero scritto sul retro della carta, oppure apri tu l'app della banca. Non usare link o numeri del messaggio.",
       "poste": "Apri tu l'app di Poste Italiane o vai in un ufficio postale. Non usare link o numeri del messaggio.",

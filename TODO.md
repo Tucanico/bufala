@@ -13,7 +13,6 @@
 - Contact email: once bufala.app is registered, set up free forwarding (Cloudflare Email Routing or the registrar's) for an address such as ciao@bufala.app, then change `CONTACT_EMAIL` in `src/lib/contact.ts` and the address in `docs/legal/privacy.md` (today both use tech@jacopolombardo.com)
 
 ## After launch
-- An "Incolla" (Paste) button next to the text box: long-press paste is hard for many older people. The browser asks permission the first time
 - "Was this answer right?" feedback, so mistakes can improve the data. Needs storage (Supabase) and a line in the privacy notice
 - Usage numbers for grant reports: how many checks and which colours, with no message content and no cookies
 - An alert when checks start failing: today errors only sit in Vercel's logs

@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
+import { Atkinson_Hyperlegible, Lexend } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { Logo } from "./icons";
 import { LanguageSwitch } from "./language-switch";
 import "../globals.css";
+
+// next/font downloads these at build time and serves them from our domain, so
+// visitors' browsers never contact Google.
+const heading = Lexend({ subsets: ["latin"], variable: "--font-heading", display: "swap" });
+const body = Atkinson_Hyperlegible({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -29,19 +41,29 @@ export default async function LocaleLayout({
   const t = await getTranslations({ locale, namespace: "footer" });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${heading.variable} ${body.variable}`}>
       <body>
         <NextIntlClientProvider>
-          <header className="mx-auto max-w-xl px-4 pt-4">
+          <header className="mx-auto flex max-w-page items-center justify-between gap-4 px-5 pt-4">
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 rounded-lg font-display text-[1.25rem] font-extrabold tracking-[-0.03em]"
+            >
+              <Logo className="size-[1.9rem] rounded-[0.55rem] shadow-[0_0.3rem_0.7rem_-0.3rem_rgb(180_68_29/0.6)]" />
+              Bufala
+            </Link>
             <LanguageSwitch />
           </header>
           {children}
-          <footer className="mx-auto max-w-xl border-t border-muted/30 px-4 py-8">
-            <nav aria-label={t("label")} className="flex flex-wrap gap-x-6 gap-y-2 text-lg">
-              <Link href="/" className="text-brand underline">
+          <footer className="mx-auto max-w-page px-5 pb-10 pt-4">
+            <nav
+              aria-label={t("label")}
+              className="flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[0.95rem] font-bold"
+            >
+              <Link href="/" className="text-brand underline underline-offset-4">
                 {t("home")}
               </Link>
-              <Link href="/chi-siamo" className="text-brand underline">
+              <Link href="/chi-siamo" className="text-brand underline underline-offset-4">
                 {t("about")}
               </Link>
             </nav>

@@ -14,13 +14,13 @@ export function LanguageSwitch() {
   const other = routing.locales.find((each) => each !== locale) ?? routing.defaultLocale;
 
   return (
-    <nav aria-label={t("label")} className="flex justify-end">
+    <nav aria-label={t("label")}>
       <Link
         href={pathname}
         locale={other}
         lang={other}
         hrefLang={other}
-        className="rounded-lg px-3 py-2 text-lg font-semibold text-brand underline"
+        className="block rounded-full bg-surface px-4 py-2 text-[0.8rem] font-bold shadow-[inset_0_0_0_1px_var(--color-line)]"
       >
         {t("switchTo")}
       </Link>
