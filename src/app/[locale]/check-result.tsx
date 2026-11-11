@@ -67,8 +67,9 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
 
           {/* People often check a message after they've already acted on it;
               this is the moment the steps can still save their money. Not on
-              ⚪, where it would only alarm. */}
-          <div className="mt-5 rounded-xl border-2 border-muted bg-white p-4">
+              ⚪, where it would only alarm. overflow-wrap: "commissariatodips.it"
+              is one long word that ran out of the box on a 320px screen. */}
+          <div className="mt-5 rounded-xl border-2 border-muted bg-white p-4 [overflow-wrap:anywhere]">
             <h3 className="text-lg font-bold">{t("alreadyActed.title")}</h3>
             <ol className="mt-2 list-decimal space-y-2 pl-6">
               <li>{t("alreadyActed.bank")}</li>
