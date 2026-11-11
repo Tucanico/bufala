@@ -12,7 +12,7 @@ Statements about what Bufala itself does come from the code as of 2026-11-11. St
 
 ### Chi tratta i tuoi dati
 
-Il titolare del trattamento è **[NOME DEL TITOLARE E INDIRIZZO, DA CONFERMARE]**. Per qualsiasi domanda sulla privacy puoi scrivere a **[EMAIL, DA CONFERMARE]**.
+Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legale: se serve anche un indirizzo postale]**. Per qualsiasi domanda sulla privacy puoi scrivere a **[EMAIL, DA CONFERMARE]**.
 
 ### In breve
 
@@ -75,7 +75,7 @@ Se cambiamo il modo in cui trattiamo i dati, per esempio aggiungendo nuovi contr
 
 ### Who handles your data
 
-The data controller is **[CONTROLLER NAME AND ADDRESS, TO CONFIRM]**. For any privacy question, write to **[EMAIL, TO CONFIRM]**.
+The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether a postal address is needed too]**. For any privacy question, write to **[EMAIL, TO CONFIRM]**.
 
 ### In short
 
@@ -134,7 +134,7 @@ If we change how we handle data, for example by adding link checks that use outs
 
 ## Before publishing: what to confirm
 
-1. The controller: who legally runs Bufala (a person, a company, an association), with an address and a contact email.
+1. The controller: Jacopo Lombardo, who runs Bufala (stated 2026-11-11). Still to add: the contact email (a free forwarding address on bufala.app, once registered) and, if the lawyer says so, a postal address.
 2. Vercel: the server region (we'd choose the EU), the data processing agreement, the transfer basis, and how long Vercel keeps request logs.
 3. Mistral: pay-as-you-go on the Bufala organisation, "use API calls to train" off, zero data retention approved, EU processing.
 4. The check limit: decided (10 checks per 10 minutes per IP, counted by Vercel); confirm the published Vercel Firewall rule matches.

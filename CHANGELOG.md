@@ -4,7 +4,7 @@
 
 Four gaps found before launch. A "Chi siamo" / "About us" page (`/chi-siamo`, `/en/about`), because an anti-scam site with no visible owner can look like a scam itself: what Bufala is, that it's free and will never ask for money or codes, that it's independent, how it works, plus who runs it and a contact email still marked to complete. A footer links the pages, and the language switch now stays on the page you're on. Unknown addresses showed Next.js's default English 404; a catch-all route now shows our own "Pagina non trovata" / "Page not found" inside the normal layout, and unexpected crashes get a localised error page with "Riprova". The site sent no security headers; it now forbids being framed by other sites (where a fake page around it could fake its answers), stops content-type guessing, trims the referrer, turns off camera, microphone and location, and asks for HTTPS only. A full script policy is left for later, because with Next.js it needs per-request nonces and turns off static rendering. After an answer, a "Controlla un altro messaggio" button clears the text, screenshot and answer and puts the cursor back in the text box. Also: the Chrome extension and mail add-ons, and six post-launch items, added to the TODO.
 
-(SHA: add after committing)
+bb496e0
 
 ## 2026-11-11 14:09 — feat(brand): a favicon
 
