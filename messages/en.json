@@ -108,6 +108,12 @@
       "numbers": "Don't call numbers",
       "reply": "Don't reply"
     },
+    "legend": {
+      "title": "The three possible answers",
+      "scam": "The message has the typical signs of a scam.",
+      "suspicious": "Something isn't right: before you do anything, check another way.",
+      "no_signs": "We found no signs, but that doesn't mean the message is safe."
+    },
     "whyTitle": "Why",
     "genericReason": "The message looks like the most common scams.",
     "lookalikeOf": "The link goes to a site that imitates {name}, but it isn't its official site.",

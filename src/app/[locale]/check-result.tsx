@@ -43,6 +43,33 @@ const CARD_TITLE = "font-display text-[1.1rem] font-bold tracking-[-0.01em]";
 const ROW = "flex gap-3 text-[0.9rem] leading-[1.4]";
 const DOT = "grid size-[2rem] shrink-0 place-items-center rounded-xl";
 
+// Before the first check on a computer: what the three answers mean, with
+// the same colours and icons, so ⚪ is understood as "no signs", not "safe".
+export function VerdictLegend({ className = "" }: { className?: string }) {
+  const t = useTranslations("result");
+
+  return (
+    <section className={`card mt-5 p-5 ${className}`}>
+      <h2 className={CARD_TITLE}>{t("legend.title")}</h2>
+      <ul className="mt-4 grid gap-4">
+        {(Object.keys(VERDICT_STYLE) as Verdict[]).map((verdict) => (
+          <li key={verdict} className="flex gap-3.5">
+            <span
+              className={`hero hero-${verdict} grid size-[2.4rem] shrink-0 place-items-center rounded-xl ${verdict === "no_signs" ? "" : "shadow-none"}`}
+            >
+              <Icon name={VERDICT_STYLE[verdict].icon} className="size-[1.3rem]" />
+            </span>
+            <span className="text-[0.9rem] leading-[1.4]">
+              <b className="block">{t(`verdict.${verdict}.title`)}</b>
+              <span className="text-muted">{t(`legend.${verdict}`)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function CheckResultCard({ result }: { result: CheckResult }) {
   const t = useTranslations("result");
   const style = VERDICT_STYLE[result.verdict];

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import {
   useActionState,
   useEffect,
+  useRef,
   useState,
   useSyncExternalStore,
   type ChangeEvent,
@@ -12,7 +13,7 @@ import {
 import { MAX_MESSAGE_LENGTH, MAX_SCREENSHOT_BYTES } from "@/lib/check/limits";
 import { shrinkImage } from "@/lib/check/shrink-image";
 import { checkMessageAction } from "./actions";
-import { CheckResultCard } from "./check-result";
+import { CheckResultCard, VerdictLegend } from "./check-result";
 import { Icon } from "./icons";
 
 type Screenshot = { blob: Blob; previewUrl: string };
@@ -112,20 +113,29 @@ function CheckRound({
   }
 
   const result = outcome?.ok === true ? outcome.result : null;
+  const error = outcome?.ok === false ? outcome.error : null;
   // Not after "paste a message first": there is nothing to clear yet.
-  const showCheckAnother = outcome && !(outcome.ok === false && outcome.error === "empty");
+  const checkAnother = (
+    <button type="button" onClick={onCheckAnother} className="btn btn-outline mt-5 py-[0.9rem] text-[1rem]">
+      {t("checkAnother")}
+    </button>
+  );
+
+  // On a phone the answer appears below the form, out of sight, so bring it
+  // up. On a computer it is already in view beside the form.
+  const answerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!result || window.matchMedia("(min-width: 64rem)").matches) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    answerRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  }, [result]);
 
   return (
-    // On a computer the answer goes beside the form, which stays in view. Until
-    // there is one, a single centred column.
-    <div
-      className={
-        result
-          ? "lg:grid lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-8"
-          : "mx-auto max-w-xl"
-      }
-    >
-      <div className={result ? "lg:sticky lg:top-4" : undefined}>
+    // On a computer the answer goes beside the form, which stays in view.
+    // Before the first answer that place explains the three colours, so the
+    // form doesn't jump sideways when the answer arrives.
+    <div className="mx-auto max-w-xl lg:grid lg:max-w-none lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-8">
+      <div className="lg:sticky lg:top-4">
         {intro}
         <form action={submit} className="card mt-6 p-4">
           <label htmlFor="message" className="block text-[0.85rem] font-bold">
@@ -210,22 +220,22 @@ function CheckRound({
             </li>
           ))}
         </ul>
-      </div>
 
-      <div>
         <div aria-live="polite">
-          {result && <CheckResultCard result={result} />}
-          {outcome?.ok === false && (
+          {error && (
             <p role="alert" className="mt-6 text-[0.95rem] font-bold text-scam">
-              {t(`errors.${outcome.error}`)}
+              {t(`errors.${error}`)}
             </p>
           )}
         </div>
-        {showCheckAnother && (
-          <button type="button" onClick={onCheckAnother} className="btn btn-outline mt-5 py-[0.9rem] text-[1rem]">
-            {t("checkAnother")}
-          </button>
-        )}
+        {error && error !== "empty" && checkAnother}
+      </div>
+
+      <div>
+        <div aria-live="polite" ref={answerRef} className="scroll-mt-4">
+          {result ? <CheckResultCard result={result} /> : <VerdictLegend className="hidden lg:block" />}
+        </div>
+        {result && checkAnother}
       </div>
     </div>
   );

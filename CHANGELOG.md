@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-11 15:43 — feat(design): the answer comes into view on phones, and a legend on computers
+
+On a phone the answer appears below the form, out of sight, so the page now scrolls to it when it arrives (instantly instead of smoothly for anyone who asked their device for less motion). On a computer, before the first check, the place beside the form shows "Le tre risposte possibili": the three colours with their icons and a line each, ⚪ worded as "no signs, but not safe". Before, the form sat in a centred column and jumped left when the answer arrived. Errors now sit under the form in their own live region, so the legend stays where it is. Below 1024 px nothing changes before a check. Also fixed: between 640 and 1024 px an answer made the form and the answer as wide as the page.
+
 ## 2026-11-11 15:40 — feat(design): a new look, dark mode and a paste button
 
 The site looked like a plain form. It now has a warm, rounded look: cards on a soft cream background, the logo in the header, and two fonts chosen for reading, Lexend for headings and Atkinson Hyperlegible (designed for low vision) for text. next/font downloads them at build time and serves them from our own domain, so visitors never contact Google. The answer opens with a coloured card (red, orange, or grey for ⚪, never green) with its own icon and a risk meter: three bars "Rischio alto", two "Rischio medio", none and "Nessun segnale trovato" for ⚪, so it never reads as "safe". Under 🔴 and 🟠 come three tiles, "Non aprire link · Non chiamare numeri · Non rispondere", then "Perché" with an icon for each reason, "Cosa fare", and the "already acted" steps. On a computer the answer sits beside the form, which stays in view; on a phone it stays below the form. Dark mode follows the device's setting, with a dark background, a warm glow and an orange main button. New: an "Incolla" button that pastes from the clipboard (shown only where the browser supports it; a refusal or an empty clipboard explains the long-press way), and three chips under the form: "Gratis · Senza account · Non salviamo il messaggio". "Chi siamo", the 404 and the error page use the same cards and buttons. Checked with one real check per colour at 1280, 390 and 320 px, in light and dark; the paste button was tested allowed, empty and refused.
+
+95dd3c3
 
 ## 2026-11-11 14:45 — feat(site): who runs Bufala, a contact email, and what to do if you already acted
 

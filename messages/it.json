@@ -108,6 +108,12 @@
       "numbers": "Non chiamare numeri",
       "reply": "Non rispondere"
     },
+    "legend": {
+      "title": "Le tre risposte possibili",
+      "scam": "Il messaggio ha i segnali tipici di una truffa.",
+      "suspicious": "Qualcosa non torna: prima di fare qualsiasi cosa, controlla per un'altra strada.",
+      "no_signs": "Non abbiamo trovato segnali, ma non vuol dire che il messaggio sia sicuro."
+    },
     "whyTitle": "Perché",
     "genericReason": "Il messaggio somiglia alle truffe più diffuse.",
     "lookalikeOf": "Il link porta a un sito che imita {name}, ma non è il suo sito ufficiale.",
