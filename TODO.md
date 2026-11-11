@@ -5,7 +5,6 @@
 - Grow the organisation list to about 30 (for example UPS, GLS, SDA, WindTre, Iliad, Fastweb, BPER, Banco BPM, PayPal, Nexi, Hera, A2A, Iren). UPS first: its real tracking links on `ups.com` get 🟠 every time today
 - Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
 - Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
-- Language switcher between Italian and English
 - Installable web app (manifest and icons)
 - Disclaimer and privacy wording (GDPR). Redaction before the AI call covers IBANs, card numbers, email addresses and link paths; names and one-time codes still go through
 - Limit how many checks one visitor can run before going public: every check costs Mistral credit

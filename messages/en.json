@@ -3,6 +3,10 @@
     "title": "Bufala",
     "description": "Got a strange message? Bufala helps you tell whether it's a scam."
   },
+  "language": {
+    "label": "Language",
+    "switchTo": "Italiano"
+  },
   "home": {
     "title": "Bufala",
     "tagline": "Got a strange message? Let's check it together."

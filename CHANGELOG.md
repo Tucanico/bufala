@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-11 12:15 — feat(i18n): a link to switch between Italian and English
+
+The site was in Italian and English, but a person could only get the other language by typing `/en` or having a browser set to it. A link at the top right now leads to the other language, written in that language ("English" on the Italian page, "Italiano" on the English one), so someone who can't read the current page still recognises it. It is the first thing the Tab key reaches, the page's `lang` attribute follows the switch, and the choice sticks: an English-language browser that picks Italiano stays on Italian next time. Checked in the browser at 1280, 390 and 320 px.
+
+(SHA: add after committing)
+
 ## 2026-11-07 14:38 — feat(check): two labelled official numbers, and genuine payment requests get 🟠
 
 From the founder's first review decisions. "What to do" can now give two official numbers, each with a label, because for several organisations the free number only works from a landline: INPS 803 164 (free from a landline) or 06 164 164 (from a mobile), Agenzia delle Entrate 800.90.96.96 or 06.97617689, TIM 119 or 187, Poste one line for accounts and cards and one for parcels. DHL's 199 line is shown marked "a pagamento". Intesa Sanpaolo's older FAQ card-loss numbers are deleted, and dhl.it stays as covered by DHL's rule on national domains. DHL (customs duties) and Telepass (unpaid amounts) say on their own sites that they do ask for payment by message, so for a reviewed entry a payment request whose links all go to its own site is now at most 🟠, with a line telling people to check on the site before paying; a look-alike link or any other high-risk sign still gives 🔴. Nothing is reviewed yet, so none of this shows until review.
 
-(SHA: add after committing)
+8639e2b
 
 ## 2026-11-07 14:26 — feat(check): our own link and phone checks, and 12 organisations from their official sites
 

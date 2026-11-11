@@ -3,6 +3,10 @@
     "title": "Bufala",
     "description": "Ti è arrivato un messaggio strano? Bufala ti aiuta a capire se è una truffa."
   },
+  "language": {
+    "label": "Lingua",
+    "switchTo": "English"
+  },
   "home": {
     "title": "Bufala",
     "tagline": "Ti è arrivato un messaggio strano? Controlliamolo insieme."
