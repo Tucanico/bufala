@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Brand colours: the brand and paper tokens in globals.css. The B is a
+       path, not text: a favicon can't count on any font being there.
+       (No double hyphens in this comment: XML forbids them and the icon breaks.) -->
+  <rect width="64" height="64" rx="14" fill="#b4441d"/>
+  <path fill="#fffaf3" d="M17 19 C10 15 8 9 11 4 C13 9 17 12 23 13 Z"/>
+  <path fill="#fffaf3" d="M47 19 C54 15 56 9 53 4 C51 9 47 12 41 13 Z"/>
+  <path fill="#fffaf3" fill-rule="evenodd" d="M19 16 H35 C43.5 16 47.5 19.8 47.5 25.6 C47.5 29.4 45.6 32 42.6 33.2 C46.6 34.3 49.5 37.4 49.5 42.4 C49.5 48.8 44.8 52 36.6 52 H19 Z M27.5 23 V30.4 H34.2 C37.4 30.4 39 29.1 39 26.7 C39 24.3 37.4 23 34.2 23 Z M27.5 36.8 V45 H35.4 C39 45 41 43.6 41 40.9 C41 38.2 39 36.8 35.4 36.8 Z"/>
+</svg>

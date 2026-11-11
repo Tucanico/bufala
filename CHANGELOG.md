@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-11 14:09 — feat(brand): a favicon
+
+The site showed the browser's blank icon in tabs and bookmarks. The new icon is a bold cream "B" with two small buffalo horns on a rounded square in the brand's brick red, readable at 16 px on light and dark tabs. `src/app/icon.svg` serves modern browsers and `src/app/favicon.ico` (16, 32 and 48 px, rendered from the same SVG) the rest; Next.js links both on every page. The B is drawn as a path, because a favicon can't rely on fonts, and the SVG's comment avoids double hyphens, which XML forbids (the first version didn't render because of one).
+
+(SHA: add after committing)
+
 ## 2026-11-11 13:59 — fix(deploy): ship the OCR engine on Vercel
 
 Vercel only ships the files Next.js's build trace finds, and the trace missed what screenshot reading needs at runtime: tesseract.js starts its worker from a file path and picks one of six WebAssembly engine builds by CPU, so the worker's code and `tesseract.js-core` were left out. On Vercel every screenshot would have failed; pasted text was unaffected. Reproduced locally with a standalone build, which ships only traced files: uploading a screenshot crashed the worker with "Cannot find module '..'". `outputFileTracingIncludes` in `next.config.ts` now ships tesseract.js's full dependency tree (12 packages, about 49 MB) and `ocr-data/`; with it, the same standalone build read the screenshot and reached the Mistral step. Still to confirm on the real deployment: one screenshot, and that the Italian home page loads (the local standalone server looped on `/`, the normal one doesn't).
 
-(SHA: add after committing)
+082fcb1
 
 ## 2026-11-11 12:58 — docs: the visitor limit is 10 checks per 10 minutes
 

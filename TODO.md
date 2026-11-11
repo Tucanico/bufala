@@ -6,7 +6,7 @@
 - Grow the list to about 30, for example Iren, Edison, Sorgenia, Mediolanum, Fineco, Satispay, Mooney
 - Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
 - After the first Vercel deployment: upload one made-up screenshot to confirm OCR works there, and check that the Italian home page (`/`) loads (a local standalone test server looped on `/` and `/it`; the normal server doesn't)
-- Installable web app (manifest and icons)
+- Installable web app (manifest and icons). The favicon (`src/app/icon.svg`) can be the starting point; it still needs an `apple-icon` (180 px) and the larger manifest sizes
 - Privacy notice and disclaimer: approve the drafts in `docs/legal/`, fill in the controller and contact email, confirm the Vercel and Mistral facts, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
 - When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
