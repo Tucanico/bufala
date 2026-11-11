@@ -42,7 +42,7 @@ Not deployed yet. When it is:
 3. **Limit on checks per visitor:** there are no accounts, so the Vercel Firewall counts checks per IP address. The code asks it with the rate limit ID `bufala-check` (`src/lib/check/rate-limit.ts`); the rule itself is set in the dashboard:
    - Project > **Firewall** > **Configure** > **+ New Rule**, named for example "Bufala checks".
    - **If:** `@vercel/firewall`, Rate limit ID `bufala-check`.
-   - **Rate Limit:** fixed window, counted by IP. On Hobby and Pro the window can be at most 10 minutes. Then: **Too Many Requests (429)**.
+   - **Rate Limit:** **10 requests per 600 seconds** (10 minutes), fixed window, counted by IP (decided 2026-11-11: at most 60 checks an hour per IP, so families or care homes sharing one connection are rarely blocked). On Hobby and Pro the window can be at most 10 minutes. Then: **Too Many Requests (429)**.
    - **Save Rule**, then **Review Changes** and **Publish**: the rule does nothing until it is published.
    - Preview deployments also need "Protection Bypass for Automation" turned on.
 4. **Hard ceiling on cost:** set a monthly spending cap in the Bufala organisation in Mistral (Admin Panel > Subscriptions > Billing). If the firewall rule is missing or unreachable, checks still go through (and the problem is logged), so this cap is what bounds the cost.

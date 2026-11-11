@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-11 12:58 — docs: the visitor limit is 10 checks per 10 minutes
+
+The founder chose 10 checks per 10 minutes per IP (at most 60 an hour), so families or care homes sharing one connection are rarely blocked, at a worst case of about €0.06 an hour per IP. It is set in the Vercel Firewall rule, not in the code: the README's deployment steps, the privacy draft and the TODO now give the numbers.
+
+(SHA: add after committing)
+
 ## 2026-11-11 12:51 — feat(check): a per-visitor limit through the Vercel Firewall
 
 Every check costs Mistral credit, and with no accounts (decided 2026-11-11) the only thing to count by is the IP address. Before anything that costs, the check asks the Vercel Firewall through `@vercel/firewall` (rate limit ID `bufala-check`) and, when over the limit, answers "Hai fatto molti controlli in poco tempo" instead. Vercel keeps the counters; we never see or store the IP. It fails open: if the firewall can't be reached or the rule is missing, the check goes ahead and the problem is logged, so a misconfiguration can't lock everyone out, and the Mistral spending cap is the hard ceiling. On Hobby and Pro a rule's window is at most 10 minutes, so the founder's "20 per hour" becomes a per-10-minutes number set in the dashboard. The README has the deployment steps. It can only really be tested on Vercel; here the empty-form path was checked in the built app (the limiter logs and lets it through).
 
-(SHA: add after committing)
+792239b
 
 ## 2026-11-11 12:43 — feat(data): 11 more organisations, SDA under Poste
 

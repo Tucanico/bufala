@@ -51,7 +51,7 @@ Non vendiamo né cediamo i tuoi dati a nessun altro.
 
 - **Messaggio e screenshot:** solo per il tempo del controllo, pochi secondi.
 - **Presso Mistral:** **[DA CONFERMARE: nessuna conservazione, oppure fino a 30 giorni]**.
-- **Limite di controlli:** i contatori legati all'indirizzo IP sono tenuti da Vercel e durano al massimo dieci minuti **[DA CONFERMARE: la durata scelta per la regola]**. Noi non vediamo né salviamo il tuo indirizzo IP.
+- **Limite di controlli:** al massimo 10 controlli ogni dieci minuti per indirizzo IP. I contatori sono tenuti da Vercel e durano dieci minuti. Noi non vediamo né salviamo il tuo indirizzo IP.
 - **Registri del fornitore di hosting:** **[DA CONFERMARE: il periodo di conservazione dei log di Vercel]**.
 - **Cookie della lingua:** fino alla chiusura del browser.
 
@@ -114,7 +114,7 @@ We don't sell or pass your data to anyone else.
 
 - **Message and screenshot:** only for the duration of the check, a few seconds.
 - **At Mistral:** **[TO CONFIRM: not kept, or up to 30 days]**.
-- **Check limit:** the counters tied to an IP address are kept by Vercel and last at most ten minutes **[TO CONFIRM: the window chosen for the rule]**. We neither see nor store your IP address.
+- **Check limit:** at most 10 checks every ten minutes per IP address. The counters are kept by Vercel and last ten minutes. We neither see nor store your IP address.
 - **Hosting logs:** **[TO CONFIRM: Vercel's log retention period]**.
 - **Language cookie:** until you close the browser.
 
@@ -137,6 +137,6 @@ If we change how we handle data, for example by adding link checks that use outs
 1. The controller: who legally runs Bufala (a person, a company, an association), with an address and a contact email.
 2. Vercel: the server region (we'd choose the EU), the data processing agreement, the transfer basis, and how long Vercel keeps request logs.
 3. Mistral: pay-as-you-go on the Bufala organisation, "use API calls to train" off, zero data retention approved, EU processing.
-4. The check limit: the window and how many checks per IP, once it's built.
+4. The check limit: decided (10 checks per 10 minutes per IP, counted by Vercel); confirm the published Vercel Firewall rule matches.
 5. With a lawyer: the legal basis (including third parties' data in a message), and that a technical cookie alone needs no banner.
 6. Any change to the code that adds an outside service (blocklists, domain-age lookups) must update this notice first.

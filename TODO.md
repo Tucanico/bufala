@@ -8,7 +8,7 @@
 - Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
 - Installable web app (manifest and icons)
 - Privacy notice and disclaimer: approve the drafts in `docs/legal/`, fill in the controller and contact email, confirm the Vercel and Mistral facts, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
-- When deploying on Vercel: create and publish the firewall rule `bufala-check`, and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
+- When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
 
 ## Undecided
