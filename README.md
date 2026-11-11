@@ -33,6 +33,22 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 | `npm test` | Unit tests (Vitest) |
 | `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 156 calls, about €0.05 a run (`npm run eval -- -t held-` runs only some cases); needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
 
+## Deploying on Vercel
+
+Not deployed yet. When it is:
+
+1. **Environment variable:** set `MISTRAL_API_KEY` in the Vercel project (Settings > Environment Variables), using the Bufala organisation's key.
+2. **Region:** run the functions in the EU, to match the privacy notice.
+3. **Limit on checks per visitor:** there are no accounts, so the Vercel Firewall counts checks per IP address. The code asks it with the rate limit ID `bufala-check` (`src/lib/check/rate-limit.ts`); the rule itself is set in the dashboard:
+   - Project > **Firewall** > **Configure** > **+ New Rule**, named for example "Bufala checks".
+   - **If:** `@vercel/firewall`, Rate limit ID `bufala-check`.
+   - **Rate Limit:** fixed window, counted by IP. On Hobby and Pro the window can be at most 10 minutes. Then: **Too Many Requests (429)**.
+   - **Save Rule**, then **Review Changes** and **Publish**: the rule does nothing until it is published.
+   - Preview deployments also need "Protection Bypass for Automation" turned on.
+4. **Hard ceiling on cost:** set a monthly spending cap in the Bufala organisation in Mistral (Admin Panel > Subscriptions > Billing). If the firewall rule is missing or unreachable, checks still go through (and the problem is logged), so this cap is what bounds the cost.
+
+On this machine there is no Vercel Firewall: every check logs "Rate limit check failed" and goes ahead.
+
 ## Translations
 
 Every user-visible string lives in `messages/it.json` and `messages/en.json`. Both files must have the same keys; `npm test` and `npm run typecheck` fail otherwise.

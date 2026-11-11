@@ -51,7 +51,7 @@ Non vendiamo né cediamo i tuoi dati a nessun altro.
 
 - **Messaggio e screenshot:** solo per il tempo del controllo, pochi secondi.
 - **Presso Mistral:** **[DA CONFERMARE: nessuna conservazione, oppure fino a 30 giorni]**.
-- **Limite di controlli:** i contatori legati all'indirizzo IP durano **[DA CONFERMARE: la durata della finestra, per esempio un'ora]**.
+- **Limite di controlli:** i contatori legati all'indirizzo IP sono tenuti da Vercel e durano al massimo dieci minuti **[DA CONFERMARE: la durata scelta per la regola]**. Noi non vediamo né salviamo il tuo indirizzo IP.
 - **Registri del fornitore di hosting:** **[DA CONFERMARE: il periodo di conservazione dei log di Vercel]**.
 - **Cookie della lingua:** fino alla chiusura del browser.
 
@@ -114,7 +114,7 @@ We don't sell or pass your data to anyone else.
 
 - **Message and screenshot:** only for the duration of the check, a few seconds.
 - **At Mistral:** **[TO CONFIRM: not kept, or up to 30 days]**.
-- **Check limit:** the counters tied to an IP address last **[TO CONFIRM: the window, for example one hour]**.
+- **Check limit:** the counters tied to an IP address are kept by Vercel and last at most ten minutes **[TO CONFIRM: the window chosen for the rule]**. We neither see nor store your IP address.
 - **Hosting logs:** **[TO CONFIRM: Vercel's log retention period]**.
 - **Language cookie:** until you close the browser.
 

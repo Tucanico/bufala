@@ -36,7 +36,13 @@ export type CheckOutcome =
   | { ok: true; result: CheckResult }
   | {
       ok: false;
-      error: "empty" | "too_long" | "unavailable" | "invalid_image" | "unreadable_image";
+      error:
+        | "empty"
+        | "too_long"
+        | "unavailable"
+        | "invalid_image"
+        | "unreadable_image"
+        | "rate_limited";
     };
 
 const UNAVAILABLE: CheckOutcome = { ok: false, error: "unavailable" };

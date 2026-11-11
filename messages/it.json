@@ -24,7 +24,8 @@
       "too_long": "Il messaggio è troppo lungo. Incolla solo la parte principale.",
       "unavailable": "Non siamo riusciti a controllare il messaggio. Riprova tra qualche minuto.",
       "invalid_image": "Questo file non sembra uno screenshot. Carica un'immagine JPG o PNG, oppure incolla il testo.",
-      "unreadable_image": "Non riusciamo a leggere il testo in questa immagine. Prova con uno screenshot più nitido, oppure incolla il testo."
+      "unreadable_image": "Non riusciamo a leggere il testo in questa immagine. Prova con uno screenshot più nitido, oppure incolla il testo.",
+      "rate_limited": "Hai fatto molti controlli in poco tempo. Per proteggere il servizio, riprova tra qualche minuto."
     }
   },
   "result": {

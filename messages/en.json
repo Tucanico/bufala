@@ -24,7 +24,8 @@
       "too_long": "The message is too long. Paste just the main part.",
       "unavailable": "We couldn't check the message. Please try again in a few minutes.",
       "invalid_image": "This file doesn't look like a screenshot. Upload a JPG or PNG image, or paste the text instead.",
-      "unreadable_image": "We can't read the text in this image. Try a sharper screenshot, or paste the text instead."
+      "unreadable_image": "We can't read the text in this image. Try a sharper screenshot, or paste the text instead.",
+      "rate_limited": "You've made a lot of checks in a short time. To protect the service, please try again in a few minutes."
     }
   },
   "result": {

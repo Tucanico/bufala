@@ -1,16 +1,22 @@
 # Changelog
 
+## 2026-11-11 12:51 — feat(check): a per-visitor limit through the Vercel Firewall
+
+Every check costs Mistral credit, and with no accounts (decided 2026-11-11) the only thing to count by is the IP address. Before anything that costs, the check asks the Vercel Firewall through `@vercel/firewall` (rate limit ID `bufala-check`) and, when over the limit, answers "Hai fatto molti controlli in poco tempo" instead. Vercel keeps the counters; we never see or store the IP. It fails open: if the firewall can't be reached or the rule is missing, the check goes ahead and the problem is logged, so a misconfiguration can't lock everyone out, and the Mistral spending cap is the hard ceiling. On Hobby and Pro a rule's window is at most 10 minutes, so the founder's "20 per hour" becomes a per-10-minutes number set in the dashboard. The README has the deployment steps. It can only really be tested on Vercel; here the empty-form path was checked in the built app (the limiter logs and lets it through).
+
+(SHA: add after committing)
+
 ## 2026-11-11 12:43 — feat(data): 11 more organisations, SDA under Poste
 
 The list grows from 12 to 23, again with every fact from the organisation's own site, its source and date, and notes for the review: GLS, UPS, PayPal, WindTre, Iliad, Fastweb, Nexi, BPER Banca, Banco BPM, Hera and A2A Energia. SDA Express Courier joins the Poste entry, because since 2019 its consumer courier service is part of Poste Italiane and sda.it sends people to poste.it, so an "SDA" message gets Poste's parcels number. UPS and PayPal refused automated reading, so they have only their main domain for now, enough to catch look-alikes and to stop real links counting as fakes; WindTre is partial for the same reason. GLS and A2A say they do ask for payment by message, so they join DHL and Telepass under the genuine-payment rule once reviewed. Iliad's brand word only matches a whole part of a site name, because "iliad" is also the start of "iliade" (a bookshop's site would otherwise get 🔴). Three new number labels (free, to block your card, customer service), and numbers printed as "( +39) …" are now recognised.
 
-(SHA: add after committing)
+1d70f2c
 
 ## 2026-11-11 12:40 — docs(legal): draft privacy notice and disclaimer, Italian and English
 
 Bufala needs both before launch, and neither should go on the site unapproved. `docs/legal/privacy.md` describes what the code does today (no accounts, messages not stored, screenshots read in memory, IBANs, card numbers and email names hidden before Mistral, three calls per check, a session cookie for the language) and marks everything about Vercel, Mistral and the controller as to confirm. `docs/legal/disclaimer.md` has a one-line notice for under every answer and a full page, including what to do if someone already clicked, paid or gave a code. Both end with what to confirm and where they would go on the site.
 
-(SHA: add after committing)
+26c0358
 
 ## 2026-11-11 12:15 — feat(i18n): a link to switch between Italian and English
 

@@ -4,6 +4,7 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 
 ## The path of a message
 
+0. **The visitor limit** ([rate-limit.ts](../src/lib/check/rate-limit.ts)). Before anything else, the Server Action asks the Vercel Firewall whether this IP has made too many checks (the rule and its numbers are in the dashboard, see the README). If the firewall can't be reached or the rule is missing, the check goes ahead and the problem is logged.
 1. **Input** ([check-form.tsx](../src/app/[locale]/check-form.tsx)). The person pastes text (up to 4,000 characters), uploads a screenshot, or both. The browser shrinks a screenshot to a 1600px JPEG at quality 0.8 through a canvas, which also converts formats such as HEIC. A file the browser can't decode is refused before upload. The form submits to a Server Action ([actions.ts](../src/app/[locale]/actions.ts)).
 2. **Reading the screenshot** ([screenshot.ts](../src/lib/check/screenshot.ts), [ocr.ts](../src/lib/check/ocr.ts)). Only files up to 3 MB whose bytes really are JPEG, PNG or WebP are read; the Server Action body limit is 4 MB ([next.config.ts](../next.config.ts)). tesseract.js reads the text with the Italian and English models in [ocr-data/](../ocr-data/), using one worker per server process. Lines ending in a hyphen are rejoined, because chat bubbles wrap long links there. A confidence under 50 or fewer than 15 characters counts as unreadable and stops before any paid call. The image is only held in memory.
 3. **Combining** ([submission.ts](../src/lib/check/submission.ts)). Pasted text and screenshot text are checked as one message. Screenshot text is cut to fit the 4,000-character limit rather than failing as too long.
@@ -73,6 +74,7 @@ If one or two calls fail, the others still give an answer. Only if all three fai
 
 | Code | When | Calls Mistral? |
 |---|---|---|
+| `rate_limited` | this IP made too many checks within the Vercel Firewall rule's window; checked first, before anything that costs ([rate-limit.ts](../src/lib/check/rate-limit.ts)) | no |
 | `empty` | no text and no screenshot | no |
 | `too_long` | pasted text over 4,000 characters | no |
 | `invalid_image` | not a JPEG, PNG or WebP, empty, or over 3 MB | no |
