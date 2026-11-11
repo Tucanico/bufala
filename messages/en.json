@@ -48,6 +48,9 @@
     "safeStepOfficial": "Call {name} on its official {count, plural, one {number} other {numbers}} {phones}, or open its app or website yourself. Don't use any links or numbers from the message.",
     "phoneOr": "or",
     "phoneLabel": {
+      "free": "free",
+      "card_block": "to block your card",
+      "customer_service": "customer service",
       "free_any": "free from landlines and mobiles",
       "toll_free": "toll-free",
       "from_landline": "free from a landline",

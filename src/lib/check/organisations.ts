@@ -3,6 +3,9 @@ import type { SenderType } from "./schema";
 // How a shown number is labelled; the wording is in the messages files.
 export const PHONE_LABELS = [
   "plain",
+  "free",
+  "card_block",
+  "customer_service",
   "free_any",
   "toll_free",
   "from_landline",
@@ -31,6 +34,9 @@ export type Organisation = {
   // Words a look-alike site would borrow, lower case, no spaces: "poste",
   // "postepay". Words under 5 letters only match a whole part of the site name.
   brandWords: string[];
+  // Set when a brand word is also the start of an ordinary word ("iliad" in
+  // "iliade"): then every brand word must be a whole part of the site name.
+  brandWholeOnly?: boolean;
   officialDomains: Sourced<{ domain: string }>[];
   // Numbers with `shownAs` (at most two) are shown to people in "What to do",
   // labelled; the rest are only used to recognise an official number.

@@ -21,7 +21,7 @@ Unreviewed data can add warnings but never remove one.
    - **requestsPaymentByMessage:** only if the page really says the organisation asks for payment by SMS or email, and for what.
    - **smsSenders** and **rules:** as stated on the page.
 2. Fix or delete anything that doesn't match. If a fact isn't on the page, delete it: a missing fact is safe, a wrong one isn't.
-3. Check `names` and `brandWords`. These are our choices, not facts. They must not match ordinary words: a name like "poste" alone would also match "vai alle poste".
+3. Check `names` and `brandWords`. These are our choices, not facts. They must not match ordinary words: a name like "poste" alone would also match "vai alle poste". Brand words of 5 letters or more match anywhere in a site name (`postesicurezza.com`); if one is also the start of an ordinary word, set `brandWholeOnly` (as for Iliad, whose name begins "iliade").
 4. When everything checks out, set `reviewed: { by: "<your name>", on: "<YYYY-MM-DD>" }`.
 
 ## Keeping it current

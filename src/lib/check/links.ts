@@ -40,7 +40,8 @@ function borrowsBrand(host: string, organisation: Organisation): boolean {
   const joined = parts.join("");
   return organisation.brandWords.some((word) => {
     const folded = foldConfusables(word);
-    return folded.length >= 5 ? joined.includes(folded) : parts.includes(folded);
+    const wholeOnly = organisation.brandWholeOnly || folded.length < 5;
+    return wholeOnly ? parts.includes(folded) : joined.includes(folded);
   });
 }
 

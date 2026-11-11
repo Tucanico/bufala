@@ -59,6 +59,19 @@ test.each([
   ["brt-consegne.top", "brt"],
   ["dhl-dogana-pagamento.com", "dhl"],
   ["amaz0n-premi.top", "amazon"],
+  ["gls-consegne.it", "gls"],
+  ["gls-itali.com", "gls"],
+  ["ups-consegna.top", "ups"],
+  ["paypa1-secure.com", "paypal"],
+  ["sda-ritiro.top", "poste"],
+  ["windtre-rimborsi.com", "windtre"],
+  ["iliad-offerta.top", "iliad"],
+  ["fastweb-sicurezza.online", "fastweb"],
+  ["nexi-verifica.com", "nexi"],
+  ["bper-sicurezza.com", "bper"],
+  ["bancobpm-verifica.it", "banco-bpm"],
+  ["hera-bollette.top", "hera"],
+  ["a2a-rimborsi.com", "a2a"],
 ])("%s is a look-alike of %s", (host, id) => {
   expect(classifyHost(host, ORGANISATIONS)).toEqual({ kind: "lookalike", host, organisation: byId[id] });
 });
@@ -74,11 +87,25 @@ test.each([
   ["www.mybrt.it", "brt"],
   ["mydhl.express.dhl", "dhl"],
   ["account-status.amazon.it", "amazon"],
+  ["www.gls-italy.com", "gls"],
+  ["gls-group.com", "gls"],
+  ["www.ups.com", "ups"],
+  ["www.paypal.com", "paypal"],
+  ["www.sda.it", "poste"],
+  ["ac.windtre.it", "windtre"],
+  ["assistenza.iliad.it", "iliad"],
+  ["it.iliad.com", "iliad"],
+  ["www.fastweb.it", "fastweb"],
+  ["privati.nexi.it", "nexi"],
+  ["homebanking.bpergroup.net", "bper"],
+  ["youweb.bancobpm.it", "banco-bpm"],
+  ["heracomm.gruppohera.it", "hera"],
+  ["login.a2a.it", "a2a"],
 ])("%s is official for %s", (host, id) => {
   expect(classifyHost(host, ORGANISATIONS)).toEqual({ kind: "official", host, organisation: byId[id] });
 });
 
-test.each(["ultimate.com", "sentinel.it", "timeshare.it", "inpstudio.com", "repubblica.it"])(
+test.each(["ultimate.com", "sentinel.it", "timeshare.it", "inpstudio.com", "repubblica.it", "backups.com", "groups.io", "annexion.fr", "windsurf.it", "iliade-libri.it", "chera.it", "sphera.com", "bpm-music.com"])(
   "%s is not taken for a known organisation",
   (host) => {
     expect(classifyHost(host, ORGANISATIONS).kind).toBe("unknown");

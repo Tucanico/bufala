@@ -25,6 +25,7 @@ test("a short 89x number counts only after a word about calling", () => {
 test("the country code is dropped", () => {
   expect(nationalNumber("+39 06 0000 1111")).toBe("0600001111");
   expect(nationalNumber("0039 333 1234567")).toBe("3331234567");
+  expect(nationalNumber("( +39) 02 34 98 00 20")).toBe("0234980020");
 });
 
 test("premium-rate prefixes are recognised", () => {

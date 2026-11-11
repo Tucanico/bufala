@@ -7,8 +7,10 @@ import type { Organisation, PremiumPrefix } from "./organisations";
 const PHONE = /(?<![\w+])(?<!\d[ .-])(?:\+39|0039)?[ ]?\d(?:[ .-]?\d){7,10}(?![ .-]?\d)(?!\w)/g;
 
 export function nationalNumber(raw: string): string {
-  const digits = raw.replace(/\D/g, "");
-  if (raw.trim().startsWith("+39")) return digits.slice(2);
+  // Spaces and brackets go first, so "( +39) 02 …" (as BPER prints it) counts.
+  const compact = raw.replace(/[\s()]/g, "");
+  const digits = compact.replace(/\D/g, "");
+  if (compact.startsWith("+39")) return digits.slice(2);
   if (digits.startsWith("0039")) return digits.slice(4);
   return digits;
 }

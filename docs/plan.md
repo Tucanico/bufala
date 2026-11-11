@@ -67,7 +67,7 @@ All made on 2026-11-07.
 
 ## Phases
 
-1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link and phone checks that need no outside service (done), a list of 12 organisations (entered, awaiting review) growing to about 30, link checks that need outside services (blocklists, domain age), a language switcher, and an installable web app.
+1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link and phone checks that need no outside service (done), a list of 23 organisations (entered, awaiting review) growing to about 30, link checks that need outside services (blocklists, domain age), a language switcher, and an installable web app.
 2. **Next.** Forwarding by WhatsApp and by email, and an "ask a family member" button.
 3. **Later.** A native app for SMS and calls. Android can screen calls; iPhone can only identify or block numbers from a list. Also advise families to agree a safe word against fake voices of relatives.
 

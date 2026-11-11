@@ -1,13 +1,14 @@
 # TODO
 
 ## MVP
-- Review the 12 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and DHL and Telepass payment requests stay 🔴
-- Grow the organisation list to about 30 (for example UPS, GLS, SDA, WindTre, Iliad, Fastweb, BPER, Banco BPM, PayPal, Nexi, Hera, A2A, Iren). UPS first: its real tracking links on `ups.com` get 🟠 every time today
+- Review the 23 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴
+- Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, and the domain of A2A's bill-payment platform
+- Grow the list to about 30, for example Iren, Edison, Sorgenia, Mediolanum, Fineco, Satispay, Mooney
 - Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
 - Hosting: `ocr-data/` must ship with the server, and tesseract.js needs Node worker threads (check this on any serverless host)
 - Installable web app (manifest and icons)
-- Disclaimer and privacy wording (GDPR). Redaction before the AI call covers IBANs, card numbers, email addresses and link paths; names and one-time codes still go through
-- Limit how many checks one visitor can run before going public: every check costs Mistral credit
+- Privacy notice and disclaimer: approve the drafts in `docs/legal/`, fill in the controller and contact email, confirm the Vercel and Mistral facts, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
+- Limit how many checks one visitor can run before going public: every check costs Mistral credit. No accounts (decided 2026-11-11); hosting on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
 
 ## Undecided
