@@ -41,7 +41,22 @@
     "whyTitle": "Perché:",
     "genericReason": "Il messaggio somiglia alle truffe più diffuse.",
     "lookalikeOf": "Il link porta a un sito che imita {name}, ma non è il suo sito ufficiale.",
-    "safeStepOfficial": "Chiama {name} al numero ufficiale {phone}, oppure apri tu la sua app o il suo sito. Non usare link o numeri del messaggio.",
+    "safeStepOfficial": "Chiama {name} {count, plural, one {al numero ufficiale} other {ai numeri ufficiali}} {phones}, oppure apri tu la sua app o il suo sito. Non usare link o numeri del messaggio.",
+    "phoneOr": "o",
+    "phoneLabel": {
+      "free_any": "gratis da fisso e cellulare",
+      "toll_free": "numero verde",
+      "from_landline": "gratis da telefono fisso",
+      "from_mobile": "da cellulare",
+      "mobile_line": "per la linea mobile",
+      "fixed_line": "per la linea fissa",
+      "accounts_cards": "per conti, carte e app",
+      "parcels_landline": "per pacchi e lettere, gratis da telefono fisso",
+      "free_customers": "gratis per i suoi clienti",
+      "free_others": "gratis da fisso o da altri operatori",
+      "paid_call": "a pagamento"
+    },
+    "genuinePayment": "{name} può davvero chiedere un pagamento per messaggio. Prima di pagare, controlla tu sul suo sito ufficiale, scrivendo l'indirizzo a mano, o chiama il suo numero ufficiale.",
     "signs": {
       "lookalike_link": "Il link porta a un sito che imita quello di un'azienda nota, ma non è il suo sito ufficiale.",
       "premium_number": "Contiene un numero a pagamento: chiamarlo può costare molto.",

@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import { applyFacts, findFacts } from "../src/lib/check/facts";
 import { AMAZON, ORGANISATIONS, POSTE, PREMIUM, TIM } from "./fixtures/organisations";
+// PARCELS (ParcelCo) says on its site that it asks for customs duties by message.
 
 const facts = (text: string) => findFacts(text, ORGANISATIONS, PREMIUM);
 
@@ -46,6 +47,15 @@ test("the organisation named first in the message is the claimed sender", () => 
 
 test("names match whole words only", () => {
   expect(facts("Ho visto Timothy ieri").organisation).toBeNull();
+});
+
+test("a payment may be genuine only from a reviewed organisation that says it asks, linking only to its own site", () => {
+  expect(facts("ParcelCo: paga i dazi su https://www.parcelco.test/dazi").paymentMayBeGenuine).toBe(true);
+  expect(facts("ParcelCo: paga i dazi su parcelco-dazi.top/pay").paymentMayBeGenuine).toBe(false);
+  expect(facts("ParcelCo: paga i dazi entro oggi").paymentMayBeGenuine).toBe(false);
+  expect(facts("ParcelCo: paga su https://www.parcelco.test e su altro-sito.top/x").paymentMayBeGenuine).toBe(false);
+  // Poste is reviewed but doesn't say it asks for payment by message.
+  expect(facts("Poste Italiane: paga su https://www.poste.it/paga").paymentMayBeGenuine).toBe(false);
 });
 
 test("signs added by the facts take their place in the display order", () => {

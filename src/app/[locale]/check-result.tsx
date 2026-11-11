@@ -42,16 +42,25 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
         </>
       )}
 
+      {result.genuinePaymentFrom && (
+        <p className="mt-3">{t("genuinePayment", { name: result.genuinePaymentFrom })}</p>
+      )}
+
       {/* The safe steps are written for the scam that sender type usually means
           (the family one assumes a "new number"), so they only fit a warning. */}
       {result.verdict !== "no_signs" && (
         <>
           <h3 className="mt-5 text-lg font-bold">{t("safeStepTitle")}</h3>
           <p className="mt-1">
-            {result.organisationName && result.officialPhone
+            {result.organisationName && result.officialPhones
               ? t("safeStepOfficial", {
                   name: result.organisationName,
-                  phone: result.officialPhone,
+                  count: result.officialPhones.length,
+                  phones: result.officialPhones
+                    .map(({ number, label }) =>
+                      label === "plain" ? number : `${number} (${t(`phoneLabel.${label}`)})`,
+                    )
+                    .join(` ${t("phoneOr")} `),
                 })
               : t(`safeStep.${result.sender}`)}
           </p>

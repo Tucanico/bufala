@@ -41,7 +41,22 @@
     "whyTitle": "Why:",
     "genericReason": "The message looks like the most common scams.",
     "lookalikeOf": "The link goes to a site that imitates {name}, but it isn't its official site.",
-    "safeStepOfficial": "Call {name} on its official number {phone}, or open its app or website yourself. Don't use any links or numbers from the message.",
+    "safeStepOfficial": "Call {name} on its official {count, plural, one {number} other {numbers}} {phones}, or open its app or website yourself. Don't use any links or numbers from the message.",
+    "phoneOr": "or",
+    "phoneLabel": {
+      "free_any": "free from landlines and mobiles",
+      "toll_free": "toll-free",
+      "from_landline": "free from a landline",
+      "from_mobile": "from a mobile",
+      "mobile_line": "for mobile lines",
+      "fixed_line": "for landlines",
+      "accounts_cards": "for accounts, cards and the app",
+      "parcels_landline": "for parcels and letters, free from a landline",
+      "free_customers": "free for its customers",
+      "free_others": "free from landlines or other networks",
+      "paid_call": "charged"
+    },
+    "genuinePayment": "{name} really can ask for a payment by message. Before paying, check on its official website yourself, typing the address by hand, or call its official number.",
     "signs": {
       "lookalike_link": "The link goes to a site that imitates a well-known company's, but it isn't its official site.",
       "premium_number": "It contains a premium-rate number: calling it can cost a lot.",

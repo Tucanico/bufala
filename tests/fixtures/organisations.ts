@@ -11,7 +11,11 @@ export const POSTE: Organisation = {
   names: ["poste italiane", "posteinfo", "bancoposta", "postepay"],
   brandWords: ["poste", "posteitaliane", "bancoposta", "postepay"],
   officialDomains: [{ domain: "poste.it", ...source }, { domain: "posteitaliane.it", ...source }],
-  phones: [{ number: "06 0000 1111", purpose: "assistenza clienti", ...source }],
+  phones: [
+    { number: "06 0000 1111", purpose: "assistenza clienti", ...source, shownAs: "from_mobile" },
+    { number: "800 000 111", purpose: "assistenza clienti", ...source, shownAs: "from_landline" },
+    { number: "06 0000 2222", purpose: "blocco carte", ...source },
+  ],
   smsSenders: [{ name: "PosteInfo", ...source }],
   rules: [],
   reviewNotes: [],
@@ -46,7 +50,23 @@ export const AMAZON: Organisation = {
   reviewed: null,
 };
 
-export const ORGANISATIONS = [POSTE, TIM, AMAZON];
+// Says on its site that it asks for customs duties by message.
+export const PARCELS: Organisation = {
+  id: "parcels",
+  name: "ParcelCo",
+  type: "courier",
+  names: ["parcelco"],
+  brandWords: ["parcelco"],
+  officialDomains: [{ domain: "parcelco.test", ...source }],
+  phones: [],
+  smsSenders: [],
+  requestsPaymentByMessage: { quote: "chiediamo i dazi via SMS", ...source },
+  rules: [],
+  reviewNotes: [],
+  reviewed: { by: "test", on: "2026-11-07" },
+};
+
+export const ORGANISATIONS = [POSTE, TIM, AMAZON, PARCELS];
 
 export const PREMIUM: PremiumPrefix[] = [
   { prefix: "899", what: "test", ...source },

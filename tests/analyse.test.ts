@@ -72,7 +72,11 @@ test("a look-alike link makes it a scam even when the model sees nothing", async
       reasons: ["lookalike_link"],
       sender: "poste",
       organisationName: "Poste Italiane",
-      officialPhone: "06 0000 1111",
+      // Only the numbers marked to be shown, at most two, with their labels.
+      officialPhones: [
+        { number: "06 0000 1111", label: "from_mobile" },
+        { number: "800 000 111", label: "from_landline" },
+      ],
       imitatedName: "Poste Italiane",
     },
   });
@@ -83,7 +87,18 @@ test("an unreviewed organisation's number is never shown", async () => {
     findFacts(text, ORGANISATIONS, PREMIUM),
   );
   expect(outcome.ok && outcome.result.organisationName).toBe("TIM");
-  expect(outcome.ok && outcome.result.officialPhone).toBeUndefined();
+  expect(outcome.ok && outcome.result.officialPhones).toBeUndefined();
+});
+
+test("a payment request on the organisation's own site is a warning, not a scam", async () => {
+  const payReply = { ...scamReply, claimed_sender: "courier", requested_actions: ["pay", "click_link"], pressure: "high", warning_signs: ["asks_for_payment", "urgency", "link_to_act"], verdict: "scam" };
+  const outcome = await analyseMessage(
+    "ParcelCo: paga i dazi doganali entro 3 giorni su https://www.parcelco.test/dazi",
+    async () => payReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+  );
+  expect(outcome.ok && outcome.result.verdict).toBe("suspicious");
+  expect(outcome.ok && outcome.result.genuinePaymentFrom).toBe("ParcelCo");
 });
 
 test("model failures become 'unavailable' and log no message text", async () => {

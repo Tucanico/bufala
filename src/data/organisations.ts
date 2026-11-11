@@ -14,7 +14,6 @@ const POSTE_VADEMECUM = "https://www.media.poste.it/4ab87274-0f92-4001-9092-2f0c
 const INTESA_CONTACTS = "https://www.intesasanpaolo.com/it/common/landing/sicurezza-online/contatti.html";
 const INTESA_PHISHING = "https://www.intesasanpaolo.com/it/persone-e-famiglie/bisogni/sicurezza-digitale/phishing-bancario.html";
 const INTESA_SECURITY = "https://www.intesasanpaolo.com/it/common/landing/sicurezza-online.html";
-const INTESA_FAQ = "https://www.intesasanpaolo.com/content/internetbanking/it/faq/common/faqHome/sicurezza.privati.html";
 
 const UNICREDIT_CALL = "https://www.unicredit.it/it/contatti-e-agenzie/telefonaci.html";
 const UNICREDIT_CARDS = "https://www.unicredit.it/it/contatti-e-agenzie/blocco-carte.html";
@@ -72,8 +71,8 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "postemobile.it", source: POSTE_CALL, checked: ON },
     ],
     phones: [
-      { number: "+39 06 4526 3322", purpose: "Servizi finanziari, Internet Banking, App Poste Italiane, BancoPosta e Postepay (da cellulare e fisso, dall'Italia e dall'estero)", source: POSTE_CALL, checked: ON },
-      { number: "803 160", purpose: "Corrispondenza e pacchi, da rete fissa (gratuito)", source: POSTE_CALL, checked: ON },
+      { number: "+39 06 4526 3322", purpose: "Servizi finanziari, Internet Banking, App Poste Italiane, BancoPosta e Postepay (da cellulare e fisso, dall'Italia e dall'estero)", source: POSTE_CALL, checked: ON, shownAs: "accounts_cards" },
+      { number: "803 160", purpose: "Corrispondenza e pacchi, da rete fissa (gratuito)", source: POSTE_CALL, checked: ON, shownAs: "parcels_landline" },
       { number: "+39 06 4526 3160", purpose: "Corrispondenza e pacchi, da cellulare e fisso, dall'Italia e dall'estero", source: POSTE_CALL, checked: ON },
       { number: "800 003 322", purpose: "Blocco carte, codice dispositivo, Postepay smarrita o rubata (gratuito)", source: POSTE_CALL, checked: ON },
       { number: "800 851 166", purpose: "Blocco Carta BancoPosta Classica, Oro, CREDit-easy (dall'Italia)", source: POSTE_CALL, checked: ON },
@@ -95,7 +94,7 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "il Numero Verde di Poste Italiane dedicato all'Assistenza Clienti è abilitato esclusivamente a ricevere le chiamate.", source: POSTE_VADEMECUM, checked: ON },
     ],
     reviewNotes: [
-      "The first number is shown to people. I picked the financial-services line because it works from any phone and most Poste scams are about accounts and cards; 803 160 (parcels) only works from a landline. Please choose.",
+      "Shown (decided 2026-11-07: show both): +39 06 4526 3322 for accounts, cards and the app (any phone), and 803 160 for parcels and letters (free, landline only). Poste has no free financial line from a landline in this list.",
       "PosteInfo is named in the anti-fraud guide (PDF, October 2024) as a sender scammers imitate. poste.it says fake SMS can land inside the real Poste thread, so the sender name proves nothing on its own.",
       "800 003 322: the same page gives 'lunedì al sabato 8:00-20:00' in one place and '24 ore su 24' for card loss.",
       "In the BancoPosta card-loss block, the printed +39 06 4526 33 22 links to a different number (+390282443332). The printed number matches the rest of the page.",
@@ -111,13 +110,11 @@ export const ORGANISATIONS: Organisation[] = [
     brandWords: ["intesa", "intesasanpaolo", "sanpaolo"],
     officialDomains: [{ domain: "intesasanpaolo.com", source: "https://www.intesasanpaolo.com/it/persone-e-famiglie/login-page.html", checked: ON }],
     phones: [
-      { number: "800.303.303", purpose: "Assistenza privati e banca online, blocco carte (numero verde, da fisso e cellulare)", source: INTESA_CONTACTS, checked: ON },
+      { number: "800.303.303", purpose: "Assistenza privati e banca online, blocco carte (numero verde, da fisso e cellulare)", source: INTESA_CONTACTS, checked: ON, shownAs: "free_any" },
       { number: "+39.011.8019.200", purpose: "Assistenza privati e blocco carte, dall'estero", source: INTESA_CONTACTS, checked: ON },
       { number: "800.312.316", purpose: "Assistenza clienti Inbiz (imprese)", source: INTESA_CONTACTS, checked: ON },
       { number: "00.800.100.20.200", purpose: "Inbiz dall'estero (numero verde internazionale)", source: INTESA_CONTACTS, checked: ON },
       { number: "+39.011.6286640", purpose: "Inbiz da altri Paesi", source: INTESA_CONTACTS, checked: ON },
-      { number: "800.444.223", purpose: "Carta smarrita, da fisso (dalle FAQ, vedi note)", source: INTESA_FAQ, checked: ON },
-      { number: "+39 0287109001", purpose: "Carta smarrita, da cellulare o dall'estero (dalle FAQ, vedi note)", source: INTESA_FAQ, checked: ON },
     ],
     smsSenders: [],
     rules: [
@@ -127,7 +124,7 @@ export const ORGANISATIONS: Organisation[] = [
     ],
     reviewNotes: [
       "No page names the domain in its text: intesasanpaolo.com comes from the address of the homepage and login page. No other domain was found.",
-      "The FAQ gives different card-loss numbers (800.444.223, +39 0287109001) from the card-block page (800.303.303, +39 011.80.19.200). The FAQ may be outdated: consider deleting those two.",
+      "The FAQ gives different card-loss numbers (800.444.223, +39 0287109001) from the card-block page; deleted as probably outdated (decided 2026-11-07).",
       "Its pages warn that fake SMS can land inside the bank's real SMS thread.",
       "The card-block page (https://www.intesasanpaolo.com/it/common/footer/emergenza-carte.html) lists the same two numbers as the contacts page: 800.303.303 and +39 011.80.19.200.",
     ],
@@ -141,7 +138,7 @@ export const ORGANISATIONS: Organisation[] = [
     brandWords: ["unicredit"],
     officialDomains: [{ domain: "unicredit.it", source: "https://www.unicredit.it/it/contatti-e-agenzie.html", checked: ON }],
     phones: [
-      { number: "800.57.57.57", purpose: "Servizio Clienti Privati e Famiglie, blocco carte di debito (numero verde)", source: UNICREDIT_CALL, checked: ON },
+      { number: "800.57.57.57", purpose: "Servizio Clienti Privati e Famiglie, blocco carte di debito (numero verde)", source: UNICREDIT_CALL, checked: ON, shownAs: "toll_free" },
       { number: "+39.02.33408973", purpose: "Servizio Clienti e blocco carte di debito, dall'estero", source: UNICREDIT_CALL, checked: ON },
       { number: "800.32.32.85", purpose: "Chi non è ancora cliente", source: UNICREDIT_CALL, checked: ON },
       { number: "800.710.710", purpose: "Private Banking", source: UNICREDIT_CALL, checked: ON },
@@ -171,18 +168,23 @@ export const ORGANISATIONS: Organisation[] = [
     brandWords: ["telepass"],
     officialDomains: [{ domain: "telepass.com", source: "https://www.telepass.com/it/gruppo/news-eventi/attenzione-ai-tentativi-di-phishing", checked: ON }],
     phones: [
-      { number: "069 71 666 71", purpose: "Assistenza Clienti (lunedì-venerdì 9:00-17:30), anche furto o smarrimento del dispositivo", source: TELEPASS_SUPPORT, checked: ON },
+      { number: "069 71 666 71", purpose: "Assistenza Clienti (lunedì-venerdì 9:00-17:30), anche furto o smarrimento del dispositivo", source: TELEPASS_SUPPORT, checked: ON, shownAs: "plain" },
       { number: "800 713 670", purpose: "Assistenza tecnica TBusiness", source: TELEPASS_FRAUD, checked: ON },
       { number: "068 941 63 60", purpose: "Assistenza Clienti Telepass Assicura", source: TELEPASS_FRAUD, checked: ON },
     ],
     smsSenders: [],
+    requestsPaymentByMessage: {
+      quote: "Fanno eccezione eventuali comunicazioni inviate nell'ambito di attività di gestione e recupero crediti su posizioni insolute",
+      source: TELEPASS_SCAM_2026,
+      checked: ON,
+    },
     rules: [
       { quote: "Gli operatori Telepass non chiedono mai ai propri clienti di fornire alcun dato di questo tipo.", source: TELEPASS_FRAUD, checked: ON },
       { quote: "Telepass non richiede password, PIN, dati bancari o informazioni riservate tramite link contenuti in messaggi non richiesti o sondaggi online.", source: TELEPASS_SCAM_2026, checked: ON },
       { quote: "Non condividere la tua password o il tuo PIN con nessuno. Queste informazioni sono riservate e non ti chiederemo mai di rivelare questi dettagli.", source: TELEPASS_PHISHING, checked: ON },
     ],
     reviewNotes: [
-      "A May 2026 article says Telepass may send real payment links for unpaid amounts, and may phone in some cases. So a genuine Telepass payment request is possible: never tell people that Telepass never asks for payment.",
+      "A May 2026 article says Telepass may send real payment links for unpaid amounts (requestsPaymentByMessage), and may phone in some cases. Once reviewed, a Telepass payment request whose links all go to telepass.com gets 🟠 with a \"check on its site yourself\" line instead of 🔴.",
       "069 71 666 71 is printed that way; it dials 06 9716 6671.",
     ],
     reviewed: null,
@@ -195,8 +197,8 @@ export const ORGANISATIONS: Organisation[] = [
     brandWords: ["inps"],
     officialDomains: [{ domain: "inps.it", source: INPS_SMISHING_2026, checked: ON }],
     phones: [
-      { number: "06 164 164", purpose: "Contact Center da cellulare (a pagamento secondo il gestore)", source: INPS_CONTACT, checked: ON },
-      { number: "803 164", purpose: "Contact Center, gratuito da telefono fisso", source: INPS_CONTACT, checked: ON },
+      { number: "803 164", purpose: "Contact Center, gratuito da telefono fisso", source: INPS_CONTACT, checked: ON, shownAs: "from_landline" },
+      { number: "06 164 164", purpose: "Contact Center da cellulare (a pagamento secondo il gestore)", source: INPS_CONTACT, checked: ON, shownAs: "from_mobile" },
       { number: "800 434 320", purpose: "Numero verde per la Certificazione Unica, solo durante la campagna", source: INPS_CONTACT, checked: ON },
     ],
     smsSenders: [],
@@ -207,7 +209,7 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "L'INPS non manda mai personale presso le abitazioni.", source: INPS_VADEMECUM, checked: ON },
     ],
     reviewNotes: [
-      "The first number is shown to people. I picked 06 164 164 because it works from a mobile; 803 164 is free but only from a landline. Please choose.",
+      "Shown (decided 2026-11-07: show both): 803 164, free from a landline, and 06 164 164 from a mobile.",
       "INPS states \"L'unico sito ufficiale è www.inps.it\", so inps.gov.it (it redirects to inps.it) is not listed.",
       "The contact page also lists free numbers for calling from 11 European countries; left out, as they are foreign numbers.",
       "Hours: Monday to Friday 8:00-20:00, Saturday 8:00-14:00.",
@@ -225,8 +227,8 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "agenziaentrateriscossione.gov.it", source: "https://www.agenziaentrate.gov.it/portale/web/guest/", checked: ON },
     ],
     phones: [
-      { number: "06.97617689", purpose: "Call center da cellulare (a carico del chiamante)", source: ENTRATE_CALL, checked: ON },
-      { number: "800.90.96.96", purpose: "Call center, numero verde da rete fissa (operatore lunedì-venerdì 9-17)", source: ENTRATE_CALL, checked: ON },
+      { number: "800.90.96.96", purpose: "Call center, numero verde da rete fissa (operatore lunedì-venerdì 9-17)", source: ENTRATE_CALL, checked: ON, shownAs: "from_landline" },
+      { number: "06.97617689", purpose: "Call center da cellulare (a carico del chiamante)", source: ENTRATE_CALL, checked: ON, shownAs: "from_mobile" },
       { number: "0039 06.45470468", purpose: "Call center dall'estero", source: ENTRATE_CALL, checked: ON },
       { number: "800.89.41.41", purpose: "Centro Operativo di Pescara, numero verde da rete fissa", source: ENTRATE_CALL, checked: ON },
       { number: "800.89.35.35", purpose: "Centro Operativo di Pescara, numero verde da rete fissa", source: ENTRATE_CALL, checked: ON },
@@ -238,7 +240,7 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "Il mittente di questi messaggi è contraffatto tramite la tecnica cosiddetta di \"sms spoofing\"", source: ENTRATE_SPOOFING, checked: ON },
     ],
     reviewNotes: [
-      "The first number is shown to people. I picked 06.97617689 because it works from any phone; 800.90.96.96 is free but only from a landline. Please choose.",
+      "Shown (decided 2026-11-07: show both): 800.90.96.96, free from a landline, and 06.97617689 from a mobile.",
       "agenziaentrateriscossione.gov.it belongs to Agenzia delle Entrate-Riscossione, a separate body linked from the homepage. It is listed so that its real links don't count as a fake of Agenzia delle Entrate.",
       "A regional page from 2020 still shows old numbers (06.96668907, 0039.06.96668933): not used.",
       "No page states \"we never ask for X by SMS\"; the notices disown each campaign instead.",
@@ -257,7 +259,7 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "enel.com", source: ENEL_SCAMS, checked: ON },
     ],
     phones: [
-      { number: "140", purpose: "Servizio clienti, gratuito da fisso e cellulare (tutti i giorni 7:00-22:00, festività escluse)", source: ENEL_CONTACTS, checked: ON },
+      { number: "140", purpose: "Servizio clienti, gratuito da fisso e cellulare (tutti i giorni 7:00-22:00, festività escluse)", source: ENEL_CONTACTS, checked: ON, shownAs: "free_any" },
       { number: "+390664511012", purpose: "Servizio clienti dall'estero", source: ENEL_CONTACTS, checked: ON },
     ],
     smsSenders: [{ name: "Enel Energia", source: ENEL_SCAMS, checked: ON }],
@@ -284,8 +286,8 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "gruppotim.it", source: TIM_BESIDE_YOU, checked: ON },
     ],
     phones: [
-      { number: "119", purpose: "Servizio Clienti linea mobile, gratuito, 24 ore su 24", source: TIM_CONTACT, checked: ON },
-      { number: "187", purpose: "Servizio Clienti linea fissa, gratuito, 24 ore su 24", source: TIM_CONTACT, checked: ON },
+      { number: "119", purpose: "Servizio Clienti linea mobile, gratuito, 24 ore su 24", source: TIM_CONTACT, checked: ON, shownAs: "mobile_line" },
+      { number: "187", purpose: "Servizio Clienti linea fissa, gratuito, 24 ore su 24", source: TIM_CONTACT, checked: ON, shownAs: "fixed_line" },
       { number: "+390285951", purpose: "Dall'estero, linea fissa (centralino che passa il 187)", source: TIM_CONTACT, checked: ON },
       { number: "+390636881", purpose: "Dall'estero, linea fissa (centralino che passa il 187)", source: TIM_CONTACT, checked: ON },
       { number: "+393399119", purpose: "Dall'estero, linea mobile, al posto del 119", source: TIM_CONTACT, checked: ON },
@@ -296,7 +298,7 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "Gli operatori del Servizio Clienti TIM e gli operatori partner di TIM chiamano sempre da un numero in chiaro (non usano numeri anonimi) e ricontattabile", source: TIM_BESIDE_YOU, checked: ON },
     ],
     reviewNotes: [
-      "The first number is shown to people. I picked 119 (mobile line) because SMS scams are mostly about the SIM; 187 is for the landline. Please choose.",
+      "Shown (decided 2026-11-07: show both): 119 for the mobile line and 187 for the landline, both free.",
       "tim.it comes from the address of the homepage and contacts page, not from a sentence naming it. The MyTIM login is on mytim.tim.it.",
       "No page states \"TIM never asks for password/PIN/OTP\".",
       "\"tim\" is short: it only matches a whole part of a site name (tim-premi.xyz yes, ultimate.com no) and a whole word in a message.",
@@ -315,8 +317,8 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "fastwebvodafone.it", source: VODAFONE_GENUINE, checked: ON },
     ],
     phones: [
-      { number: "190", purpose: "Servizio Clienti, gratuito dai numeri Vodafone (tutti i giorni 8-22; di notte solo per bloccare la SIM)", source: VODAFONE_CONTACT, checked: ON },
-      { number: "800 100 195", purpose: "Servizio Clienti, gratuito da rete fissa e da cellulari di altri operatori (8:00-22:00)", source: VODAFONE_CONTACT, checked: ON },
+      { number: "190", purpose: "Servizio Clienti, gratuito dai numeri Vodafone (tutti i giorni 8-22; di notte solo per bloccare la SIM)", source: VODAFONE_CONTACT, checked: ON, shownAs: "free_customers" },
+      { number: "800 100 195", purpose: "Servizio Clienti, gratuito da rete fissa e da cellulari di altri operatori (8:00-22:00)", source: VODAFONE_CONTACT, checked: ON, shownAs: "free_others" },
       { number: "+39 349 2000190", purpose: "Servizio Clienti dall'estero, gratuito (8:00-22:00 ora italiana)", source: VODAFONE_CONTACT, checked: ON },
       { number: "3499190190", purpose: "TOBi su WhatsApp (assistente digitale, non una linea vocale)", source: VODAFONE_NUMBERS, checked: ON },
     ],
@@ -371,19 +373,24 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "dhl.fr", source: DHL_FRAUD, checked: ON },
     ],
     phones: [
-      { number: "199.199.345", purpose: "Servizio Clienti DHL Express (lunedì-venerdì 8.00-18.30). A pagamento: fino a 14,49 cent/min da fisso, 48,8 cent/min da cellulare, più 15,75 cent alla risposta", source: DHL_EXPRESS_CONTACT, checked: ON },
+      { number: "199.199.345", purpose: "Servizio Clienti DHL Express (lunedì-venerdì 8.00-18.30). A pagamento: fino a 14,49 cent/min da fisso, 48,8 cent/min da cellulare, più 15,75 cent alla risposta", source: DHL_EXPRESS_CONTACT, checked: ON, shownAs: "paid_call" },
       { number: "+39 0230453420", purpose: "Assistenza DHL Express su WhatsApp, 24 ore su 24 (non una linea vocale)", source: "https://mydhl.express.dhl/it/it/ship/solutions/tracking-tools.html", checked: ON },
     ],
     smsSenders: [],
+    requestsPaymentByMessage: {
+      quote: "Gli unici pagamenti che DHL richiede via e-mail o SMS sono i pagamenti di dazi doganali e tasse.",
+      source: DHL_FRAUD,
+      checked: ON,
+    },
     rules: [
       { quote: "Gli unici pagamenti che DHL richiede via e-mail o SMS sono i pagamenti di dazi doganali e tasse.", source: DHL_FRAUD, checked: ON },
       { quote: "Per inviare le e-mail non utilizziamo mai @gmail, @yahoo o altri servizi di posta elettronica gratuiti.", source: DHL_FRAUD, checked: ON },
       { quote: "Non aggiungiamo mai link di altri siti web diversi dai nostri", source: DHL_FRAUD, checked: ON },
     ],
     reviewNotes: [
-      "The first number is shown to people, and DHL's only phone line, 199.199.345, is a paid \"numero unico\" (up to 48.8 cents a minute from a mobile). Decide whether to show it, or to leave DHL with no phone so the general advice is shown instead.",
-      "DHL really does ask for customs duties by email and SMS, after sending the recipient an OTP. A genuine customs request will get 🔴 from us (\"asks for payment\" is high risk). The general courier advice (check on the website yourself) still fits.",
-      "dhl.it, dhl.de and dhl.fr: the page says mail can come from \"indirizzi con domini nazionali dopo @dhl (ad es. @dhl.de, @dhl.fr, @dhl.ae)\". dhl.it is my reading of that rule, not named on the page. Please confirm.",
+      "199.199.345 is DHL's only phone line and a paid \"numero unico\" (up to 48.8 cents a minute from a mobile). Shown with the label \"a pagamento\" (decided 2026-11-07).",
+      "DHL really does ask for customs duties by email and SMS, after sending the recipient an OTP (requestsPaymentByMessage). Once reviewed, a DHL payment request whose links all go to DHL's own sites gets 🟠 with a \"check on its site yourself\" line instead of 🔴.",
+      "dhl.it, dhl.de and dhl.fr: the page says mail can come from \"indirizzi con domini nazionali dopo @dhl (ad es. @dhl.de, @dhl.fr, @dhl.ae)\". dhl.it isn't named on the page; kept as covered by that rule (decided 2026-11-07).",
       "express.dhl: DHL owns the .dhl ending; the page names the site mydhl.express.dhl.",
       "\"dhl\" is short: it only matches a whole part of a site name and a whole word in a message.",
     ],

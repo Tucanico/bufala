@@ -51,6 +51,15 @@ describe("decideVerdict", () => {
     expect(decideVerdict(["urgency", "link_to_act"], "no_signs")).toBe("scam");
   });
 
+  test("a payment that may be genuine is at most suspicious", () => {
+    expect(decideVerdict(["asks_for_payment", "urgency", "link_to_act"], "scam", true)).toBe("suspicious");
+    expect(decideVerdict(["asks_for_payment"], "no_signs", true)).toBe("suspicious");
+  });
+
+  test("any other high-risk sign still makes it a scam", () => {
+    expect(decideVerdict(["asks_for_payment", "asks_for_code"], "no_signs", true)).toBe("scam");
+  });
+
   test("a code shown on its own is suspicious, not a scam", () => {
     expect(decideVerdict(["shows_code"], "no_signs")).toBe("suspicious");
   });

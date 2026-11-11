@@ -12,6 +12,7 @@ test("every fact's source is on the organisation's own site", () => {
       ...organisation.phones,
       ...organisation.smsSenders,
       ...organisation.rules,
+      ...(organisation.requestsPaymentByMessage ? [organisation.requestsPaymentByMessage] : []),
     ];
     for (const fact of facts) {
       const host = new URL(fact.source).hostname;
@@ -31,6 +32,8 @@ test("every entry has the basics, written the way the checks expect", () => {
     for (const word of [...organisation.names, ...organisation.brandWords]) {
       expect(word, organisation.id).toBe(word.toLowerCase());
     }
+    // "What to do" has room for two numbers.
+    expect(organisation.phones.filter((phone) => phone.shownAs).length, organisation.id).toBeLessThanOrEqual(2);
   }
   expect(new Set(ORGANISATIONS.map((organisation) => organisation.id)).size).toBe(ORGANISATIONS.length);
 });

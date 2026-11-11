@@ -53,9 +53,26 @@ const MODEL_VERDICT_CAP: Verdict = "suspicious";
 
 // The code decides from the signs. A message that talks the model into
 // "no_signs" still gets the verdict its signs call for.
-export function decideVerdict(signs: Sign[], modelVerdict: Verdict): Verdict {
+//
+// `paymentMayBeGenuine` (see facts.ts): some organisations really do ask for
+// payment by message, such as DHL for customs duties. When the message is about
+// one of them and only links to its own site, a payment request alone can't
+// make it a scam: at most 🟠, and the answer says to check on the site. Any
+// other high-risk sign still gives 🔴.
+export function decideVerdict(
+  signs: Sign[],
+  modelVerdict: Verdict,
+  paymentMayBeGenuine = false,
+): Verdict {
+  const highRisk = signs.filter(
+    (sign) => HIGH_RISK_SIGNS.has(sign) && !(paymentMayBeGenuine && sign === "asks_for_payment"),
+  );
   let byRules: Verdict = "no_signs";
-  if (signs.some((sign) => HIGH_RISK_SIGNS.has(sign)) || signs.length >= 2) {
+  if (highRisk.length > 0) {
+    byRules = "scam";
+  } else if (paymentMayBeGenuine && signs.length > 0) {
+    byRules = "suspicious";
+  } else if (signs.length >= 2) {
     byRules = "scam";
   } else if (signs.length === 1) {
     byRules = "suspicious";

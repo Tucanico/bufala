@@ -20,6 +20,10 @@ export type MessageFacts = {
   organisation: Organisation | null;
   // The organisation a look-alike site imitates.
   imitated: Organisation | null;
+  // The message is about a reviewed organisation that says it does ask for
+  // payment by message, and every link goes to its own site. A payment request
+  // then means "check yourself", not "scam".
+  paymentMayBeGenuine: boolean;
 };
 
 function escapeRegExp(text: string): string {
@@ -65,16 +69,26 @@ export function findFacts(
   if (allNumbersOfficial) removeSigns.add("call_this_number");
 
   const officialLink = linkKinds.find((link) => link.kind === "official");
+  const organisation =
+    namedIn(text, organisations) ??
+    (officialLink?.kind === "official" ? officialLink.organisation : null) ??
+    (lookalike?.kind === "lookalike" ? lookalike.organisation : null) ??
+    numberOwners.find((owner) => owner !== null) ??
+    null;
+
+  const paymentMayBeGenuine = Boolean(
+    organisation?.reviewed &&
+      organisation.requestsPaymentByMessage &&
+      linkKinds.length > 0 &&
+      linkKinds.every((link) => link.kind === "official" && link.organisation === organisation),
+  );
+
   return {
     addSigns: [...addSigns],
     removeSigns: [...removeSigns],
-    organisation:
-      namedIn(text, organisations) ??
-      (officialLink?.kind === "official" ? officialLink.organisation : null) ??
-      (lookalike?.kind === "lookalike" ? lookalike.organisation : null) ??
-      numberOwners.find((owner) => owner !== null) ??
-      null,
+    organisation,
     imitated: lookalike?.kind === "lookalike" ? lookalike.organisation : null,
+    paymentMayBeGenuine,
   };
 }
 

@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import enMessages from "../messages/en.json";
 import itMessages from "../messages/it.json";
+import { PHONE_LABELS } from "../src/lib/check/organisations";
 import {
   CHECK_SIGNS,
   SENDER_TYPES,
@@ -25,6 +26,13 @@ test("every locale has exactly the Italian keys", () => {
   const italianKeys = Object.keys(flatten(itMessages)).sort();
   for (const messages of Object.values(locales)) {
     expect(Object.keys(flatten(messages)).sort()).toEqual(italianKeys);
+  }
+});
+
+test("every label a shown phone number can have is worded", () => {
+  const keys = Object.keys(flatten(itMessages));
+  for (const label of PHONE_LABELS.filter((l) => l !== "plain")) {
+    expect(keys).toContain(`result.phoneLabel.${label}`);
   }
 });
 

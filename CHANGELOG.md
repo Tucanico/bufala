@@ -1,10 +1,16 @@
 # Changelog
 
+## 2026-11-07 14:38 — feat(check): two labelled official numbers, and genuine payment requests get 🟠
+
+From the founder's first review decisions. "What to do" can now give two official numbers, each with a label, because for several organisations the free number only works from a landline: INPS 803 164 (free from a landline) or 06 164 164 (from a mobile), Agenzia delle Entrate 800.90.96.96 or 06.97617689, TIM 119 or 187, Poste one line for accounts and cards and one for parcels. DHL's 199 line is shown marked "a pagamento". Intesa Sanpaolo's older FAQ card-loss numbers are deleted, and dhl.it stays as covered by DHL's rule on national domains. DHL (customs duties) and Telepass (unpaid amounts) say on their own sites that they do ask for payment by message, so for a reviewed entry a payment request whose links all go to its own site is now at most 🟠, with a line telling people to check on the site before paying; a look-alike link or any other high-risk sign still gives 🔴. Nothing is reviewed yet, so none of this shows until review.
+
+(SHA: add after committing)
+
 ## 2026-11-07 14:26 — feat(check): our own link and phone checks, and 12 organisations from their official sites
 
 The model can only guess whether a link or number belongs to who the message claims; our own code can check. A link or email domain that borrows a known organisation's brand without being its official site is now a high-risk sign (🔴), with look-alike letters folded first (`amaz0n`, Cyrillic letters through punycode, `rn` for `m`), and its reason names who it imitates. Shortened links add a warning, and so do premium-rate numbers from AGCOM's numbering plan (892 to 899; 6-digit ones only after a calling word, so one-time codes don't count). The organisation a message is about is recognised from its name, links or numbers, and replaces the model's guess of the sender type. 12 organisations (Poste Italiane, Intesa Sanpaolo, UniCredit, Telepass, INPS, Agenzia delle Entrate, Enel Energia, TIM, Vodafone, BRT, DHL, Amazon) were researched on their own sites, every fact with its source page and date, plus notes on anything unclear. None is reviewed yet: until a person reviews an entry it can add warnings but never remove one, and its phone number is never shown; once reviewed, its official links and numbers lift the matching warning and "What to do" gives its official number. Tests check every source is on the organisation's own site, that the real list catches scam-style sites and leaves real sites and ordinary words alone, and that our checks add no warning to any normal test-set message.
 
-(SHA: add after committing)
+99fa483
 
 ## 2026-11-07 13:57 — feat(check): ask the model three times and go with the majority
 

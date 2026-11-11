@@ -2,6 +2,7 @@ import { combineRuns, type ModelRun } from "./combine";
 import { applyFacts, findFacts, type MessageFacts } from "./facts";
 import { MAX_MESSAGE_LENGTH } from "./limits";
 import { callMistral, ModelError } from "./mistral";
+import type { Organisation, PhoneLabel } from "./organisations";
 import { redact } from "./redact";
 import {
   parseModelOutput,
@@ -22,10 +23,13 @@ export type CheckResult = {
   sender: SenderType;
   // Who the message claims to be from, when our list knows it.
   organisationName?: string;
-  // Only from a reviewed entry: shown to people as the number to call.
-  officialPhone?: string;
+  // Only from a reviewed entry: shown to people as the numbers to call.
+  officialPhones?: { number: string; label: PhoneLabel }[];
   // The organisation a look-alike site imitates.
   imitatedName?: string;
+  // Set when a payment request may be genuine (see facts.ts): the answer says
+  // this organisation really can ask, and to check on its site first.
+  genuinePaymentFrom?: string;
 };
 
 export type CheckOutcome =
@@ -46,7 +50,7 @@ function reasonFor(error: unknown): string {
 export function buildRun(output: ModelOutput, facts: MessageFacts): ModelRun {
   const signs = applyFacts(collectSigns(output), facts);
   return {
-    verdict: decideVerdict(signs, output.verdict),
+    verdict: decideVerdict(signs, output.verdict, facts.paymentMayBeGenuine),
     modelVerdict: output.verdict,
     signs,
     sender: output.claimed_sender,
@@ -101,8 +105,19 @@ export async function analyseMessage(
       // Our list knows the organisation's type for certain; the model only guesses it.
       sender: organisation?.type ?? combined.sender,
       organisationName: organisation?.name,
-      officialPhone: organisation?.reviewed ? organisation.phones[0]?.number : undefined,
+      officialPhones: shownPhones(organisation),
       imitatedName: facts.imitated?.name,
+      genuinePaymentFrom: facts.paymentMayBeGenuine ? organisation?.name : undefined,
     },
   };
+}
+
+// Never from an unreviewed entry: a wrong number here could send someone to a scammer.
+function shownPhones(organisation: Organisation | null) {
+  if (!organisation?.reviewed) return undefined;
+  const shown = organisation.phones
+    .filter((phone) => phone.shownAs)
+    .slice(0, 2)
+    .map((phone) => ({ number: phone.number, label: phone.shownAs! }));
+  return shown.length > 0 ? shown : undefined;
 }
