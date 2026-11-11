@@ -18,6 +18,12 @@ import { Icon } from "./icons";
 
 type Screenshot = { blob: Blob; previewUrl: string };
 
+// Smooth, unless the person asked their device for less motion.
+function scrollIntoSight(element: HTMLElement | null, block: ScrollLogicalPosition) {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  element?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block });
+}
+
 // Reading the clipboard needs a browser that supports it, which the server
 // can't know: the button only appears once the page runs in the browser.
 const noSubscription = () => () => {};
@@ -116,7 +122,7 @@ function CheckRound({
   const error = outcome?.ok === false ? outcome.error : null;
   // Not after "paste a message first": there is nothing to clear yet.
   const checkAnother = (
-    <button type="button" onClick={onCheckAnother} className="btn btn-outline mt-5 py-[0.9rem] text-[1rem]">
+    <button type="button" onClick={onCheckAnother} className="btn btn-outline mt-4 py-[0.9rem] text-[1rem]">
       {t("checkAnother")}
     </button>
   );
@@ -126,9 +132,15 @@ function CheckRound({
   const answerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!result || window.matchMedia("(min-width: 64rem)").matches) return;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    answerRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    scrollIntoSight(answerRef.current, "start");
   }, [result]);
+
+  // An error appears under the button, which is often at the bottom edge of
+  // the screen: scroll just enough to show it, on every screen size.
+  const errorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (outcome?.ok === false) scrollIntoSight(errorRef.current, "nearest");
+  }, [outcome]);
 
   return (
     // On a computer the answer goes beside the form, which stays in view.
@@ -207,6 +219,19 @@ function CheckRound({
             {pending ? t("checking") : t("submit")}
             {!pending && <Icon name="arrow" className="size-[1.2rem]" />}
           </button>
+
+          {/* Right under the button that caused it: lower down, on a laptop
+              screen, it fell below the bottom edge and went unseen. */}
+          <div ref={errorRef} className="scroll-mb-4">
+            <div aria-live="polite">
+              {error && (
+                <p role="alert" className="mt-3 text-[0.9rem] font-bold text-scam">
+                  {t(`errors.${error}`)}
+                </p>
+              )}
+            </div>
+            {error && error !== "empty" && checkAnother}
+          </div>
         </form>
 
         <ul className="mt-4 flex flex-wrap gap-2 text-[0.75rem] font-bold">
@@ -220,15 +245,6 @@ function CheckRound({
             </li>
           ))}
         </ul>
-
-        <div aria-live="polite">
-          {error && (
-            <p role="alert" className="mt-6 text-[0.95rem] font-bold text-scam">
-              {t(`errors.${error}`)}
-            </p>
-          )}
-        </div>
-        {error && error !== "empty" && checkAnother}
       </div>
 
       <div>

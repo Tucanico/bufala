@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-11 15:51 — fix(form): errors appear where they can be seen
+
+Errors such as "paste a message first" appeared under the reassurance chips, below the bottom edge of an 800 px laptop screen or of a phone where the person had just scrolled to the button, so they went unseen. They now appear inside the form card, right under the button, and the page scrolls just enough to show them (smoothly, or instantly for anyone who asked their device for less motion). Measured: fully on screen at 1280 x 800 and 390 x 844. The answer's scroll on phones, checked with a real answer, stops the verdict card 20 px from the top of the screen.
+
 ## 2026-11-11 15:43 — feat(design): the answer comes into view on phones, and a legend on computers
 
 On a phone the answer appears below the form, out of sight, so the page now scrolls to it when it arrives (instantly instead of smoothly for anyone who asked their device for less motion). On a computer, before the first check, the place beside the form shows "Le tre risposte possibili": the three colours with their icons and a line each, ⚪ worded as "no signs, but not safe". Before, the form sat in a centred column and jumped left when the answer arrived. Errors now sit under the form in their own live region, so the legend stays where it is. Below 1024 px nothing changes before a check. Also fixed: between 640 and 1024 px an answer made the form and the answer as wide as the page.
+
+02a459b
 
 ## 2026-11-11 15:40 — feat(design): a new look, dark mode and a paste button
 
