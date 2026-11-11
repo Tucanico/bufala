@@ -160,7 +160,7 @@ body {
     box-shadow: 0 1.3rem 2.5rem -1.2rem rgb(156 28 21 / 0.85);
   }
   .hero-suspicious {
-    background: linear-gradient(160deg, #c25a0c, #8a3a04);
+    background: linear-gradient(160deg, #b5500a, #8a3a04);
     box-shadow: 0 1.3rem 2.5rem -1.2rem rgb(138 58 4 / 0.8);
   }
   /* Grey, never green: Bufala never says "safe". */

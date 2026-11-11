@@ -55,7 +55,10 @@ export function classifyHost(host: string, organisations: Organisation[]): HostK
   const owner = organisations.find((organisation) => isOfficialHost(host, organisation));
   if (owner) return { kind: "official", host, organisation: owner };
   if (SHORTENERS.has(host.replace(/^www\./, ""))) return { kind: "shortened", host };
-  const imitated = organisations.find((organisation) => borrowsBrand(host, organisation));
+  const imitated =
+    organisations.find((organisation) =>
+      organisation.knownFakeDomains?.some(({ domain }) => host === domain || host.endsWith(`.${domain}`)),
+    ) ?? organisations.find((organisation) => borrowsBrand(host, organisation));
   if (imitated) return { kind: "lookalike", host, organisation: imitated };
   return { kind: "unknown", host };
 }

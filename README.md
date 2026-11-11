@@ -31,6 +31,7 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 | `npm run lint` | ESLint |
 | `npm run typecheck` | Generate route types, then `tsc --noEmit` |
 | `npm test` | Unit tests (Vitest) |
+| `npm run e2e` | Browser tests (Playwright): builds the app, then checks every page and answer at computer and phone size, in light and dark, including automatic accessibility checks (axe). Free: answers are faked, nothing goes to Mistral. Uses the installed Google Chrome |
 | `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 156 calls, about €0.05 a run (`npm run eval -- -t held-` runs only some cases); needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
 
 ## Deploying on Vercel
@@ -52,3 +53,5 @@ On this machine there is no Vercel Firewall: every check logs "Rate limit check 
 ## Translations
 
 Every user-visible string lives in `messages/it.json` and `messages/en.json`. Both files must have the same keys; `npm test` and `npm run typecheck` fail otherwise.
+
+The privacy notice and the disclaimer are longer texts, so they live as Markdown in `src/content/legal/` (`privacy.it.md`, `privacy.en.md`, `disclaimer.it.md`, `disclaimer.en.md`), editable without touching code. A point still to settle is written `**[DA CONFERMARE ...]**` (or `[TO CONFIRM ...]`, `[DATA]`, `[DATE]`): the page highlights it and shows a draft banner until none is left.

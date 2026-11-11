@@ -29,7 +29,19 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: "metadata" });
-  return { title: t("title"), description: t("description") };
+  // The link preview: the picture comes from opengraph-image.tsx.
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      siteName: "Bufala",
+      locale: locale === "it" ? "it_IT" : "en_GB",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image" },
+  };
 }
 
 export default async function LocaleLayout({
@@ -65,6 +77,12 @@ export default async function LocaleLayout({
               </Link>
               <Link href="/chi-siamo" className="text-brand underline underline-offset-4">
                 {t("about")}
+              </Link>
+              <Link href="/privacy" className="text-brand underline underline-offset-4">
+                {t("privacy")}
+              </Link>
+              <Link href="/avvertenze" className="text-brand underline underline-offset-4">
+                {t("disclaimer")}
               </Link>
             </nav>
           </footer>

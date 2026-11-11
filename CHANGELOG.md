@@ -1,8 +1,18 @@
 # Changelog
 
+## 2026-11-11 16:19 — feat(data): 30 organisations, and Agenzia delle Entrate's own list of fake domains
+
+Seven more organisations, researched from their own sites on 2026-11-11, all awaiting review like the rest: Banca Mediolanum, Fineco, Satispay, Iren, Edison Energia, Sorgenia and Mooney. Mooney's sites refuse automated reading, so its entry has only domains for now; what couldn't be read is in each entry's notes and in the TODO. Agenzia delle Entrate publishes the domains used for phishing against it: those 63 (from its page and its 2026 notices) are now a new `knownFakeDomains` list, and a link to one or to a subdomain counts as a look-alike of Agenzia delle Entrate even without its name in it ("avenzstr.click"). Nothing leaves our server. The other outside link checks (shortened links, domain age, blocklists) were researched; each needs a decision, set out with sources in `docs/link-checks.md`.
+
+## 2026-11-11 16:19 — feat(site): privacy and disclaimer pages, a link preview, and browser tests
+
+The privacy notice and the disclaimer are on the site (`/privacy` and `/avvertenze`, `/en/privacy` and `/en/disclaimer`), linked from every footer, and every answer ends with "Bufala ti aiuta a riconoscere i segnali di truffa, ma non può garantire che un messaggio sia sicuro. Leggi le avvertenze". The texts are the drafts as written, now Markdown files in `src/content/legal/` that can be edited without code; every open "[DA CONFERMARE]" point is highlighted and a "Bozza" banner shows until none is left. A shared link now gets a preview picture (logo, the opening question, "Gratis · Senza account"), one per language; its address skips the language redirect, which preview fetchers don't reliably follow. `npm run e2e` runs browser tests (Playwright) of every page and every 🔴 🟠 ⚪ answer at computer and phone size, light and dark, with automatic accessibility checks (axe): no problems found. Answers are faked, so the tests cost nothing. Axe can't judge text on a gradient, so the answer cards were measured by hand: white on the light end of the orange card was 4.4:1, now 4.9:1.
+
 ## 2026-11-11 15:51 — fix(form): errors appear where they can be seen
 
 Errors such as "paste a message first" appeared under the reassurance chips, below the bottom edge of an 800 px laptop screen or of a phone where the person had just scrolled to the button, so they went unseen. They now appear inside the form card, right under the button, and the page scrolls just enough to show them (smoothly, or instantly for anyone who asked their device for less motion). Measured: fully on screen at 1280 x 800 and 390 x 844. The answer's scroll on phones, checked with a real answer, stops the verdict card 20 px from the top of the screen.
+
+d7b6d82
 
 ## 2026-11-11 15:43 — feat(design): the answer comes into view on phones, and a legend on computers
 

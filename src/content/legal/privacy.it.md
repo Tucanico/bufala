@@ -1,0 +1,58 @@
+Ultimo aggiornamento: **[DATA]**
+
+## Chi tratta i tuoi dati
+
+Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legale: se serve anche un indirizzo postale]**. Per qualsiasi domanda sulla privacy puoi scrivere a **tech@jacopolombardo.com**.
+
+## In breve
+
+- Non ti chiediamo di creare un account, né nome, email o numero di telefono.
+- Il messaggio che controlli **non viene salvato**: lo usiamo solo per darti la risposta.
+- Prima di inviarlo al servizio di intelligenza artificiale, togliamo IBAN, numeri di carta e la parte personale degli indirizzi email.
+- Non usiamo pubblicità, statistiche o cookie di profilazione.
+
+## Quali dati trattiamo
+
+1. **Il messaggio che controlli**: il testo che incolli e, se lo carichi, lo screenshot. Può contenere dati personali tuoi o di altre persone, come nomi, numeri di telefono o codici. Consiglio: se il messaggio contiene il tuo PIN, una password o un codice, toglili prima di incollarlo.
+2. **Dati tecnici**: quando visiti il sito, il fornitore che lo ospita riceve il tuo indirizzo IP e il tipo di browser, come avviene per qualsiasi sito. L'indirizzo IP serve anche a limitare il numero di controlli che si possono fare in poco tempo, per evitare abusi.
+3. **Un cookie tecnico** che ricorda la lingua che hai scelto.
+
+## Come usiamo il messaggio
+
+- **Screenshot.** L'immagine viene rimpicciolita sul tuo dispositivo e poi letta sul nostro server per estrarne il testo. Resta in memoria solo per il tempo della lettura: non viene salvata e non viene inviata a nessun altro.
+- **Pulizia del testo.** Prima dell'analisi, IBAN e numeri di carta vengono nascosti, degli indirizzi email resta solo il dominio (per esempio "@poste.it") e dei link resta solo il nome del sito. Nomi, numeri di telefono e codici restano, perché servono a riconoscere la truffa.
+- **Controlli sui link e sui numeri.** Il nostro server confronta i link e i numeri del messaggio con un elenco di siti e numeri ufficiali. Questo controllo avviene sul nostro server e non invia dati a nessuno.
+- **Analisi con l'intelligenza artificiale.** Il testo ripulito viene inviato a **Mistral AI** (Parigi, Francia), che restituisce un'analisi. Per ogni controllo lo inviamo tre volte, perché la risposta sia più affidabile.
+- **Nessuna conservazione da parte nostra.** Non salviamo né il messaggio né la risposta. Nei nostri registri tecnici restano solo eventuali codici di errore, mai il testo del messaggio.
+
+## Perché li trattiamo (base giuridica)
+
+- Per darti il controllo che hai chiesto: esecuzione di un servizio richiesto da te (art. 6, par. 1, lett. b, GDPR). **[DA CONFERMARE con il legale, anche per i dati di terzi che il messaggio può contenere]**
+- Per proteggere il servizio da abusi, con il limite di controlli per indirizzo IP: legittimo interesse (art. 6, par. 1, lett. f, GDPR).
+
+## A chi li affidiamo
+
+- **Vercel Inc.** (Stati Uniti), che ospita il sito. **[DA CONFERMARE: la regione dei server (UE), il contratto per il trattamento dei dati e la base del trasferimento verso gli Stati Uniti]**
+- **Mistral AI SAS** (Francia), che analizza il testo ripulito. **[DA CONFERMARE: che i dati restino nell'UE, che Mistral non li usi per addestrare i suoi modelli (impostazione da disattivare nell'account) e che la conservazione zero dei dati sia attiva. Senza conservazione zero, Mistral può conservare i dati fino a 30 giorni per controllare gli abusi]**
+
+Non vendiamo né cediamo i tuoi dati a nessun altro.
+
+## Per quanto tempo
+
+- **Messaggio e screenshot:** solo per il tempo del controllo, pochi secondi.
+- **Presso Mistral:** **[DA CONFERMARE: nessuna conservazione, oppure fino a 30 giorni]**.
+- **Limite di controlli:** al massimo 10 controlli ogni dieci minuti per indirizzo IP. I contatori sono tenuti da Vercel e durano dieci minuti. Noi non vediamo né salviamo il tuo indirizzo IP.
+- **Registri del fornitore di hosting:** **[DA CONFERMARE: il periodo di conservazione dei log di Vercel]**.
+- **Cookie della lingua:** fino alla chiusura del browser.
+
+## Cookie
+
+Usiamo un solo cookie, tecnico, chiamato `NEXT_LOCALE`: ricorda se hai scelto l'italiano o l'inglese e si cancella quando chiudi il browser. Non usiamo cookie di profilazione, di statistica o di terze parti. **[DA CONFERMARE con il legale: per i soli cookie tecnici non serve il consenso]**
+
+## I tuoi diritti
+
+Puoi chiedere di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento, opporti al trattamento e riceverli in un formato leggibile, scrivendo a **tech@jacopolombardo.com**. Poiché non salviamo i messaggi, di solito non abbiamo dati da mostrarti o cancellare. Puoi anche presentare un reclamo al **Garante per la protezione dei dati personali** (www.garanteprivacy.it).
+
+## Modifiche
+
+Se cambiamo il modo in cui trattiamo i dati, per esempio aggiungendo nuovi controlli sui link con servizi esterni, aggiorneremo questa pagina e la sua data.

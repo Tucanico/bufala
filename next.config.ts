@@ -29,7 +29,14 @@ const nextConfig: NextConfig = {
   // has to run from node_modules instead of being bundled.
   serverExternalPackages: ["tesseract.js"],
   outputFileTracingIncludes: {
-    "/*": [...OCR_PACKAGES.map((name) => `./node_modules/${name}/**/*`), "./ocr-data/**/*"],
+    "/*": [
+      ...OCR_PACKAGES.map((name) => `./node_modules/${name}/**/*`),
+      "./ocr-data/**/*",
+      // The legal pages read their text from these files, and the link
+      // preview image reads the logo.
+      "./src/content/legal/**/*",
+      "./src/app/icon.svg",
+    ],
   },
   // Basic hardening that can't break the site. A full script policy (CSP
   // script-src) is left out: with Next.js it needs a per-request nonce, which

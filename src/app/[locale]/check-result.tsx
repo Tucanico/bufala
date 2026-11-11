@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { CheckResult } from "@/lib/check/analyse";
 import type { Sign, Verdict } from "@/lib/check/schema";
 import { Icon, type IconName } from "./icons";
@@ -201,6 +202,15 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
       )}
 
       <p className="px-1 text-[0.9rem] font-bold">{t("reminder")}</p>
+      <p className="px-1 text-[0.8rem] text-muted">
+        {t.rich("disclaimerLine", {
+          link: (chunks) => (
+            <Link href="/avvertenze" className="font-bold text-brand underline underline-offset-4">
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
     </section>
   );
 }

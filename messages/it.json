@@ -10,7 +10,9 @@
   "footer": {
     "label": "Altre pagine",
     "home": "Controlla un messaggio",
-    "about": "Chi siamo"
+    "about": "Chi siamo",
+    "privacy": "Privacy",
+    "disclaimer": "Avvertenze"
   },
   "about": {
     "metaTitle": "Chi siamo · Bufala",
@@ -42,6 +44,17 @@
     "contact": {
       "title": "Contatti",
       "body": "Scrivici a <link>{email}</link>."
+    }
+  },
+  "legal": {
+    "draft": "Bozza: questo testo non è ancora approvato. Le parti evidenziate sono ancora da confermare.",
+    "privacy": {
+      "metaTitle": "Privacy · Bufala",
+      "title": "Informativa sulla privacy"
+    },
+    "disclaimer": {
+      "metaTitle": "Avvertenze · Bufala",
+      "title": "Avvertenze"
     }
   },
   "notFound": {
@@ -171,6 +184,7 @@
       "passwords": "Cambia le password che potresti aver scritto, a partire da quella della banca e dell'email.",
       "report": "Segnala la truffa alla Polizia Postale su commissariatodips.it, oppure in qualsiasi ufficio di Polizia o stazione dei Carabinieri."
     },
-    "reminder": "Ricorda: se ti chiedono soldi o codici, contatta tu l'azienda o la persona, con un numero che conosci già."
+    "reminder": "Ricorda: se ti chiedono soldi o codici, contatta tu l'azienda o la persona, con un numero che conosci già.",
+    "disclaimerLine": "Bufala ti aiuta a riconoscere i segnali di truffa, ma non può garantire che un messaggio sia sicuro. <link>Leggi le avvertenze</link>"
   }
 }

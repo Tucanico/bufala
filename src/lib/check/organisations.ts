@@ -38,6 +38,11 @@ export type Organisation = {
   // "iliade"): then every brand word must be a whole part of the site name.
   brandWholeOnly?: boolean;
   officialDomains: Sourced<{ domain: string }>[];
+  // Domains the organisation itself says are not its own, most already used in
+  // phishing against it. A link to one (or to a subdomain) is a look-alike even
+  // when its name borrows no brand word ("avenzstr.click"). Only ever adds a
+  // warning, so it applies before the entry is reviewed.
+  knownFakeDomains?: Sourced<{ domain: string }>[];
   // Numbers with `shownAs` (at most two) are shown to people in "What to do",
   // labelled; the rest are only used to recognise an official number.
   phones: Sourced<{ number: string; purpose: string; shownAs?: PhoneLabel }>[];

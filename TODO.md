@@ -1,13 +1,13 @@
 # TODO
 
 ## MVP
-- Review the 23 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴
-- Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, and the domain of A2A's bill-payment platform
-- Grow the list to about 30, for example Iren, Edison, Sorgenia, Mediolanum, Fineco, Satispay, Mooney
-- Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
+- Review the 30 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴
+- Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, the domain of A2A's bill-payment platform, Mooney (only its group site could be read: no numbers or rules yet), Banca Mediolanum's card-block page, and Edison's contacts page (partly unread)
+- Link checks that need an outside service (Agenzia delle Entrate's list of fake domains is in, with no outside call): shortened links, domain age and blocklists each need a decision, in `docs/link-checks.md`
+- Keep Agenzia delle Entrate's fake domains in step with its page and new notices (`knownFakeDomains` in `src/data/organisations.ts`): the page has no feed and no dates
 - After the first Vercel deployment: upload one made-up screenshot to confirm OCR works there, and check that the Italian home page (`/`) loads (a local standalone test server looped on `/` and `/it`; the normal server doesn't)
 - Installable web app (manifest and icons). The favicon (`src/app/icon.svg`) can be the starting point; it still needs an `apple-icon` (180 px) and the larger manifest sizes
-- Privacy notice and disclaimer: approve the drafts in `docs/legal/`, confirm the Vercel and Mistral facts and whether a postal address is needed, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
+- Privacy notice and disclaimer: approve the texts in `src/content/legal/` (on the site at `/privacy` and `/avvertenze` with a "Bozza" banner until no open point is left), confirm the Vercel and Mistral facts and whether a postal address is needed, and have a lawyer check them (checklist in `docs/legal/privacy.md`)
 - When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
 - Contact email: once bufala.app is registered, set up free forwarding (Cloudflare Email Routing or the registrar's) for an address such as ciao@bufala.app, then change `CONTACT_EMAIL` in `src/lib/contact.ts` and the address in `docs/legal/privacy.md` (today both use tech@jacopolombardo.com)
@@ -16,8 +16,7 @@
 - "Was this answer right?" feedback, so mistakes can improve the data. Needs storage (Supabase) and a line in the privacy notice
 - Usage numbers for grant reports: how many checks and which colours, with no message content and no cookies
 - An alert when checks start failing: today errors only sit in Vercel's logs
-- A link preview (Open Graph title and image), so a link shared on WhatsApp shows Bufala's name and picture
-- A screen-reader and contrast check of every page
+- Try every page with a real screen reader (TalkBack on Android, VoiceOver on iPhone): the automatic checks in `npm run e2e` cover contrast, labels and structure, not how it sounds
 - A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it
 
 ## Undecided

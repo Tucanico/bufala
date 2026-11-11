@@ -29,6 +29,9 @@ const INPS_VADEMECUM = "https://www.inps.it/it/it/inps-comunica/dossier/vademecu
 const ENTRATE_CALL = "https://www.agenziaentrate.gov.it/portale/contatta/assistenza-fiscale/con-una-chiamata";
 const ENTRATE_PHISHING_OCT_2026 = "https://www.agenziaentrate.gov.it/portale/avviso-del-23-ottobre-2026-phishing-false-richieste-di-pagamento-relative-alla-dichiarazione-dei-redditi";
 const ENTRATE_DEFEND = "https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/come-difendersi";
+const ENTRATE_FAKE_DOMAINS = "https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/domini-estranei-all-agenzia-delle-entrate";
+const ENTRATE_IRPEF_SEP_2026 = "https://www.agenziaentrate.gov.it/portale/avviso-del-30-settembre-2026-intensificazione-campagne-di-phishing-a-tema-falsi-rimborsi-irpef";
+const ENTRATE_SPID_MAR_2026 = "https://www.agenziaentrate.gov.it/portale/avviso-del-30-marzo-2026-campagna-di-phishing-mirata-al-furto-di-credenziali-spid";
 const ENTRATE_SPOOFING = "https://www.agenziaentrate.gov.it/portale/avviso-del-1%C2%B0-aprile-2026-nuove-segnalazioni-di-smishing/sms-spoofing";
 
 const ENEL_SCAMS = "https://www.enel.it/it-it/assistenza/luce-gas/truffe";
@@ -83,6 +86,33 @@ const TELEPASS_SUPPORT = "https://www.telepass.com/it/privati/supporto";
 const TELEPASS_FRAUD = "https://www.telepass.com/it/gruppo/news-eventi/attenzione-alle-truffe-e-ai-tentativi-di-frode";
 const TELEPASS_SCAM_2026 = "https://www.telepass.com/it/gruppo/news-eventi/attenzione-tentativi-truffa-online-nome-telepass";
 const TELEPASS_PHISHING = "https://www.telepass.com/it/sicurezza/phishing";
+
+const MEDIOLANUM_CONTACTS = "https://www.bancamediolanum.it/contatti-sede-mediolanum";
+const MEDIOLANUM_SMISHING = "https://www.bancamediolanum.it/sicurezza/smishing";
+
+const FINECO_SECURITY = "https://it.finecobank.com/sicurezza/";
+const FINECO_CARDS = "https://help.finecobank.com/it/conto-e-carte/le-carte-fineco.html";
+const FINECO_HELP_CONTACTS = "https://help.finecobank.com/it/il-conto-fineco/contatti.html";
+
+const SATISPAY_CONTACTS = "https://www.satispay.com/it-it/contatti/";
+const SATISPAY_SUSPICIOUS = "https://satispaysupport.zendesk.com/hc/it/articles/39871210545053-Cosa-faccio-in-caso-di-comunicazioni-o-richieste-sospette";
+const SATISPAY_THWART = "https://satispaysupport.zendesk.com/hc/it/articles/26178487839389-Come-posso-sventare-un-tentativo-di-frode";
+const SATISPAY_CARD_LOST = "https://satispaysupport.zendesk.com/hc/it/articles/37333795016733-Carta-persa-o-rubata";
+
+const IREN_CONTACTS = "https://www.irenlucegas.it/assistenza/contatti";
+const IREN_COMPLAINTS = "https://www.irenlucegas.it/assistenza/gestisci-il-tuo-contratto/segnalazioni-e-reclami";
+const IREN_FAQ = "https://www.irenlucegas.it/assistenza/faq";
+
+const EDISON_CONTACTS = "https://www.edisonenergia.it/edison/assistenza/contatti";
+const EDISON_FAQ = "https://www.edisonenergia.it/edison/assistenza/faq";
+const EDISON_SMS = "https://www.edisonenergia.it/edison/servizi-sms";
+
+const SORGENIA_CONTACTS = "https://www.sorgenia.it/contattaci";
+const SORGENIA_CUSTOMER_SERVICE = "https://www.sorgenia.it/faq/come-contattare-servizio-clienti-per-utenze";
+const SORGENIA_REPORT = "https://www.sorgenia.it/segnalazione";
+const SORGENIA_CALLS = "https://www.sorgenia.it/partnership-consigli-pratici-telefonate-sospette";
+
+const MOONEY_GROUP = "https://mooneygroup.it/";
 
 export const ORGANISATIONS: Organisation[] = [
   {
@@ -255,6 +285,71 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "agenziaentrate.gov.it", source: ENTRATE_PHISHING_OCT_2026, checked: ON },
       { domain: "agenziaentrateriscossione.gov.it", source: "https://www.agenziaentrate.gov.it/portale/web/guest/", checked: ON },
     ],
+    knownFakeDomains: [
+      { domain: "agenziaentrate.digital", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.org", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziantrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenzia.it", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziadellentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agntrate.app", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenzlaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-mod730.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-dichiarazione.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-rimborsi.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-criptovalute.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-criptovalute.net", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "criptovalute-agenziaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-dichiarazione.it", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agentrate.org", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrategov.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.rest", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.top", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.id", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.cam", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.lat", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-gov-it.justns.rugentrate.org", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agentragenziaentrate.my", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.work", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.sbs", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.life", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.cfd", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.xyz", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.buzz", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.onl", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.cc", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.help", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.pics", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "avenzstr.click", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.bid", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.icu", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenentrate.cam", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentra.im", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.link", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.live", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.me", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.online", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.hiv.it", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.site", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziadelleentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziadelleentrate.it", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenzia-entrate.info", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenzia-entrate.org", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenzia-entrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziaentrate-siatel.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "noreply-agenziaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "app-agenziaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "pceagenziaentrate.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "agenziadelleentrate13281-it.com", source: ENTRATE_FAKE_DOMAINS, checked: ON_11 },
+      { domain: "gov.irpeff.it.com", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "gov.agenzia.us.cc", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "gov.rimborso.us.cc", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "agenziaentratel.shop", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "fiscale-gov.us.cc", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "agenziaentratea.net", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "gov.agenz.it.com", source: ENTRATE_IRPEF_SEP_2026, checked: ON_11 },
+      { domain: "agenziadelleentrate.live", source: ENTRATE_SPID_MAR_2026, checked: ON_11 },
+    ],
     phones: [
       { number: "800.90.96.96", purpose: "Call center, numero verde da rete fissa (operatore lunedì-venerdì 9-17)", source: ENTRATE_CALL, checked: ON, shownAs: "from_landline" },
       { number: "06.97617689", purpose: "Call center da cellulare (a carico del chiamante)", source: ENTRATE_CALL, checked: ON, shownAs: "from_mobile" },
@@ -273,6 +368,9 @@ export const ORGANISATIONS: Organisation[] = [
       "agenziaentrateriscossione.gov.it belongs to Agenzia delle Entrate-Riscossione, a separate body linked from the homepage. It is listed so that its real links don't count as a fake of Agenzia delle Entrate.",
       "A regional page from 2020 still shows old numbers (06.96668907, 0039.06.96668933): not used.",
       "No page states \"we never ask for X by SMS\"; the notices disown each campaign instead.",
+      "knownFakeDomains (2026-11-11): the 38 \"già utilizzati per campagne di phishing\" and 17 \"comunque estranei\" on the domini-estranei page (written there with [.] for dots), plus names in the text of the 30 Sep and 30 Mar 2026 notices. Copied by a research agent: check against the pages. The page has no dates and is not kept in step with the notices, most of which show domains only in screenshots.",
+      "\"agenziaentrate-gov-it.justns.rugentrate.org\" is printed like that on the page; it may be two entries run together (…justns.ru and …gentrate.org). Kept as printed.",
+      "Left out: wp-dev.typhur.com (a lure path on someone else's site, 30 Mar 2026) and the sender domain bsp.mi.it (12 Jun 2026), both probably hijacked third parties. agenzia.it is on the page's list, so its subdomains count too.",
       "The site lists fake domains already used in phishing (https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/domini-estranei-all-agenzia-delle-entrate): useful later as a blocklist.",
     ],
     reviewed: null,
@@ -771,6 +869,256 @@ export const ORGANISATIONS: Organisation[] = [
       "02 40707331 is A2A's own anti-scam line; its hours differ between two pages (8.30-17.00 or 9.00-15.00). Could be worth showing for A2A messages instead of, or next to, the customer line.",
       "a2aenergia.eu: only a redirect to a2a.it. Please confirm.",
       "Left out: the Tutela Gas number, whose printed digits (02 82 841 575) and link (02 82 841 545) differ.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "mediolanum",
+    name: "Banca Mediolanum",
+    type: "bank",
+    names: ["banca mediolanum", "mediolanum", "bancamediolanum"],
+    brandWords: ["mediolanum", "bancamediolanum", "bmedonline"],
+    officialDomains: [
+      { domain: "bancamediolanum.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "bmedonline.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "mediolanum.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "mediolanumplay.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "consulentimediolanum.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "mediolanumprivatebanking.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "familybanker.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { domain: "fondazionemediolanum.it", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+    ],
+    phones: [
+      { number: "800 107 107", purpose: "Servizio clienti per i clienti (numero verde, Banking Center), dall'Italia", source: MEDIOLANUM_CONTACTS, checked: ON_11, shownAs: "toll_free" },
+      { number: "+39 02 9045 1625", purpose: "Servizio clienti per i clienti, dall'estero", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { number: "800 60 70 80", purpose: "Linea dedicata a chi non è ancora cliente", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Non ti chiederemo mai telefonicamente o via SMS i tuoi codici segreti per intero e il codice B.med oppure i dati della carta di pagamento, diffida da ogni richiesta di questo genere.", source: MEDIOLANUM_SMISHING, checked: ON_11 },
+      { quote: "Banca Mediolanum non ti chiederà mai di inserire i codici segreti attraverso l’apertura di un link contenuto in un SMS.", source: MEDIOLANUM_SMISHING, checked: ON_11 },
+      { quote: "Non ti chiederemo mai di effettuare un trasferimento di denaro dal tuo conto corrente o dalle tue carte per bloccare un pagamento sospetto o per verifiche di sicurezza.", source: MEDIOLANUM_SMISHING, checked: ON_11 },
+      { quote: "Non ti chiederemo mai di attivare sul tuo cellulare il trasferimento di chiamata o di concedere l’accesso remoto al tuo dispositivo.", source: MEDIOLANUM_SMISHING, checked: ON_11 },
+      { quote: "I numeri 800.107.107 e 02.9045.1625 sono attivi solo per chiamate in entrata, Banca Mediolanum non ti contatterà MAI da questi numeri, solo tu potrai farlo.", source: MEDIOLANUM_SMISHING, checked: ON_11 },
+      { quote: "Ricordati che Banca Mediolanum non ti chiederà mai di inserire i tuoi dati via e-mail o SMS.", source: "https://www.bancamediolanum.it/sicurezza", checked: ON_11 },
+    ],
+    reviewNotes: [
+      "The card-block page (https://www.bancamediolanum.it/informazioni-al-cliente/blocco-strumenti-di-pagamento) and the anti-phishing vademecum PDF refused automated reading (bot protection, redirect loop). So no card-block numbers are listed. Please read them in a browser.",
+      "Domains: bmedonline.it is where the site's \"Accesso clienti\" link goes (https://www.bmedonline.it/v3/app/ib_flutter_app_banca/index.html#/auth). mediolanum.it comes from the contact emails on the contacts page (info@mediolanum.it, bancamediolanum@pec.mediolanum.it). mediolanumplay.it (\"Premi Play\") and consulentimediolanum.it (\"Trova un Family Banker\") are linked in the header. mediolanumprivatebanking.it, familybanker.it and fondazionemediolanum.it are linked in the footer under \"Altri siti banca mediolanum\". They are listed so the group's own sites aren't flagged as look-alikes of \"mediolanum\". fondazionemediolanum.it belongs to the foundation, not the bank: delete it if unwanted. The footer's \"Tutti i siti del Gruppo\" list loads by script and wasn't read.",
+      "\"mediolanum\" is the Latin name of Milan and is used by unrelated businesses (hotels, shops), so any such site will be flagged as a look-alike. brandWholeOnly is not set: it doesn't help here, because the word isn't the start of an ordinary Italian word. \"bmed\" is not a brand word: 4 letters and too generic.",
+      "\"per intero\": the bank says it never asks for secret codes in full by phone or SMS. It may ask for part of a code, for example when identifying a caller.",
+      "800.107.107 and 02.9045.1625 are for incoming calls only: the bank never calls from them. The spoofing page (https://www.bancamediolanum.it/sicurezza/spoofing) warns that scammers fake these numbers, and that fake SMS can land in the same thread as the bank's real messages.",
+      "No page names the bank's SMS sender or says whether its own SMS contain links. Not verified: whether the 800 numbers are free from mobiles, and what the asterisk on the abroad number means.",
+      "Left out: fax 02 9049 2550.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "fineco",
+    name: "Fineco",
+    type: "bank",
+    names: ["fineco", "finecobank", "fineco bank"],
+    brandWords: ["fineco", "finecobank"],
+    brandWholeOnly: true,
+    officialDomains: [
+      { domain: "finecobank.com", source: FINECO_SECURITY, checked: ON_11 },
+      { domain: "fineco.mobi", source: FINECO_SECURITY, checked: ON_11 },
+      { domain: "fineco.it", source: "https://it.finecobank.com/", checked: ON_11 },
+    ],
+    phones: [
+      { number: "800.52.52.52", purpose: "Servizio Clienti e blocco carte, 24 ore su 24; numero verde, solo dall'Italia e da telefono fisso", source: FINECO_CARDS, checked: ON_11, shownAs: "from_landline" },
+      { number: "02.2899.2899", purpose: "Customer Care e blocco carte, 24 ore su 24, da cellulare o dall'estero", source: "https://it.finecobank.com/contattaci/blocco-carta/", checked: ON_11, shownAs: "from_mobile" },
+      { number: "02 30575859", purpose: "Voice Portal, servizi automatici per i titolari di conto Trading", source: FINECO_HELP_CONTACTS, checked: ON_11 },
+      { number: "339.994.1888", purpose: "Info SMS: i clienti scrivono a questo numero per informazioni e assistenza sul conto (non per Conto Fineco One e Conto Trading)", source: FINECO_HELP_CONTACTS, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Ricordati che Fineco non ti contatterà mai per chiederti: / Codice Utente e Password; / i dati della carta di credito o debito; / PIN Dispositivo e SMS PIN; / di confermare le operazioni con Mobile Code;", source: FINECO_SECURITY, checked: ON_11 },
+      { quote: "I link che trovi nei nostri SMS iniziano sempre per «Fineco.mobi/», ogni altro indirizzo potrebbe essere fraudolento.", source: FINECO_SECURITY, checked: ON_11 },
+      { quote: "Ricorda: non ti verranno mai chiesti codici o dati personali via email o telefono.", source: "https://help.finecobank.com/it/corsi-e-education/impara-con-fineco.html", checked: ON_11 },
+      { quote: "Ricorda di non comunicare i tuoi codici (es. password, PIN) ad altre persone, inclusi amici, conoscenti, il tuo promotore finanziario o gli operatori di customer care", source: "https://help.finecobank.com/it/il-conto-fineco/sicurezza-privacy.html", checked: ON_11 },
+    ],
+    reviewNotes: [
+      "Fineco's own SMS do contain links, always starting \"Fineco.mobi/\" (security page), so fineco.mobi is listed. https://fineco.mobi/ redirects to it.finecobank.com. Once reviewed, a link to fineco.mobi no longer counts as \"asks you to open a link\". Please decide whether that's wanted.",
+      "fineco.it: no page text names it. The homepage links a results PDF on images.fineco.it, and www.fineco.it redirects to it.finecobank.com. Please confirm.",
+      "Fineco does call customers from 02 2899 2899 (\"Verrai contattato dal numero 02 2899 2899\", help contacts page) when they ask for a callback (\"Ti telefoniamo\") in the reserved area. A call from that number can be genuine, and it can also be faked.",
+      "When the customer calls the Voice Portal, Fineco asks for \"due cifre casuali del tuo Codice PIN\" for transfers, and for the full Codice Utente and Password telefonica when no voice password is set. \"Never asks for codes\" only holds when Fineco makes the contact.",
+      "800.52.52.52 is called \"numero verde valido dall'Italia e da telefono fisso\" on the cards help page; that's the basis for shownAs from_landline (\"gratis da telefono fisso\"). The card-block page only says \"da telefono fisso in italia\". The cost of 02.2899.2899 is not stated.",
+      "02.3057.5859 (code help, Trading accounts, in the contacts-page FAQ data) and 02 30575859 are the same number written two ways; listed once.",
+      "Left out: 800.92.92.92 (mortgage and loan information). It only appears in the contacts page's FAQ structured data and wasn't seen in the page's visible text.",
+      "brandWholeOnly: \"fineco\" is the start of the ordinary word \"finecorsa\", and turns up inside joined site names such as \"finecostruzioni\". With brandWholeOnly, fineco-sicurezza.com and finecobank-verifica.com are caught, but a one-word look-alike such as finecosicurezza.com is missed. Fineco's other sites linked from its homepage (finecodays.it, consulentefinecobank.com, fineconomy.it) aren't listed; brandWholeOnly keeps them from being flagged.",
+      "No page names Fineco's SMS sender.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "satispay",
+    name: "Satispay",
+    type: "bank",
+    names: ["satispay"],
+    brandWords: ["satispay"],
+    officialDomains: [
+      { domain: "satispay.com", source: SATISPAY_CONTACTS, checked: ON_11 },
+      { domain: "satispaysupport.zendesk.com", source: SATISPAY_CONTACTS, checked: ON_11 },
+      { domain: "satispay.onelink.me", source: "https://www.satispay.com/it-it/privati/", checked: ON_11 },
+    ],
+    phones: [
+      { number: "+39 800 826 533", purpose: "Blocco d'emergenza della carta con risponditore automatico, se si perdono sia la carta sia il telefono, chiamando dall'Italia (in italiano)", source: SATISPAY_CARD_LOST, checked: ON_11, shownAs: "card_block" },
+      { number: "+352 27 647 687", purpose: "Blocco d'emergenza della carta con risponditore automatico, chiamando dall'estero (in inglese)", source: SATISPAY_CARD_LOST, checked: ON_11 },
+      { number: "+352 27 648 540", purpose: "Blocco d'emergenza della carta con risponditore automatico, valido da ovunque (in italiano o in inglese)", source: SATISPAY_CARD_LOST, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Satispay può chiedermi PIN della carta, password o codici di sicurezza? / Satispay non ti chiederà mai di comunicare a qualcuno questi dati tramite telefono, SMS, email, chat o altri canali", source: SATISPAY_SUSPICIOUS, checked: ON_11 },
+      { quote: "Nessuna banca, autorità o operatore Satispay ti chiederà mai di trasferire i tuoi soldi su un altro conto per proteggerli da una frode", source: SATISPAY_SUSPICIOUS, checked: ON_11 },
+      { quote: "Satispay non ti chiamerà mai per chiederti di: / Condividere PIN, codici temporanei (OTP) o risposte a notifiche di sicurezza;", source: SATISPAY_THWART, checked: ON_11 },
+      { quote: "Satispay non ti chiamerà mai per chiederti di: / … / Acquistare Gift Card o codici acquisto;", source: SATISPAY_THWART, checked: ON_11 },
+      { quote: "Satispay non richiede mai pagamenti per sbloccare transazioni o inviare rimborsi.", source: "https://satispaysupport.zendesk.com/hc/it/articles/26177653816733-Quali-sono-le-truffe-pi%C3%B9-comuni", checked: ON_11 },
+      { quote: "Questi numeri sono dedicati esclusivamente alla ricezione delle tue segnalazioni. Nessun operatore Satispay ti contatterà mai da questi recapiti.", source: SATISPAY_CARD_LOST, checked: ON_11 },
+      { quote: "accedi al tuo account Satispay solo attraverso l'App installata sul tuo smartphone.", source: "https://satispaysupport.zendesk.com/hc/it/articles/18372748033821-Come-posso-proteggermi-dai-tentativi-di-frode", checked: ON_11 },
+    ],
+    reviewNotes: [
+      "Typed \"bank\": Satispay is an e-money institution (Satispay Europe S.A., supervised by the CSSF) with an IBAN, a card and an app, and the bank advice (\"open the app yourself\") fits. Use \"other\" if preferred (as for PayPal).",
+      "Satispay has no customer phone line: help is only through the in-app chat or support@satispay.com (https://satispaysupport.zendesk.com/hc/it/articles/18373121111197-Come-posso-contattare-l-assistenza-di-Satispay). The three numbers are only an automated emergency card block for when the card and the phone are both lost. +39 800 826 533 is printed with +39; the page doesn't say it is free.",
+      "The help centre is on satispaysupport.zendesk.com, linked as \"Centro Assistenza\" from satispay.com/it-it/contatti. The old support.satispay.com/it/articles/... addresses now redirect to that contacts page. The articles' text was read through the help centre's own JSON API, and their pages were checked to show the same text.",
+      "satispay.onelink.me is the app link behind the card QR codes on https://www.satispay.com/it-it/privati/ (page data, not a visible link). It is listed so genuine app links aren't flagged as look-alikes. Please confirm.",
+      "Left out: satispaylogout-ita.paperform.co, the lost-phone form linked from https://satispaysupport.zendesk.com/hc/it/articles/18372437539101. It's on a third-party form host and will be flagged as a look-alike.",
+      "requestsPaymentByMessage is not set. Two genuine features could look like payment requests, but neither is Satispay itself asking for payment: requests between users (a friend asks for money in the app), and links sent to people without an account who received money or a payment request (https://satispaysupport.zendesk.com/hc/it/articles/18397383422109).",
+      "Satispay does send genuine emails and in-app notices asking people to reconfirm their personal data and upload a new ID (https://satispaysupport.zendesk.com/hc/it/articles/24779162641053, which also says \"Non ti chiederemo mai di condividere il tuo PIN o i codici di verifica.\"). It also says it may ask for documents \"solo tramite indirizzi email verificati\"; which addresses those are isn't stated.",
+      "Satispay warns that phone spoofing can show its name or logo on the caller's screen. No page names an SMS sender. Verification codes arrive by SMS and by email.",
+      "brandWholeOnly is not set: \"satispay\" isn't the start of any ordinary Italian word.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "iren",
+    name: "Iren",
+    type: "utility",
+    names: ["iren", "iren luce gas", "iren mercato", "gruppo iren", "irenyou"],
+    // "iren" is under 5 letters, so it already only matches a whole part of a
+    // site name: "irene" or "sirena" don't count. brandWholeOnly isn't needed.
+    brandWords: ["iren", "irenlucegas", "gruppoiren", "irenyou", "irenmercato"],
+    officialDomains: [
+      { domain: "irenlucegas.it", source: IREN_COMPLAINTS, checked: ON_11 },
+      { domain: "gruppoiren.it", source: IREN_COMPLAINTS, checked: ON_11 },
+      { domain: "beiren.it", source: IREN_COMPLAINTS, checked: ON_11 },
+      { domain: "irenlucegaseservizi.it", source: IREN_COMPLAINTS, checked: ON_11 },
+      { domain: "irenmercato.it", source: IREN_FAQ, checked: ON_11 },
+    ],
+    phones: [
+      { number: "800 969 696", purpose: "Servizio clienti luce e gas, numero verde da rete fissa, lunedì-venerdì 8-20, sabato 8-13", source: IREN_CONTACTS, checked: ON_11, shownAs: "from_landline" },
+      { number: "011 022 033", purpose: "Servizio clienti da cellulare o dall'estero, costo secondo il proprio piano tariffario", source: IREN_CONTACTS, checked: ON_11, shownAs: "from_mobile" },
+      { number: "800 909 668", purpose: "Connettività internet, numero verde: assistenza amministrativa lunedì-venerdì 8-20, tecnica lunedì-sabato 8-20", source: IREN_CONTACTS, checked: ON_11 },
+      { number: "800 255 533", purpose: "Guasti del teleriscaldamento, numero verde, tutti i giorni 24 ore su 24", source: IREN_CONTACTS, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Diffida dalle truffe e accedi al nostro sito e alle nostre app solo dai canali ufficiali Iren.", source: IREN_COMPLAINTS, checked: ON_11 },
+    ],
+    reviewNotes: [
+      "Domains come from Iren's own list on the complaints page (\"Ricordiamo che i domini ufficiali di Iren sono:\"): irenlucegas.it, clienti.irenyou.gruppoiren.it, beiren.it, mobile-irengo.gruppoiren.it, gruppoiren.it, plus the email addresses IrenLuceGas@clienti.gruppoiren.it and irengo.emobility@irenlucegaseservizi.it. irenmercato.it is not on that list: it comes from FAQ email addresses (info.casaonline@irenmercato.it, clienti.nuoviprodotti@irenmercato.it).",
+      "beiren.it returned an empty page (script only), so what it is couldn't be confirmed.",
+      "No Iren page on SMS or email phishing, or saying \"we never ask for codes\", was found. The only anti-scam line is the general \"Diffida dalle truffe\" sentence.",
+      "Third-party sites (Segugio and others) give 800 608 047 as an Iren line for reporting fake agents. It is on no Iren page that was read, so it is not listed.",
+      "https://www.gruppoiren.it/it/assistenza.html lists many local numbers for Iren Ambiente (waste, TARI), water and network faults. They aren't listed. TARI SMS scams are common, so they may be worth adding.",
+      "No SMS sender name is stated. The FAQ only says \"IREN le invierà un sms e una email di remind dell'appuntamento\" (fibre installation).",
+      "requestsPaymentByMessage is not set: the bill-payment page lists direct debit, card in the customer area or app, post offices and bank transfer, and no payment links by message.",
+      "\"irenyou\" (7 letters) matches anywhere in a site name, so a name like \"sirenyoung\" would count. That seems unlikely to matter.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "edison",
+    name: "Edison Energia",
+    type: "utility",
+    names: ["edison energia", "edison"],
+    brandWords: ["edison", "edisonenergia"],
+    officialDomains: [
+      { domain: "edisonenergia.it", source: EDISON_CONTACTS, checked: ON_11 },
+      { domain: "edison.it", source: EDISON_CONTACTS, checked: ON_11 },
+      { domain: "servizioclientiedison.it", source: EDISON_CONTACTS, checked: ON_11 },
+    ],
+    phones: [
+      { number: "800.031.141", purpose: "Servizio clienti per chi è già cliente (la pagina non dice se è gratuito né da quali telefoni si chiama)", source: EDISON_FAQ, checked: ON_11, shownAs: "customer_service" },
+      { number: "800.14.14.14", purpose: "Numero verde per chi non è ancora cliente: offerte e nuovi contratti", source: EDISON_FAQ, checked: ON_11 },
+      { number: "800.441.999", purpose: "Accanto al servizio \"Intervento tecnico 24/7\" per la casa, scopo non indicato", source: EDISON_CONTACTS, checked: ON_11 },
+      { number: "800 608 331", purpose: "\"Per informazioni\", lunedì-venerdì 8-20, a quanto pare nel riquadro dei servizi assicurativi", source: EDISON_CONTACTS, checked: ON_11 },
+      { number: "800 608 325", purpose: "\"Per interventi\", tutti i giorni 24 ore su 24, a quanto pare nel riquadro dei servizi assicurativi", source: EDISON_CONTACTS, checked: ON_11 },
+      { number: "+39 339 9942842", purpose: "Numero a cui i clienti domestici inviano per SMS l'autolettura (luce e gas)", source: EDISON_SMS, checked: ON_11 },
+      { number: "+39 3202041114", purpose: "Numero a cui i clienti business inviano per SMS l'autolettura (luce e gas)", source: EDISON_SMS, checked: ON_11 },
+      { number: "+39 320 2041553", purpose: "Numero a cui i clienti scrivono per SMS per copia della bolletta, attivazione del contratto, bolletta web o saldo", source: EDISON_SMS, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [],
+    reviewNotes: [
+      "No Edison page on SMS or email phishing, or on what Edison never asks for, was found. https://www.edisonenergia.it/edison/informazioni-e-moduli-utili/tutela-del-cliente only says \"Alcuni operatori si fingono Agenti Edison.\" and links a report form. That is a warning, not a rule, so it is not quoted.",
+      "Edison's \"Guida Digital\" PDF (https://documenti.edisonenergia.it/getbusinessdoc.ashx?id=CONDECO_guidadigital) reportedly has anti-scam advice, but it is over 10 MB and couldn't be read.",
+      "800.031.141: the FAQ says it is for existing customers but not whether it is free. No customer number for mobiles was found on an official page (third-party sites give one), hence shownAs \"customer_service\" rather than a free or landline label.",
+      "The contacts page is partly drawn by script and came back truncated. 800 608 331 and 800 608 325 sit near serviziassicurativi@edisonenergia.it, so they look like insurance-services lines rather than energy customer care. Please check.",
+      "Left out: 02 82 518 078, printed under \"Numeri di telefono\" with no purpose. Also 800.166.654 on the Tutela del cliente page, which looks like ARERA's consumer helpline rather than Edison's.",
+      "The three mobile numbers are numbers customers send SMS to, not numbers Edison sends from. They are listed only so a message quoting them isn't counted as \"call this number\" after review.",
+      "edison.it comes from the PEC address assicurativiedisonenergia@pec.edison.it on the contacts page. servizioclientiedison.it comes from condomini@servizioclientiedison.it on the same page and may belong to an outsourced contact centre.",
+      "\"edison\" (6 letters) matches anywhere in a site name. No ordinary Italian word starts with it, so brandWholeOnly is not set. But it is a common name abroad (Thomas Edison, Edison Research, Samsung Medison), so unrelated sites such as \"medison\" would count as look-alikes. brandWholeOnly would avoid that but miss one-word look-alikes like edisonbollette.com.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "sorgenia",
+    name: "Sorgenia",
+    type: "utility",
+    names: ["sorgenia", "mysorgenia"],
+    brandWords: ["sorgenia"],
+    officialDomains: [
+      { domain: "sorgenia.it", source: SORGENIA_CONTACTS, checked: ON_11 },
+    ],
+    phones: [
+      { number: "800.294.333", purpose: "Servizio clienti per chi è già cliente, numero verde da rete fissa, lunedì-venerdì 8-20, sabato 8-15 (festivi esclusi)", source: SORGENIA_CUSTOMER_SERVICE, checked: ON_11, shownAs: "from_landline" },
+      { number: "02.44.388.001", purpose: "Servizio clienti da cellulare, costo secondo l'operatore", source: SORGENIA_CUSTOMER_SERVICE, checked: ON_11, shownAs: "from_mobile" },
+      { number: "800.140.084", purpose: "Clienti del Servizio a Tutele Graduali, da rete fissa, lunedì-venerdì 9-18", source: SORGENIA_CONTACTS, checked: ON_11 },
+      { number: "02.44.388.084", purpose: "Clienti del Servizio a Tutele Graduali, lunedì-venerdì 9-18", source: SORGENIA_CONTACTS, checked: ON_11 },
+      { number: "800 920 960", purpose: "Numero gratuito per chi non è ancora cliente (offerte)", source: SORGENIA_CONTACTS, checked: ON_11 },
+      { number: "800 920 920", purpose: "Numero gratuito indicato per le offerte business (il suo link chiama 800 920 960)", source: SORGENIA_CONTACTS, checked: ON_11 },
+      { number: "800 979 800", purpose: "Numero gratuito mostrato nella finestra delle offerte", source: SORGENIA_CONTACTS, checked: ON_11 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Non ti chiediamo mai dati della fornitura.", source: SORGENIA_REPORT, checked: ON_11 },
+      { quote: "chiamiamo sempre da un numero fisso con prefisso 02, mai da cellulare.", source: SORGENIA_CALLS, checked: ON_11 },
+    ],
+    reviewNotes: [
+      "Both rules are about phone calls (\"Cosa Sorgenia non fa al telefono\"). No Sorgenia page on SMS or email phishing, or on codes and passwords, was found.",
+      "The report page has a tool to check whether a number that called you is Sorgenia's (\"Verifica qui se il numero di telefono che ti ha chiamato appartiene a Sorgenia\"). It could be pointed to in the advice.",
+      "800 920 920 is printed as \"Chiamaci gratis 800 920 920\", but its link dials 800920960. It is listed as printed.",
+      "In the fibre section of the contacts page, 800.294.333 and 02.44.388.001 have different hours (Monday-Friday until 21:00).",
+      "No SMS sender name is stated. requestsPaymentByMessage is not set: the FAQ https://www.sorgenia.it/faq/cosa-succede-se-dimentico-di-pagare-bolletta lists postal slip c/c 46436317 and bank transfer to IBAN IT36W0306901626100000123342, with proof sent to edp@sorgenia.it. That IBAN could be useful later, since a message giving a different IBAN is suspect.",
+      "Not used: a 2021 press release on gruppo.sorgenia.it saying \"Sorgenia non chiede mai i dati al telefono\" (older), and third-party reports of a September 2025 data breach at a Sorgenia supplier (no Sorgenia notice found).",
+      "\"sorgenia\" matches anywhere in a site name. No ordinary word starts with it (\"sorgente\" differs), so brandWholeOnly is not set.",
+    ],
+    reviewed: null,
+  },
+  {
+    id: "mooney",
+    name: "Mooney",
+    type: "bank",
+    names: ["mooney", "mooneygo"],
+    brandWords: ["mooney"],
+    officialDomains: [
+      { domain: "mooneygroup.it", source: MOONEY_GROUP, checked: ON_11 },
+      { domain: "mooney.it", source: MOONEY_GROUP, checked: ON_11 },
+      { domain: "mymooney.it", source: MOONEY_GROUP, checked: ON_11 },
+      { domain: "mooneygo.it", source: MOONEY_GROUP, checked: ON_11 },
+    ],
+    phones: [],
+    smsSenders: [],
+    rules: [],
+    reviewNotes: [
+      "www.mooney.it, mooney.it, its documents under mooney.it/cms, www.mymooney.it and www.mooneygo.it all answered HTTP 403 to automated reading on 2026-11-11. So no phone numbers, SMS senders, rules or payment-by-message statement could be collected. Only the group site mooneygroup.it could be read.",
+      "Third-party sites give 800 005 005 (from abroad +39 02 30458205) as Mooney's customer service. It is not verified and not listed: please check it on mooney.it.",
+      "Domains come from the \"I siti del gruppo\" footer of mooneygroup.it (\"© Mooney S.p.A.\"). easycassa.it and pluservice.net (business services) are left out. A whistleblowing pop-up on the same site lists sisalpay.it labelled \"MOONEY\", bill.it and rivenditorisisalpay.it: also left out. sisalpay.it was the earlier brand, so it may be worth adding.",
+      "mooneygo.it is MooneyGo (tolls, parking, mobility), a group brand. It is included so its links count as official. Drop it if this entry should cover only payments and cards.",
+      "The contacts page (https://mooneygroup.it/contatti/) gives only email addresses: media@mooney.it, richiestaautorita@mooney.it and richiesteautorita@pec.mooney.it. All are under mooney.it.",
+      "type \"bank\": Mooney issues prepaid cards, and the model's prompt files card companies under bank, as Nexi is. \"other\", as for PayPal, would also fit.",
+      "\"mooney\" (6 letters) matches anywhere in a site name, which also catches mooneygo and mymooney look-alikes. It isn't an Italian word, so brandWholeOnly is not set, but unrelated sites with the surname in them (e.g. mooneyaircraft) would count as look-alikes.",
     ],
     reviewed: null,
   },

@@ -9,6 +9,7 @@ test("every fact's source is on the organisation's own site", () => {
   for (const organisation of ORGANISATIONS) {
     const facts = [
       ...organisation.officialDomains,
+      ...(organisation.knownFakeDomains ?? []),
       ...organisation.phones,
       ...organisation.smsSenders,
       ...organisation.rules,
@@ -25,7 +26,7 @@ test("every fact's source is on the organisation's own site", () => {
 test("every entry has the basics, written the way the checks expect", () => {
   for (const organisation of ORGANISATIONS) {
     expect(organisation.officialDomains.length, organisation.id).toBeGreaterThan(0);
-    for (const { domain } of organisation.officialDomains) {
+    for (const { domain } of [...organisation.officialDomains, ...(organisation.knownFakeDomains ?? [])]) {
       // A brand ending such as DHL's ".dhl" counts as a TLD.
       expect(domain, organisation.id).toMatch(/^(?!www\.)[a-z0-9.-]+\.[a-z]{2,}$/);
     }
@@ -111,3 +112,21 @@ test.each(["ultimate.com", "sentinel.it", "timeshare.it", "inpstudio.com", "repu
     expect(classifyHost(host, ORGANISATIONS).kind).toBe("unknown");
   },
 );
+
+test("no domain is both someone's official site and declared fake", () => {
+  const official = ORGANISATIONS.flatMap((organisation) => organisation.officialDomains.map(({ domain }) => domain));
+  for (const organisation of ORGANISATIONS) {
+    for (const { domain } of organisation.knownFakeDomains ?? []) {
+      expect(official, `${organisation.id}: ${domain}`).not.toContain(domain);
+      expect(classifyHost(domain, ORGANISATIONS).kind, domain).toBe("lookalike");
+    }
+  }
+});
+
+test("a domain Agenzia delle Entrate declares fake is its look-alike, even without its name", () => {
+  for (const host of ["avenzstr.click", "rimborso.agenzia.it", "gov.irpeff.it.com"]) {
+    const kind = classifyHost(host, ORGANISATIONS);
+    expect(kind.kind, host).toBe("lookalike");
+    expect(kind.kind === "lookalike" && kind.organisation.id, host).toBe("agenzia-entrate");
+  }
+});

@@ -10,7 +10,9 @@
   "footer": {
     "label": "Other pages",
     "home": "Check a message",
-    "about": "About us"
+    "about": "About us",
+    "privacy": "Privacy",
+    "disclaimer": "Disclaimer"
   },
   "about": {
     "metaTitle": "About us · Bufala",
@@ -42,6 +44,17 @@
     "contact": {
       "title": "Contact",
       "body": "Write to us at <link>{email}</link>."
+    }
+  },
+  "legal": {
+    "draft": "Draft: this text is not approved yet. The highlighted parts are still to be confirmed.",
+    "privacy": {
+      "metaTitle": "Privacy · Bufala",
+      "title": "Privacy notice"
+    },
+    "disclaimer": {
+      "metaTitle": "Disclaimer · Bufala",
+      "title": "Disclaimer"
     }
   },
   "notFound": {
@@ -171,6 +184,7 @@
       "passwords": "Change any passwords you may have typed, starting with your bank and email.",
       "report": "Report the scam to the Polizia Postale at commissariatodips.it, or at any police station or Carabinieri station."
     },
-    "reminder": "Remember: if they ask for money or codes, contact the company or the person yourself, on a number you already know."
+    "reminder": "Remember: if they ask for money or codes, contact the company or the person yourself, on a number you already know.",
+    "disclaimerLine": "Bufala helps you spot the signs of a scam, but it can't guarantee that a message is safe. <link>Read the disclaimer</link>"
   }
 }
