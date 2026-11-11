@@ -37,11 +37,11 @@
     },
     "who": {
       "title": "Who is behind it",
-      "body": "[TO COMPLETE: who runs Bufala]"
+      "body": "Bufala is a project by Tucanico."
     },
     "contact": {
       "title": "Contact",
-      "body": "Write to us at [TO COMPLETE: email address]."
+      "body": "Write to us at <link>{email}</link>."
     }
   },
   "notFound": {
@@ -142,6 +142,12 @@
       "courier": "Check the delivery on the website of the shop you bought from, or on the courier's website, typing the address yourself.",
       "family": "Call the person on the number you've always used, not the new one. Or ask them something only they would know.",
       "other": "Don't use any links or numbers from the message. If you know who it claims to be from, contact them yourself using details you already have."
+    },
+    "alreadyActed": {
+      "title": "Already clicked, paid or gave a code?",
+      "bank": "Call your bank straight away on the number on the back of your card or in its app, and ask them to block your cards and account.",
+      "passwords": "Change any passwords you may have typed, starting with your bank and email.",
+      "report": "Report the scam to the Polizia Postale at commissariatodips.it, or at any police station or Carabinieri station."
     },
     "reminder": "Remember: if they ask for money or codes, contact the company or the person yourself, on a number you already know."
   }

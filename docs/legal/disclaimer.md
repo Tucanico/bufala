@@ -40,7 +40,7 @@ Bufala è gratuito. Non ti chiederà mai soldi, codici, password o dati personal
 
 1. **Chiama subito la tua banca** al numero sul retro della carta o nella sua app, e chiedi di bloccare carte e conto.
 2. **Cambia le password** che potresti aver scritto, a partire da quella della banca e dell'email.
-3. **Denuncia la truffa** alla Polizia Postale (www.commissariatodips.it) oppure in qualsiasi ufficio di Polizia o stazione dei Carabinieri. **[DA CONFERMARE: indirizzo e canali della Polizia Postale]**
+3. **Denuncia la truffa** alla Polizia Postale (www.commissariatodips.it) oppure in qualsiasi ufficio di Polizia o stazione dei Carabinieri.
 
 ---
 
@@ -68,7 +68,7 @@ Bufala is free. It will never ask you for money, codes, passwords or personal de
 
 1. **Call your bank straight away** on the number on the back of your card or in its app, and ask them to block your cards and account.
 2. **Change any passwords** you may have typed, starting with your bank and email.
-3. **Report the scam** to the Polizia Postale (www.commissariatodips.it), or at any police station or Carabinieri station. **[TO CONFIRM: the Polizia Postale's address and channels]**
+3. **Report the scam** to the Polizia Postale (www.commissariatodips.it), or at any police station or Carabinieri station.
 
 ---
 
@@ -77,4 +77,4 @@ Bufala is free. It will never ask you for money, codes, passwords or personal de
 - The short line under every 🔴, 🟠 and ⚪ answer, linking to the full page.
 - A small footer on every page with "Privacy" and "Avvertenze" / "Disclaimer".
 - Two pages per language, for example `/privacy` and `/avvertenze`, and `/en/privacy` and `/en/disclaimer`.
-- "If you already clicked, paid or gave a code" may deserve a place of its own on the answer screen, since that's exactly when someone needs it.
+- "If you already clicked, paid or gave a code" is also on the answer screen, under 🔴 and 🟠 (built 2026-11-11). commissariatodips.it was confirmed as the Polizia Postale's site, with "Segnala online" and "Denuncia per reati telematici".

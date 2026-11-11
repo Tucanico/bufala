@@ -12,7 +12,7 @@ Statements about what Bufala itself does come from the code as of 2026-11-11. St
 
 ### Chi tratta i tuoi dati
 
-Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legale: se serve anche un indirizzo postale]**. Per qualsiasi domanda sulla privacy puoi scrivere a **[EMAIL, DA CONFERMARE]**.
+Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legale: se serve anche un indirizzo postale]**. Per qualsiasi domanda sulla privacy puoi scrivere a **tech@jacopolombardo.com**.
 
 ### In breve
 
@@ -61,7 +61,7 @@ Usiamo un solo cookie, tecnico, chiamato `NEXT_LOCALE`: ricorda se hai scelto l'
 
 ### I tuoi diritti
 
-Puoi chiedere di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento, opporti al trattamento e riceverli in un formato leggibile, scrivendo a **[EMAIL]**. Poiché non salviamo i messaggi, di solito non abbiamo dati da mostrarti o cancellare. Puoi anche presentare un reclamo al **Garante per la protezione dei dati personali** (www.garanteprivacy.it).
+Puoi chiedere di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento, opporti al trattamento e riceverli in un formato leggibile, scrivendo a **tech@jacopolombardo.com**. Poiché non salviamo i messaggi, di solito non abbiamo dati da mostrarti o cancellare. Puoi anche presentare un reclamo al **Garante per la protezione dei dati personali** (www.garanteprivacy.it).
 
 ### Modifiche
 
@@ -75,7 +75,7 @@ Se cambiamo il modo in cui trattiamo i dati, per esempio aggiungendo nuovi contr
 
 ### Who handles your data
 
-The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether a postal address is needed too]**. For any privacy question, write to **[EMAIL, TO CONFIRM]**.
+The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether a postal address is needed too]**. For any privacy question, write to **tech@jacopolombardo.com**.
 
 ### In short
 
@@ -124,7 +124,7 @@ We use a single technical cookie, `NEXT_LOCALE`. It remembers whether you chose 
 
 ### Your rights
 
-You can ask to access, correct or delete your data, restrict or object to its handling, and receive it in a readable format, by writing to **[EMAIL]**. Since we don't store messages, we usually have no data to show you or delete. You can also complain to the Italian data protection authority, the **Garante per la protezione dei dati personali** (www.garanteprivacy.it).
+You can ask to access, correct or delete your data, restrict or object to its handling, and receive it in a readable format, by writing to **tech@jacopolombardo.com**. Since we don't store messages, we usually have no data to show you or delete. You can also complain to the Italian data protection authority, the **Garante per la protezione dei dati personali** (www.garanteprivacy.it).
 
 ### Changes
 

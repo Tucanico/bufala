@@ -7,11 +7,10 @@
 - Link checks that need an outside service: follow shortened links from our server (guard against requests to private addresses), domain age (RDAP), blocklists (Google Web Risk, URLhaus, PhishTank). Agenzia delle Entrate publishes the fake domains already used against it, a ready blocklist
 - After the first Vercel deployment: upload one made-up screenshot to confirm OCR works there, and check that the Italian home page (`/`) loads (a local standalone test server looped on `/` and `/it`; the normal server doesn't)
 - Installable web app (manifest and icons). The favicon (`src/app/icon.svg`) can be the starting point; it still needs an `apple-icon` (180 px) and the larger manifest sizes
-- Privacy notice and disclaimer: approve the drafts in `docs/legal/`, fill in the controller and contact email, confirm the Vercel and Mistral facts, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
+- Privacy notice and disclaimer: approve the drafts in `docs/legal/`, confirm the Vercel and Mistral facts and whether a postal address is needed, have a lawyer check them, then put them on the site (placement proposed at the end of `docs/legal/disclaimer.md`)
 - When deploying on Vercel: create and publish the firewall rule `bufala-check` (10 requests per 10 minutes, by IP), and set a monthly spending cap on Bufala's Mistral organisation (steps in the README). The limit code is built; it can only be tested on Vercel
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 1,900 tokens
-
-- "Chi siamo" page: fill in who runs Bufala and the contact email (`about.who` and `about.contact` in `messages/*.json`, now `[DA COMPLETARE]` / `[TO COMPLETE]`). Use the same email in the privacy notice; a dedicated address on bufala.app (for example ciao@bufala.app, forwarded to your inbox) needs the domain registered first
+- Contact email: once bufala.app is registered, set up free forwarding (Cloudflare Email Routing or the registrar's) for an address such as ciao@bufala.app, then change `CONTACT_EMAIL` in `src/lib/contact.ts` and the address in `docs/legal/privacy.md` (today both use tech@jacopolombardo.com)
 
 ## After launch
 - An "Incolla" (Paste) button next to the text box: long-press paste is hard for many older people. The browser asks permission the first time
@@ -23,7 +22,6 @@
 - A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it
 
 ## Undecided
-- "If you already clicked, paid or gave a code" on the answer screen (text drafted in `docs/legal/disclaimer.md`): asked 2026-11-11, waiting for an answer
 - Amazon's own check ("Verifica una chiamata o un messaggio" on account-status.amazon.it, or forwarding to verify@amazon.it): add it to the Amazon advice?
 - "Read aloud" on the answer screen: MVP or later
 - Redis queue for link checks: proposed to skip until forwarding arrives

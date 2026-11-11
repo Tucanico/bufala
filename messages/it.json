@@ -37,11 +37,11 @@
     },
     "who": {
       "title": "Chi c'è dietro",
-      "body": "[DA COMPLETARE: chi gestisce Bufala]"
+      "body": "Bufala è un progetto di Tucanico."
     },
     "contact": {
       "title": "Contatti",
-      "body": "Scrivici a [DA COMPLETARE: indirizzo email]."
+      "body": "Scrivici a <link>{email}</link>."
     }
   },
   "notFound": {
@@ -142,6 +142,12 @@
       "courier": "Controlla la spedizione sul sito del negozio dove hai comprato, o su quello del corriere scrivendo tu l'indirizzo.",
       "family": "Chiama la persona al numero che hai sempre usato, non a quello nuovo. Oppure falle una domanda a cui solo lei saprebbe rispondere.",
       "other": "Non usare link o numeri del messaggio. Se conosci chi dice di scriverti, contattalo tu con un recapito che hai già."
+    },
+    "alreadyActed": {
+      "title": "Hai già cliccato, pagato o dato un codice?",
+      "bank": "Chiama subito la tua banca al numero sul retro della carta o nella sua app, e chiedi di bloccare carte e conto.",
+      "passwords": "Cambia le password che potresti aver scritto, a partire da quella della banca e dell'email.",
+      "report": "Segnala la truffa alla Polizia Postale su commissariatodips.it, oppure in qualsiasi ufficio di Polizia o stazione dei Carabinieri."
     },
     "reminder": "Ricorda: se ti chiedono soldi o codici, contatta tu l'azienda o la persona, con un numero che conosci già."
   }
