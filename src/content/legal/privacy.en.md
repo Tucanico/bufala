@@ -1,8 +1,8 @@
-Last updated: **[DATE]**
+*Last updated: 12 November 2026*
 
 ## Who handles your data
 
-The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether a postal address is needed too]**. For any privacy question, write to **tech@jacopolombardo.com**.
+The data controller is **Jacopo Lombardo**. For any privacy question, write to **tech@jacopolombardo.com**.
 
 ## In short
 
@@ -27,30 +27,30 @@ The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether 
 
 ## Why we handle it (legal basis)
 
-- To give you the check you asked for: performing a service you requested (Art. 6(1)(b) GDPR). **[TO CONFIRM with a lawyer, including for other people's data a message may contain]**
+- To give you the check you asked for: performing a service you requested (Art. 6(1)(b) GDPR).
 - To protect the service from abuse, with a limit on checks per IP address: legitimate interest (Art. 6(1)(f) GDPR).
 
 ## Who we entrust it to
 
-- **Vercel Inc.** (United States), which hosts the site. **[TO CONFIRM: server region (EU), the data processing agreement and the basis for any transfer to the United States]**
-- **Mistral AI SAS** (France), which analyses the cleaned text. **[TO CONFIRM: that data stays in the EU, that Mistral doesn't use it to train its models (a setting to turn off in the account), and that zero data retention is active. Without zero data retention, Mistral may keep data for up to 30 days for abuse monitoring]**
+- **Vercel Inc.** (United States), which hosts the site.
+- **Mistral AI SAS** (France), which analyses the cleaned text. Mistral may keep it for up to 30 days for abuse monitoring.
 - **Domain registries** (for example Verisign for .com sites), which receive only the name of a site mentioned in the message and tell us when it was created.
 - **Bitly and is.gd**, the link-shortening services, which receive only one of their own short links found in the message and tell us where it leads.
-- **Google** (the Web Risk service of Google Cloud) **[TO CONFIRM: which Google company provides it, and the basis for any transfer to the United States]**, which receives links to sites we don't know, without the part after the "?", and tells us whether they are reported as dangerous.
+- **Google** (the Web Risk service of Google Cloud), which receives links to sites we don't know, without the part after the "?", and tells us whether they are reported as dangerous.
 
 We don't sell or pass your data to anyone else.
 
 ## How long
 
 - **Message and screenshot:** only for the duration of the check, a few seconds.
-- **At Mistral:** **[TO CONFIRM: not kept, or up to 30 days]**.
+- **At Mistral:** up to 30 days, for abuse monitoring.
 - **Check limit:** at most 10 checks every ten minutes per IP address. The counters are kept by Vercel and last ten minutes. We neither see nor store your IP address.
-- **Hosting logs:** **[TO CONFIRM: Vercel's log retention period]**.
+- **Hosting logs:** Vercel keeps technical logs of requests to the site for a limited period, under its own rules.
 - **Language cookie:** until you close the browser.
 
 ## Cookies
 
-We use a single technical cookie, `NEXT_LOCALE`. It remembers whether you chose Italian or English and is deleted when you close the browser. We use no tracking, analytics or third-party cookies. **[TO CONFIRM with a lawyer: technical cookies alone need no consent]**
+We use a single technical cookie, `NEXT_LOCALE`. It remembers whether you chose Italian or English and is deleted when you close the browser. We use no tracking, analytics or third-party cookies.
 
 ## Your rights
 

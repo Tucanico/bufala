@@ -1,8 +1,8 @@
-Ultimo aggiornamento: **[DATA]**
+*Ultimo aggiornamento: 12 novembre 2026*
 
 ## Chi tratta i tuoi dati
 
-Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legale: se serve anche un indirizzo postale]**. Per qualsiasi domanda sulla privacy puoi scrivere a **tech@jacopolombardo.com**.
+Il titolare del trattamento è **Jacopo Lombardo**. Per qualsiasi domanda sulla privacy puoi scrivere a **tech@jacopolombardo.com**.
 
 ## In breve
 
@@ -27,30 +27,30 @@ Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legal
 
 ## Perché li trattiamo (base giuridica)
 
-- Per darti il controllo che hai chiesto: esecuzione di un servizio richiesto da te (art. 6, par. 1, lett. b, GDPR). **[DA CONFERMARE con il legale, anche per i dati di terzi che il messaggio può contenere]**
+- Per darti il controllo che hai chiesto: esecuzione di un servizio richiesto da te (art. 6, par. 1, lett. b, GDPR).
 - Per proteggere il servizio da abusi, con il limite di controlli per indirizzo IP: legittimo interesse (art. 6, par. 1, lett. f, GDPR).
 
 ## A chi li affidiamo
 
-- **Vercel Inc.** (Stati Uniti), che ospita il sito. **[DA CONFERMARE: la regione dei server (UE), il contratto per il trattamento dei dati e la base del trasferimento verso gli Stati Uniti]**
-- **Mistral AI SAS** (Francia), che analizza il testo ripulito. **[DA CONFERMARE: che i dati restino nell'UE, che Mistral non li usi per addestrare i suoi modelli (impostazione da disattivare nell'account) e che la conservazione zero dei dati sia attiva. Senza conservazione zero, Mistral può conservare i dati fino a 30 giorni per controllare gli abusi]**
+- **Vercel Inc.** (Stati Uniti), che ospita il sito.
+- **Mistral AI SAS** (Francia), che analizza il testo ripulito. Mistral può conservarlo fino a 30 giorni per controllare gli abusi.
 - **I registri dei domini** (per esempio Verisign per i siti .com), che ricevono solo il nome di un sito citato nel messaggio e ci dicono quando è stato creato.
 - **Bitly e is.gd**, i servizi che accorciano i link, che ricevono solo un loro link accorciato presente nel messaggio e ci dicono dove porta.
-- **Google** (servizio Web Risk di Google Cloud) **[DA CONFERMARE: quale società di Google lo fornisce e la base del trasferimento verso gli Stati Uniti]**, che riceve i link a siti che non conosciamo, senza la parte dopo il «?», e ci dice se sono segnalati come pericolosi.
+- **Google** (servizio Web Risk di Google Cloud), che riceve i link a siti che non conosciamo, senza la parte dopo il «?», e ci dice se sono segnalati come pericolosi.
 
 Non vendiamo né cediamo i tuoi dati a nessun altro.
 
 ## Per quanto tempo
 
 - **Messaggio e screenshot:** solo per il tempo del controllo, pochi secondi.
-- **Presso Mistral:** **[DA CONFERMARE: nessuna conservazione, oppure fino a 30 giorni]**.
+- **Presso Mistral:** fino a 30 giorni, per il controllo degli abusi.
 - **Limite di controlli:** al massimo 10 controlli ogni dieci minuti per indirizzo IP. I contatori sono tenuti da Vercel e durano dieci minuti. Noi non vediamo né salviamo il tuo indirizzo IP.
-- **Registri del fornitore di hosting:** **[DA CONFERMARE: il periodo di conservazione dei log di Vercel]**.
+- **Registri del fornitore di hosting:** Vercel conserva per un periodo limitato i registri tecnici delle richieste al sito, secondo le proprie regole.
 - **Cookie della lingua:** fino alla chiusura del browser.
 
 ## Cookie
 
-Usiamo un solo cookie, tecnico, chiamato `NEXT_LOCALE`: ricorda se hai scelto l'italiano o l'inglese e si cancella quando chiudi il browser. Non usiamo cookie di profilazione, di statistica o di terze parti. **[DA CONFERMARE con il legale: per i soli cookie tecnici non serve il consenso]**
+Usiamo un solo cookie, tecnico, chiamato `NEXT_LOCALE`: ricorda se hai scelto l'italiano o l'inglese e si cancella quando chiudi il browser. Non usiamo cookie di profilazione, di statistica o di terze parti.
 
 ## I tuoi diritti
 
