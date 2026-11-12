@@ -32,7 +32,9 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 | Finding | Effect | Needs a reviewed entry? |
 |---|---|---|
 | A link or email domain borrows an organisation's brand word but isn't its official domain ([links.ts](../src/lib/check/links.ts)). Look-alike letters are folded first: `0`/`o`, `1`/`l`, Cyrillic and Greek look-alikes (through punycode), `rn`/`m`. Brand words under 5 letters must be a whole part of the name. | adds "look-alike link" (high risk: 🔴) | no |
+| A link or email domain the organisation itself declares fake (`knownFakeDomains`: Agenzia delle Entrate's 63), or a subdomain of one | adds "look-alike link" (high risk: 🔴), naming that organisation | no |
 | A link shortener (`bit.ly`, `tinyurl.com`, …) | adds "shortened link" | no |
+| A linked site we know nothing about (not official, not a shortener or look-alike) registered under 30 days ago, from its registry's RDAP service ([domain-age.ts](../src/lib/check/domain-age.ts)). Only the site name is sent, asked at the same time as the model; endings without RDAP (.it today) are skipped, and a failed or slow lookup counts as not new | adds "site created days ago" | no |
 | A number starting with a premium-rate prefix (892, 893, 894, 895, 899, from AGCOM's numbering plan) ([phones.ts](../src/lib/check/phones.ts)). Runs of 8 to 11 digits count; a shorter 89x number counts only a few words after a calling word ("chiama il 892 424"), so one-time codes, amounts and dates don't | adds "premium-rate number" (high risk: 🔴) | no |
 | Every link is on a reviewed organisation's official domain | removes the model's "open a link" sign | yes |
 | Every number is a reviewed organisation's official number | removes the model's "call this number" sign | yes |

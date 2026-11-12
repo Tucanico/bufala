@@ -21,7 +21,7 @@ Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legal
 
 - **Screenshot.** L'immagine viene rimpicciolita sul tuo dispositivo e poi letta sul nostro server per estrarne il testo. Resta in memoria solo per il tempo della lettura: non viene salvata e non viene inviata a nessun altro.
 - **Pulizia del testo.** Prima dell'analisi, IBAN e numeri di carta vengono nascosti, degli indirizzi email resta solo il dominio (per esempio "@poste.it") e dei link resta solo il nome del sito. Nomi, numeri di telefono e codici restano, perché servono a riconoscere la truffa.
-- **Controlli sui link e sui numeri.** Il nostro server confronta i link e i numeri del messaggio con un elenco di siti e numeri ufficiali. Questo controllo avviene sul nostro server e non invia dati a nessuno.
+- **Controlli sui link e sui numeri.** Il nostro server confronta i link e i numeri del messaggio con un elenco di siti e numeri ufficiali e di siti falsi già segnalati. Per un sito che non conosciamo chiede anche al registro dei domini quando è stato creato, perché un sito nato da pochi giorni è un segnale di truffa: al registro arriva solo il nome del sito (per esempio "esempio.xyz"), mai il messaggio né il link completo. Per i siti che finiscono in .it questa verifica non è ancora possibile.
 - **Analisi con l'intelligenza artificiale.** Il testo ripulito viene inviato a **Mistral AI** (Parigi, Francia), che restituisce un'analisi. Per ogni controllo lo inviamo tre volte, perché la risposta sia più affidabile.
 - **Nessuna conservazione da parte nostra.** Non salviamo né il messaggio né la risposta. Nei nostri registri tecnici restano solo eventuali codici di errore, mai il testo del messaggio.
 
@@ -34,6 +34,7 @@ Il titolare del trattamento è **Jacopo Lombardo** **[DA CONFERMARE con il legal
 
 - **Vercel Inc.** (Stati Uniti), che ospita il sito. **[DA CONFERMARE: la regione dei server (UE), il contratto per il trattamento dei dati e la base del trasferimento verso gli Stati Uniti]**
 - **Mistral AI SAS** (Francia), che analizza il testo ripulito. **[DA CONFERMARE: che i dati restino nell'UE, che Mistral non li usi per addestrare i suoi modelli (impostazione da disattivare nell'account) e che la conservazione zero dei dati sia attiva. Senza conservazione zero, Mistral può conservare i dati fino a 30 giorni per controllare gli abusi]**
+- **I registri dei domini** (per esempio Verisign per i siti .com), che ricevono solo il nome di un sito citato nel messaggio e ci dicono quando è stato creato.
 
 Non vendiamo né cediamo i tuoi dati a nessun altro.
 

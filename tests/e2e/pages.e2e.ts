@@ -1,15 +1,10 @@
-import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
-import { hasOpenPoints } from "../../src/lib/legal-markdown";
 import { ANSWERS, fakeAnswer } from "./fake-answer";
 
-const stillDraft = hasOpenPoints(readFileSync("src/content/legal/privacy.it.md", "utf8"));
-
-test("the privacy page shows its text, and a draft banner while points are open", async ({ page }) => {
+test("the privacy page shows its text", async ({ page }) => {
   await page.goto("/privacy");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Informativa sulla privacy");
   await expect(page.getByRole("heading", { name: "I tuoi diritti" })).toBeVisible();
-  await expect(page.getByText("Bozza: questo testo non è ancora approvato")).toHaveCount(stillDraft ? 1 : 0);
 });
 
 test("the disclaimer has its English address", async ({ page }) => {

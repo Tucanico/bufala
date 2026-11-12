@@ -47,7 +47,6 @@
     }
   },
   "legal": {
-    "draft": "Draft: this text is not approved yet. The highlighted parts are still to be confirmed.",
     "privacy": {
       "metaTitle": "Privacy · Bufala",
       "title": "Privacy notice"
@@ -153,6 +152,7 @@
       "lookalike_link": "The link goes to a site that imitates a well-known company's, but it isn't its official site.",
       "premium_number": "It contains a premium-rate number: calling it can cost a lot.",
       "shortened_link": "It contains a shortened link, which hides the site it really goes to.",
+      "new_domain": "The link goes to a site created only days ago: real banks' and companies' sites have been around for years.",
       "asks_for_code": "It asks for a code, a PIN or a password. Banks and public offices never ask for these by message.",
       "asks_for_payment": "It asks you to pay or transfer money.",
       "asks_for_personal_data": "It asks for your personal, card or account details.",

@@ -1,4 +1,5 @@
 import { combineRuns, type ModelRun } from "./combine";
+import { hasNewDomain } from "./domain-age";
 import { applyFacts, findFacts, type MessageFacts } from "./facts";
 import { MAX_MESSAGE_LENGTH } from "./limits";
 import { callMistral, ModelError } from "./mistral";
@@ -67,16 +68,20 @@ export async function analyseMessage(
   text: string,
   callModel: (redactedText: string) => Promise<unknown> = callMistral,
   findMessageFacts: (text: string) => MessageFacts = findFacts,
+  isNewSite: (hosts: string[]) => Promise<boolean> = hasNewDomain,
 ): Promise<CheckOutcome> {
   const trimmed = text.trim();
   if (!trimmed) return { ok: false, error: "empty" };
   if (trimmed.length > MAX_MESSAGE_LENGTH) return { ok: false, error: "too_long" };
 
-  const facts = findMessageFacts(trimmed);
+  const found = findMessageFacts(trimmed);
   const redacted = redact(trimmed);
-  const replies = await Promise.allSettled(
-    Array.from({ length: MODEL_RUNS }, () => callModel(redacted)),
-  );
+  // Asked at the same time as the model, so it adds no waiting.
+  const [replies, newSite] = await Promise.all([
+    Promise.allSettled(Array.from({ length: MODEL_RUNS }, () => callModel(redacted))),
+    isNewSite(found.unknownHosts).catch(() => false),
+  ]);
+  const facts: MessageFacts = newSite ? { ...found, addSigns: [...found.addSigns, "new_domain"] } : found;
 
   const runs: ModelRun[] = [];
   const failures: string[] = [];

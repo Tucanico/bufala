@@ -19,6 +19,7 @@ const SIGN_ICON: Record<Sign, IconName> = {
   lookalike_link: "link",
   premium_number: "phone",
   shortened_link: "link",
+  new_domain: "clock",
   asks_for_code: "key",
   asks_for_payment: "euro",
   asks_for_personal_data: "user",

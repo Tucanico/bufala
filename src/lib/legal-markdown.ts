@@ -9,13 +9,8 @@ export type Block =
   | { kind: "list"; ordered: boolean; items: Inline[][] };
 
 // A point still to settle before publishing, written "[DA CONFERMARE ...]",
-// "[TO CONFIRM ...]", "[DATA]" or "[DATE]". The page highlights it and shows
-// a draft banner while any is left.
+// "[TO CONFIRM ...]", "[DATA]" or "[DATE]": the page highlights it.
 const OPEN_POINT = /\[(?:DA CONFERMARE|TO CONFIRM|DATA|DATE)\b[^\]]*\]/;
-
-export function hasOpenPoints(source: string): boolean {
-  return OPEN_POINT.test(source);
-}
 
 function plain(text: string): Inline[] {
   const splitter = new RegExp(`(${OPEN_POINT.source})`);

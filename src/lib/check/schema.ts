@@ -49,7 +49,7 @@ export const WARNING_SIGNS = [
 export type WarningSign = (typeof WARNING_SIGNS)[number];
 
 // Signs our own code finds in the links and numbers, never asked of the model.
-export const CHECK_SIGNS = ["lookalike_link", "premium_number", "shortened_link"] as const;
+export const CHECK_SIGNS = ["lookalike_link", "premium_number", "shortened_link", "new_domain"] as const;
 export type CheckSign = (typeof CHECK_SIGNS)[number];
 
 export type Sign = WarningSign | CheckSign;
@@ -70,6 +70,7 @@ export const SIGN_ORDER: readonly Sign[] = [
   "link_to_act",
   "call_this_number",
   "shortened_link",
+  "new_domain",
   "shows_code",
   "parcel_problem",
   "secrecy",

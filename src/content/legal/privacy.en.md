@@ -21,7 +21,7 @@ The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether 
 
 - **Screenshots.** The image is shrunk on your device, then read on our server to extract its text. It is only held in memory while it is read: it is not stored and not sent to anyone else.
 - **Cleaning the text.** Before the analysis, IBANs and card numbers are hidden, email addresses keep only their domain (for example "@poste.it") and links keep only the site name. Names, phone numbers and codes stay, because they help recognise a scam.
-- **Checks on links and numbers.** Our server compares the message's links and numbers with a list of official sites and numbers. This happens on our server and sends nothing to anyone.
+- **Checks on links and numbers.** Our server compares the message's links and numbers with a list of official sites and numbers and of fake sites already reported. For a site we don't know, it also asks the domain registry when the site was created, because a site only days old is a sign of a scam: the registry receives only the site name (for example "esempio.xyz"), never the message or the full link. For sites ending in .it this check isn't possible yet.
 - **Analysis by artificial intelligence.** The cleaned text is sent to **Mistral AI** (Paris, France), which returns an analysis. For each check we send it three times, to make the answer more reliable.
 - **Nothing kept by us.** We store neither the message nor the answer. Our technical logs only ever contain error codes, never the message text.
 
@@ -34,6 +34,7 @@ The data controller is **Jacopo Lombardo** **[TO CONFIRM with a lawyer: whether 
 
 - **Vercel Inc.** (United States), which hosts the site. **[TO CONFIRM: server region (EU), the data processing agreement and the basis for any transfer to the United States]**
 - **Mistral AI SAS** (France), which analyses the cleaned text. **[TO CONFIRM: that data stays in the EU, that Mistral doesn't use it to train its models (a setting to turn off in the account), and that zero data retention is active. Without zero data retention, Mistral may keep data for up to 30 days for abuse monitoring]**
+- **Domain registries** (for example Verisign for .com sites), which receive only the name of a site mentioned in the message and tell us when it was created.
 
 We don't sell or pass your data to anyone else.
 

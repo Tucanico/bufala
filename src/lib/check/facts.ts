@@ -20,6 +20,9 @@ export type MessageFacts = {
   organisation: Organisation | null;
   // The organisation a look-alike site imitates.
   imitated: Organisation | null;
+  // Linked sites that are neither on our list nor a shortener or look-alike:
+  // the ones whose age is worth asking the registry for (domain-age.ts).
+  unknownHosts: string[];
   // The message is about a reviewed organisation that says it does ask for
   // payment by message, and every link goes to its own site. A payment request
   // then means "check yourself", not "scam".
@@ -88,6 +91,7 @@ export function findFacts(
     removeSigns: [...removeSigns],
     organisation,
     imitated: lookalike?.kind === "lookalike" ? lookalike.organisation : null,
+    unknownHosts: linkKinds.filter((link) => link.kind === "unknown").map((link) => link.host),
     paymentMayBeGenuine,
   };
 }

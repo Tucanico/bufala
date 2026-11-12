@@ -5,6 +5,9 @@ import { ORGANISATIONS, PREMIUM } from "./fixtures/organisations";
 import { MAX_MESSAGE_LENGTH } from "../src/lib/check/limits";
 import { ModelError } from "../src/lib/check/mistral";
 
+// No test here may reach the domain registries; the age check has its own tests.
+vi.mock("../src/lib/check/domain-age", () => ({ hasNewDomain: async () => false }));
+
 const scamReply = {
   claimed_sender: "bank",
   requested_actions: ["click_link"],
@@ -116,4 +119,29 @@ test("a reply in the wrong shape becomes 'unavailable'", async () => {
   const outcome = await analyseMessage("Ciao", async () => ({ verdict: "safe" }));
   expect(outcome).toEqual({ ok: false, error: "unavailable" });
   log.mockRestore();
+});
+
+test("a site registered days ago adds its sign, checked alongside the model", async () => {
+  const clearReply = { ...scamReply, claimed_sender: "other", requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const asked: string[][] = [];
+  const outcome = await analyseMessage(
+    "Guarda qui https://offerta-nuova.xyz/p",
+    async () => clearReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+    async (hosts) => (asked.push(hosts), true),
+  );
+  expect(asked).toEqual([["offerta-nuova.xyz"]]);
+  expect(outcome).toMatchObject({ ok: true, result: { verdict: "suspicious", reasons: ["new_domain"] } });
+});
+
+test("a failed age lookup changes nothing", async () => {
+  const outcome = await analyseMessage(
+    "Conto bloccato",
+    async () => scamReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+    async () => {
+      throw new Error("registry down");
+    },
+  );
+  expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["threat", "urgency"] } });
 });

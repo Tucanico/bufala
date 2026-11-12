@@ -2,7 +2,7 @@
 
 **Status:** draft of 2026-11-11, not approved. To be approved by the founder and checked by a lawyer before launch.
 
-The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, shown on the site at `/privacy` and `/en/privacy`. While any **[DA CONFERMARE]** / **[TO CONFIRM]** / **[DATA]** point is left in a file, the page highlights it and shows a "Bozza" banner. Statements about what Bufala itself does come from the code as of 2026-11-11.
+The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, shown on the site at `/privacy` and `/en/privacy`. While any **[DA CONFERMARE]** / **[TO CONFIRM]** / **[DATA]** point is left in a file, the page highlights it. Statements about what Bufala itself does come from the code as of 2026-11-11.
 
 ## Before publishing: what to confirm
 

@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { expect, test } from "vitest";
-import { hasOpenPoints, parseInline, parseMarkdown } from "../src/lib/legal-markdown";
+import { parseInline, parseMarkdown } from "../src/lib/legal-markdown";
 
 test("headings, paragraphs and both kinds of list", () => {
   const blocks = parseMarkdown("## Title\n\nOne line\nsame paragraph.\n\n- a\n- b\n\n1. first\n2. second\n");
@@ -27,10 +27,8 @@ test("bold, italics, code and open points", () => {
   ]);
 });
 
-test("open points are found, and ordinary brackets are not", () => {
-  expect(hasOpenPoints("text **[TO CONFIRM with a lawyer]**")).toBe(true);
-  expect(hasOpenPoints("Last updated: **[DATE]**")).toBe(true);
-  expect(hasOpenPoints("a [note] in brackets")).toBe(false);
+test("ordinary brackets are not open points", () => {
+  expect(parseInline("a [note] in brackets")).toEqual([{ kind: "text", text: "a [note] in brackets" }]);
 });
 
 // Each legal page exists in every language, with the same sections in order.

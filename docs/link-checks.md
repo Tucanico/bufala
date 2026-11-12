@@ -16,17 +16,16 @@ Today a shortened link (bit.ly and others) adds the sign "contiene un link accor
 
 Options: **A.** keep only the warning (today); **B.** previews for bit.ly and is.gd only; **C.** follow every shortener's redirect. Recommended: **A** for now. The warning already says the link hides its destination, and B and C both touch the scammer's link.
 
-## 2. Domain age
+## 2. Domain age: done (decided 2026-11-12)
 
-A site registered a few days ago is a strong scam sign.
+Built as recommended: a site we don't know that was registered under 30 days ago adds a 🟠-level sign, for every ending with an RDAP service; .it is skipped until Registro .it has one. Only the site name goes to the registry, and the privacy notice says so. Code: `src/lib/check/domain-age.ts`. The findings that led to it:
 
 - **.it can't be checked today:** it has no RDAP service yet (planned by Registro .it), only WHOIS on port 43, and whether Vercel allows that connection is unverified. Sources: [IANA](https://www.iana.org/domains/root/db/it.html), [Registro .it minutes](https://www.nic.it/sites/default/files/documenti/2026/VERBALE_CIR_50.pdf).
 - **The rest work through RDAP:** .com, .net, .info, .live, .xyz, .top, .online, .site, .click and .shop were all tested. The cheap new endings are the ones scam links use most. rdap.org allows 10 requests in 10 seconds; reading the IANA list of servers ourselves avoids that limit.
 - It would add a new sign, for example "Il sito è stato creato da pochi giorni", with a threshold (30 days?) and a weight (🟠 or 🔴). Domain names would go to the registries.
 
-Recommended: yes, for every ending except .it, with a 🟠-level sign at under 30 days.
 
-## 3. Blocklists of known phishing sites
+## 3. Blocklists of known phishing sites: Google Web Risk chosen (2026-11-12), waiting for the account
 
 | Source | Fit | Conditions |
 |---|---|---|
@@ -38,3 +37,14 @@ Recommended: yes, for every ending except .it, with a 🟠-level sign at under 3
 | CERT-AgID feed | Not usable | Public administrations only |
 
 Recommended: Google Web Risk. It costs nothing at our volume, but you have to create the Google Cloud account. Each link checked would go to Google.
+
+### Setting up Google Web Risk (for the founder)
+
+1. Go to https://console.cloud.google.com and sign in with the Google account that should own Bufala's services (better a dedicated one than a personal one).
+2. Create a project: the project picker in the top bar, then "New project", named for example "bufala".
+3. Billing: in the menu, "Billing", and link a billing account. A card is needed even for the free tier. Then "Budgets & alerts": a budget of €5 with email alerts, so any cost is noticed at once.
+4. Turn the API on: "APIs & Services", then "Library", search "Web Risk API", "Enable".
+5. Create the key: "APIs & Services", then "Credentials", "Create credentials", "API key". Edit the key: under "API restrictions" choose "Restrict key" and tick only "Web Risk API".
+6. Optional but wise: under "APIs & Services", "Web Risk API", "Quotas", lower the daily limit for lookups to about 3,000 (about 90,000 a month, under the free 100,000).
+7. Put the key in Vercel: the project's "Settings", "Environment Variables", name `WEB_RISK_API_KEY`, for Production and Preview. Add the same line to `.env.local` for local tests. Never paste the key into a chat or a commit.
+8. Then the check gets built and tested against Google's own test pages, with the wording Google requires ("probabilmente", plus "Advisory provided by Google" with a link) and a line in the privacy notice: each link checked goes to Google.

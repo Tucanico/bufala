@@ -54,4 +54,4 @@ On this machine there is no Vercel Firewall: every check logs "Rate limit check 
 
 Every user-visible string lives in `messages/it.json` and `messages/en.json`. Both files must have the same keys; `npm test` and `npm run typecheck` fail otherwise.
 
-The privacy notice and the disclaimer are longer texts, so they live as Markdown in `src/content/legal/` (`privacy.it.md`, `privacy.en.md`, `disclaimer.it.md`, `disclaimer.en.md`), editable without touching code. A point still to settle is written `**[DA CONFERMARE ...]**` (or `[TO CONFIRM ...]`, `[DATA]`, `[DATE]`): the page highlights it and shows a draft banner until none is left.
+The privacy notice and the disclaimer are longer texts, so they live as Markdown in `src/content/legal/` (`privacy.it.md`, `privacy.en.md`, `disclaimer.it.md`, `disclaimer.en.md`), editable without touching code. A point still to settle is written `**[DA CONFERMARE ...]**` (or `[TO CONFIRM ...]`, `[DATA]`, `[DATE]`): the page highlights it.

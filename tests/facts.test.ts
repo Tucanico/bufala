@@ -66,3 +66,8 @@ test("signs added by the facts take their place in the display order", () => {
     "urgency",
   ]);
 });
+
+test("only sites we know nothing about are left for the age check", () => {
+  const found = facts("Vai su poste.it, bit.ly/abc, poste-consegne.info e offerta-nuova.xyz");
+  expect(found.unknownHosts).toEqual(["offerta-nuova.xyz"]);
+});
