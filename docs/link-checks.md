@@ -29,7 +29,7 @@ Built as recommended: a site we don't know that was registered under 30 days ago
 
 ## 3. Blocklists of known phishing sites: Google Web Risk built (2026-11-12)
 
-Built in `src/lib/check/web-risk.ts`, following Google's display rules. It needs `WEB_RISK_API_KEY` and a Google Cloud project with billing enabled (a first live test was refused with BILLING_DISABLED). The findings that led to it:
+Built in `src/lib/check/web-risk.ts`, following Google's display rules. It needs `WEB_RISK_API_KEY` and a Google Cloud project with billing enabled. Tested live on 2026-11-12: Google's test malware and phishing pages were detected and a normal site came back clean. The project is on the free trial until about 2027-02-10; it must be upgraded to a paid account before then (in the TODO). The findings that led to it:
 
 | Source | Fit | Conditions |
 |---|---|---|
