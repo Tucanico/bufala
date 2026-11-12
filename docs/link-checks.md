@@ -6,7 +6,9 @@ Researched on 2026-11-11. What is done, and the three decisions still open. Ever
 
 Agenzia delle Entrate lists the domains used for phishing against it, and others that are not its own ([page](https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/domini-estranei-all-agenzia-delle-entrate)), and names more in its notices. The 63 of them are in `knownFakeDomains` on its entry in `src/data/organisations.ts`. A link to one, or to a subdomain, now counts as a look-alike of Agenzia delle Entrate even when the name doesn't contain "agenziaentrate" (`avenzstr.click`). Nothing leaves our server. The page has no feed and no dates and isn't kept in step with the notices, so it has to be re-read by hand from time to time.
 
-## 1. Shortened links
+## 1. Shortened links: option B built (decided 2026-11-12)
+
+bit.ly and is.gd links are looked up through their previews, and the destination is checked like any other link; other shorteners, and these two when they don't answer, keep only the warning. Code: `src/lib/check/short-links.ts`. The findings that led to it:
 
 Today a shortened link (bit.ly and others) adds the sign "contiene un link accorciato, che nasconde il sito a cui porta davvero". Finding the real destination means asking the shortener:
 
@@ -14,7 +16,7 @@ Today a shortened link (bit.ly and others) adds the sign "contiene un link accor
 - **Previews that don't redirect:** bit.ly with `+` at the end (tested: shows the destination) and is.gd with `-` or its lookup API (3,600 an hour). TinyURL's preview blocks servers (Cloudflare). cutt.ly has none. t.ly's API needs a token and is undocumented on this point.
 - Requests from our server must refuse private addresses, so a link can't make the server reach our own network.
 
-Options: **A.** keep only the warning (today); **B.** previews for bit.ly and is.gd only; **C.** follow every shortener's redirect. Recommended: **A** for now. The warning already says the link hides its destination, and B and C both touch the scammer's link.
+Options were: **A.** keep only the warning; **B.** previews for bit.ly and is.gd only; **C.** follow every shortener's redirect.
 
 ## 2. Domain age: done (decided 2026-11-12)
 

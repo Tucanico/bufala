@@ -15,6 +15,7 @@ import { shrinkImage } from "@/lib/check/shrink-image";
 import { checkMessageAction } from "./actions";
 import { CheckResultCard, VerdictLegend } from "./check-result";
 import { Icon } from "./icons";
+import { InstallHint } from "./install-hint";
 
 type Screenshot = { blob: Blob; previewUrl: string };
 
@@ -35,14 +36,41 @@ function useCanPaste() {
   );
 }
 
+// A message shared to the installed Bufala from another app (Android's
+// "Condividi" menu, see manifest.ts) arrives as /?text=…&title=…&url=…. Read
+// once per page load, so cleaning the address afterwards doesn't lose it.
+let sharedOnce: string | null = null;
+function readSharedMessage(): string {
+  if (sharedOnce === null) {
+    const params = new URLSearchParams(window.location.search);
+    const parts = [params.get("title"), params.get("text"), params.get("url")]
+      .map((part) => part?.trim() ?? "")
+      .filter(Boolean);
+    // Apps often send the link both on its own and inside the text.
+    const kept = parts.filter((part, i) => !parts.some((other, j) => j !== i && other.includes(part) && other !== part));
+    sharedOnce = [...new Set(kept)].join("\n").slice(0, MAX_MESSAGE_LENGTH);
+  }
+  return sharedOnce;
+}
+
 // "Check another message" starts a fresh form by remounting it: the answer
 // lives in useActionState, which has no way to be cleared from outside.
 export function CheckForm({ intro }: { intro: ReactNode }) {
   const [round, setRound] = useState(0);
+  const shared = useSyncExternalStore(noSubscription, readSharedMessage, () => "");
+  // Without the message in the address, a reload doesn't check it again.
+  useEffect(() => {
+    if (shared) window.history.replaceState(null, "", window.location.pathname);
+  }, [shared]);
+  const initialMessage = round === 0 ? shared : "";
+
   return (
     <CheckRound
-      key={round}
+      // The shared message is only known once the page runs in the browser,
+      // so the form starts again with it then.
+      key={`${round}:${initialMessage ? "shared" : ""}`}
       intro={intro}
+      initialMessage={initialMessage}
       onCheckAnother={() => setRound((n) => n + 1)}
       autoFocus={round > 0}
     />
@@ -51,10 +79,12 @@ export function CheckForm({ intro }: { intro: ReactNode }) {
 
 function CheckRound({
   intro,
+  initialMessage,
   onCheckAnother,
   autoFocus,
 }: {
   intro: ReactNode;
+  initialMessage: string;
   onCheckAnother: () => void;
   autoFocus: boolean;
 }) {
@@ -62,13 +92,23 @@ function CheckRound({
   const [outcome, formAction, pending] = useActionState(checkMessageAction, null);
   // Controlled on purpose: React resets uncontrolled fields after a form
   // action, and the pasted message vanishing would confuse people.
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(initialMessage);
   // Kept in state rather than in the file input, for the same reason, and
   // because what we upload is the shrunk copy, not the original file.
   const [screenshot, setScreenshot] = useState<Screenshot | null>(null);
   const [fileError, setFileError] = useState(false);
   const [pasteFailed, setPasteFailed] = useState(false);
   const canPaste = useCanPaste();
+
+  // A shared message is checked straight away: sharing it was the request.
+  // The ref keeps React's development double-run from checking it twice.
+  const formRef = useRef<HTMLFormElement>(null);
+  const sharedSubmitted = useRef(false);
+  useEffect(() => {
+    if (!initialMessage || sharedSubmitted.current) return;
+    sharedSubmitted.current = true;
+    formRef.current?.requestSubmit();
+  }, [initialMessage]);
 
   useEffect(() => {
     return () => {
@@ -149,7 +189,7 @@ function CheckRound({
     <div className="mx-auto max-w-xl lg:grid lg:max-w-none lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-8">
       <div className="lg:sticky lg:top-4">
         {intro}
-        <form action={submit} className="card mt-6 p-4">
+        <form ref={formRef} action={submit} className="card mt-6 p-4">
           <label htmlFor="message" className="block text-[0.85rem] font-bold">
             {t("label")}
           </label>
@@ -245,6 +285,7 @@ function CheckRound({
             </li>
           ))}
         </ul>
+        <InstallHint />
       </div>
 
       <div>

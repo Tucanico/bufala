@@ -85,6 +85,10 @@
       "noAccount": "No account needed",
       "notStored": "We don't store the message"
     },
+    "install": {
+      "button": "Add Bufala to your home screen",
+      "iphone": "To find Bufala with one tap: press Safari's Share button, then Add to Home Screen."
+    },
     "checking": "Checking...",
     "errors": {
       "empty": "First paste the message you want to check, or upload a screenshot.",

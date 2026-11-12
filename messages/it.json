@@ -85,6 +85,10 @@
       "noAccount": "Senza account",
       "notStored": "Non salviamo il messaggio"
     },
+    "install": {
+      "button": "Aggiungi Bufala alla schermata Home",
+      "iphone": "Per ritrovare Bufala con un tocco: premi il tasto Condividi di Safari, poi «Aggiungi alla schermata Home»."
+    },
     "checking": "Sto controllando...",
     "errors": {
       "empty": "Incolla prima il messaggio da controllare, oppure carica uno screenshot.",

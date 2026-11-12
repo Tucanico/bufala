@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-12 09:36 — feat(app): Bufala on the home screen and in Android's share menu, and short links looked up
+
+Bufala can now be installed from the browser ("Aggiungi a schermata Home"): its own icon, full screen, no app store or account. Under the form, a button "Aggiungi Bufala alla schermata Home" appears when Chrome offers installing on a touch screen, and on iPhone Safari a line explains its Share button. On Android an installed Bufala appears in the share menu: long-press a suspicious SMS or WhatsApp message, "Condividi", "Bufala", and it opens with the message in the box and checks it at once, with no copy-paste; the message is then taken out of the address so a reload doesn't check it again. iPhone doesn't allow websites in that menu. Icons: 192 and 512 px, a "maskable" one Android can crop to its own shape, and a 180 px one for iPhone. Also: bit.ly and is.gd links are now looked up through the shorteners' own previews (bit.ly's info page, is.gd's lookup service), never opening the destination, and the destination is checked like any link in the message (look-alike, declared fake, domain age). Other shorteners, or these two when they don't answer, keep only the "shortened link" warning. The privacy notice names Bitly and is.gd. Installing and sharing still need a try on real phones (in the TODO).
+
 ## 2026-11-12 09:13 — feat(check): sites created days ago are a warning sign
 
 A site registered under 30 days ago is a strong scam sign, since real banks' and companies' sites have existed for years. For each linked site we know nothing about (not official, not a shortener or look-alike, at most three), the server now asks its domain registry for the registration date, through IANA's list of registry servers, at the same time as the model, so it adds no waiting (273 ms in a live test). A new site adds "Il link porta a un sito creato da pochi giorni": 🟠 alone, 🔴 with any other sign. Only the site name is sent, never the message or the full link; a failed or slow lookup counts as "not new", so it can never break an answer. Sites ending in .it are skipped: Registro .it has no RDAP service yet. The privacy notice says so, in both languages. Also: the "Bozza" banner on the legal pages is gone (the open points stay highlighted), and the steps to set up Google Web Risk are in `docs/link-checks.md`.
+
+c22206c
 
 ## 2026-11-11 16:19 — feat(data): 30 organisations, and Agenzia delle Entrate's own list of fake domains
 

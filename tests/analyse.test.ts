@@ -7,6 +7,7 @@ import { ModelError } from "../src/lib/check/mistral";
 
 // No test here may reach the domain registries; the age check has its own tests.
 vi.mock("../src/lib/check/domain-age", () => ({ hasNewDomain: async () => false }));
+vi.mock("../src/lib/check/short-links", () => ({ expandShortLinks: async () => [] }));
 
 const scamReply = {
   claimed_sender: "bank",
@@ -144,4 +145,16 @@ test("a failed age lookup changes nothing", async () => {
     },
   );
   expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["threat", "urgency"] } });
+});
+
+test("a short link is judged by where its shortener says it leads", async () => {
+  const clearReply = { ...scamReply, claimed_sender: "other", requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const outcome = await analyseMessage(
+    "Il tuo pacco: bit.ly/abc123",
+    async () => clearReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+    async () => false,
+    async () => ["https://poste-consegne.info/pacco"],
+  );
+  expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["lookalike_link", "shortened_link"] } });
 });

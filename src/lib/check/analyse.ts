@@ -1,5 +1,6 @@
 import { combineRuns, type ModelRun } from "./combine";
 import { hasNewDomain } from "./domain-age";
+import { expandShortLinks } from "./short-links";
 import { applyFacts, findFacts, type MessageFacts } from "./facts";
 import { MAX_MESSAGE_LENGTH } from "./limits";
 import { callMistral, ModelError } from "./mistral";
@@ -69,19 +70,26 @@ export async function analyseMessage(
   callModel: (redactedText: string) => Promise<unknown> = callMistral,
   findMessageFacts: (text: string) => MessageFacts = findFacts,
   isNewSite: (hosts: string[]) => Promise<boolean> = hasNewDomain,
+  expandLinks: (text: string) => Promise<string[]> = expandShortLinks,
 ): Promise<CheckOutcome> {
   const trimmed = text.trim();
   if (!trimmed) return { ok: false, error: "empty" };
   if (trimmed.length > MAX_MESSAGE_LENGTH) return { ok: false, error: "too_long" };
 
-  const found = findMessageFacts(trimmed);
   const redacted = redact(trimmed);
-  // Asked at the same time as the model, so it adds no waiting.
-  const [replies, newSite] = await Promise.all([
+  // Our own checks that ask outside services run at the same time as the
+  // model, so they add no waiting. Where a short link leads counts like a
+  // link written in the message; only the original text goes to the model.
+  const ownChecks = async (): Promise<MessageFacts> => {
+    const destinations = await expandLinks(trimmed).catch(() => []);
+    const found = findMessageFacts(destinations.length > 0 ? `${trimmed}\n${destinations.join("\n")}` : trimmed);
+    const newSite = await isNewSite(found.unknownHosts).catch(() => false);
+    return newSite ? { ...found, addSigns: [...found.addSigns, "new_domain"] } : found;
+  };
+  const [replies, facts] = await Promise.all([
     Promise.allSettled(Array.from({ length: MODEL_RUNS }, () => callModel(redacted))),
-    isNewSite(found.unknownHosts).catch(() => false),
+    ownChecks(),
   ]);
-  const facts: MessageFacts = newSite ? { ...found, addSigns: [...found.addSigns, "new_domain"] } : found;
 
   const runs: ModelRun[] = [];
   const failures: string[] = [];
