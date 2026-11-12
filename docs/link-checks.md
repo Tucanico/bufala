@@ -2,6 +2,10 @@
 
 Researched on 2026-11-11. What is done, and the three decisions still open. Every option below sends something to an outside service, so the privacy notice must say so before it goes live (its checklist, point 6).
 
+## The rule: Bufala never opens a link from a message
+
+Decided by the founder on 2026-11-12, and confirmed when following the other shorteners came up again. No check may contact the site a link leads to, or follow a short link's redirect: a scammer's personalised link would show as opened, and the destination may be the scammer's own server. What is allowed is asking a third party *about* a link: the shortener's own preview (bit.ly, is.gd), the domain registry, Google's list. Shorteners with no such preview (t.ly, cutt.ly, tinyurl and the rest) keep only the "shortened link" warning.
+
 ## Done: Agenzia delle Entrate's fake domains
 
 Agenzia delle Entrate lists the domains used for phishing against it, and others that are not its own ([page](https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/domini-estranei-all-agenzia-delle-entrate)), and names more in its notices. The 63 of them are in `knownFakeDomains` on its entry in `src/data/organisations.ts`. A link to one, or to a subdomain, now counts as a look-alike of Agenzia delle Entrate even when the name doesn't contain "agenziaentrate" (`avenzstr.click`). Nothing leaves our server. The page has no feed and no dates and isn't kept in step with the notices, so it has to be re-read by hand from time to time.
