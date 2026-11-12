@@ -1,12 +1,20 @@
 # Changelog
 
+## 2026-11-12 18:25 — fix(check): the locker pickup message is ⚪ in every run
+
+The wording change in the 18:12 entry left the locker pickup message ⚪ in only 2 runs of 3. Two more changes to the model's instructions. The "asks for a code" definition ended with "not when it only shows a code: report that as shows_code", which sent every code on show to that sign; it now says "a one-time or verification code". And a seventh example, a restaurant booking with "Codice prenotazione: R4471", answers "no signs": a different kind of code from the held-out locker message, so that case still tests the pattern and not the example. Measured with one paid run: 53 of 55 as expected, the locker message ⚪ in 3 of 3, the bank and WhatsApp code messages still "shows a code" in 3 of 3, and no case changed colour. Three runs are a small sample, so "steady" means in this run. The two left are the UPS tracking message (🟠 until UPS is reviewed) and the toll-pass one (🔴 as it should be, but "threat" isn't reported). The two cases that got no result last time (Mistral 503) were run again on the earlier wording: 🔴 in 3 of 3. Also: the colour table in `docs/how-it-works.md` now lists Google's dangerous link among the signs that give 🔴 alone.
+
 ## 2026-11-12 18:16 — feat(check): a short link that is.gd switched off is a warning sign
 
 is.gd's lookup, which we already ask where a link leads, also says when it has switched a link off ("disabled. It may have been used abusively or in violation of our terms"). That now adds "Il servizio che ha creato il link accorciato lo ha disattivato: lo fa con i link usati per truffe o altri abusi", which is 🔴 on its own. It counts only when both is.gd's error number (2) and the word "disabled" match, so a change on is.gd's side can lose the warning but never invent one; a link that doesn't exist (error 1) adds nothing. It is the same request as before, so nothing new leaves the server. bit.ly's page isn't read for this. Tried live on 2026-11-12: `is.gd/example` answered "disabled", a made-up code answered "doesn't exist", and a link made for the test (to example.com) gave its destination in 109 ms, which also confirms the is.gd lookup that had only unit tests.
 
+71ac864
+
 ## 2026-11-12 18:12 — fix(check): a pickup code is not a "code shown", and a reviewed organisation's own link can give ⚪
 
 From the paid test set, run after the three Agenzia delle Entrate messages were added (51 of 55 as expected, the three new ones 🔴 in every run): two genuine messages got 🟠. First, a locker pickup ("Codice di ritiro: 5521") was read as "shows a code" in 2 runs of 3. The model's instructions now say that sign is a one-time or verification code that confirms a login, a payment or a new device, and not a code for collecting a parcel or an order, nor a booking, order or tracking number. Measured with one more paid run: the locker message is ⚪ in 2 runs of 3, so better but not steady yet; the bank and WhatsApp code messages keep the sign in 3 of 3. In that run two cases (`bank-remote-app`, `crypto-investment`) gave no result because Mistral answered 503; both were 🔴 in 3 of 3 the run before. Second, a UPS tracking message ("Puoi seguire la consegna su ups.com") stays 🟠 because UPS isn't reviewed, but the review alone would not have been enough: the model's own "suspicious" kept the answer at 🟠 even after our code removed its "open a link" sign. Now, when our checks disproved every sign the model reported and the message asks for nothing beyond using that link or number, the model's verdict is dropped too. A message that also asks for a reply keeps it, so a real link added to a scam can't switch the model's judgement off. This changes nothing until an organisation is reviewed, so its effect with the real model is still to measure (in the TODO).
+
+71ac864
 
 ## 2026-11-12 14:45 — chore(site): a round of small improvements
 

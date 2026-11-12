@@ -58,7 +58,7 @@ Then:
 
 | Signs | Verdict |
 |---|---|
-| any of: look-alike link, short link switched off, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
+| any of: link Google lists as dangerous, look-alike link, short link switched off, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
 | two or more of any kind | 🔴 scam |
 | exactly one | 🟠 suspicious |
 | none | ⚪ no warning signs |

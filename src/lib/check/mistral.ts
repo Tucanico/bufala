@@ -18,7 +18,7 @@ Report:
 - requested_actions: what it asks the reader to do, not what it warns the reader not to do. click_link, call_number, pay (pay, transfer or top up money), give_code (share or type in a one-time code, PIN, password or login credentials, including a code the reader will receive by SMS), give_personal_data (ID, card or account details), install_app, reply. Empty if it asks for nothing.
 - pressure: how hard it pushes the reader to act quickly or out of fear. low, medium or high.
 - warning_signs: every sign below that applies, or none. Judge what the message is trying to get the reader to do, not single words.
-  asks_for_code: asks to share, type in or read out a one-time code, PIN, password or login credentials, including a code the reader will receive by SMS. Not when the message tells the reader to keep a code to themselves, and not when it only shows a code: report that as shows_code.
+  asks_for_code: asks to share, type in or read out a one-time code, PIN, password or login credentials, including a code the reader will receive by SMS. Not when the message tells the reader to keep a code to themselves, and not when it only shows a one-time or verification code: report that as shows_code.
   asks_for_payment: asks to pay, transfer or top up money.
   asks_for_personal_data: asks for ID, card or account details.
   install_app: asks to install an app or to give remote access to a device.
@@ -37,6 +37,9 @@ Examples. They are made up and only show how the definitions apply; they are not
 
 "BPER Banca: il codice di verifica per accedere all'app è 771204. Non condividerlo con nessuno."
 {"claimed_sender":"bank","requested_actions":[],"pressure":"low","warning_signs":["shows_code"],"verdict":"suspicious"}
+
+"Ristorante Da Gino: prenotazione confermata per sabato alle 20:30, 4 persone. Codice prenotazione: R4471."
+{"claimed_sender":"other","requested_actions":[],"pressure":"low","warning_signs":[],"verdict":"no_signs"}
 
 "GLS: la tua spedizione arriverà domani tra le 9 e le 13."
 {"claimed_sender":"courier","requested_actions":[],"pressure":"low","warning_signs":[],"verdict":"no_signs"}

@@ -112,6 +112,8 @@ export const CASES: EvalCase[] = [
 
   // Held out: written after the six examples went into the prompt, and unlike
   // them, to check that the model learnt the pattern and not just those cases.
+  // A seventh example (a booking code) was added on 2026-11-12 after
+  // held-ok-locker-pickup wavered: a different kind of code on purpose.
   { id: "held-whatsapp-code", verdict: ["suspicious"], signs: ["shows_code"],
     text: "Il tuo codice WhatsApp: 418-227. Non condividerlo con nessuno." },
   { id: "held-ok-locker-pickup", verdict: CLEAR, sender: "courier",
