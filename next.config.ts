@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
       // preview image reads the logo.
       "./src/content/legal/**/*",
       "./src/app/icon.svg",
+      "./src/app/fonts/**/*",
     ],
   },
   // Basic hardening that can't break the site. A full script policy (CSP

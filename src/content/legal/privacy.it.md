@@ -32,7 +32,7 @@ Il titolare del trattamento è **Jacopo Lombardo**. Per qualsiasi domanda sulla 
 
 ## A chi li affidiamo
 
-- **Vercel Inc.** (Stati Uniti), che ospita il sito.
+- **Vercel Inc.** (Stati Uniti), che ospita il sito. Il controllo dei messaggi avviene sui suoi server di Francoforte, in Germania.
 - **Mistral AI SAS** (Francia), che analizza il testo ripulito. Mistral può conservarlo fino a 30 giorni per controllare gli abusi.
 - **I registri dei domini** (per esempio Verisign per i siti .com), che ricevono solo il nome di un sito citato nel messaggio e ci dicono quando è stato creato.
 - **Bitly e is.gd**, i servizi che accorciano i link, che ricevono solo un loro link accorciato presente nel messaggio e ci dicono dove porta.

@@ -3,4 +3,4 @@ import { routing } from "./routing";
 
 // Links that know the locale prefix and each page's address per language:
 // "/chi-siamo" in Italian is "/en/about" in English.
-export const { Link, usePathname } = createNavigation(routing);
+export const { Link, usePathname, getPathname } = createNavigation(routing);

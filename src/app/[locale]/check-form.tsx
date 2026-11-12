@@ -7,17 +7,15 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
-  type ChangeEvent,
   type ReactNode,
 } from "react";
-import { MAX_MESSAGE_LENGTH, MAX_SCREENSHOT_BYTES } from "@/lib/check/limits";
-import { shrinkImage } from "@/lib/check/shrink-image";
+import { MAX_MESSAGE_LENGTH } from "@/lib/check/limits";
 import { checkMessageAction } from "./actions";
 import { CheckResultCard, VerdictLegend } from "./check-result";
 import { Icon } from "./icons";
 import { InstallHint } from "./install-hint";
+import { ScreenshotPicker, type Screenshot } from "./screenshot-picker";
 
-type Screenshot = { blob: Blob; previewUrl: string };
 
 // Smooth, unless the person asked their device for less motion.
 function scrollIntoSight(element: HTMLElement | null, block: ScrollLogicalPosition) {
@@ -96,7 +94,6 @@ function CheckRound({
   // Kept in state rather than in the file input, for the same reason, and
   // because what we upload is the shrunk copy, not the original file.
   const [screenshot, setScreenshot] = useState<Screenshot | null>(null);
-  const [fileError, setFileError] = useState(false);
   const [pasteFailed, setPasteFailed] = useState(false);
   const canPaste = useCanPaste();
 
@@ -109,34 +106,6 @@ function CheckRound({
     sharedSubmitted.current = true;
     formRef.current?.requestSubmit();
   }, [initialMessage]);
-
-  useEffect(() => {
-    return () => {
-      if (screenshot) URL.revokeObjectURL(screenshot.previewUrl);
-    };
-  }, [screenshot]);
-
-  async function onFileChosen(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file) return;
-
-    let blob: Blob;
-    try {
-      blob = await shrinkImage(file);
-    } catch {
-      // The browser decodes every format the server reads, so a file it can't
-      // decode would fail there too. Say so now instead of after the upload.
-      setFileError(true);
-      return;
-    }
-    if (blob.size > MAX_SCREENSHOT_BYTES) {
-      setFileError(true);
-      return;
-    }
-    setFileError(false);
-    setScreenshot({ blob, previewUrl: URL.createObjectURL(blob) });
-  }
 
   // Long-pressing a text box to paste is hard for many older people. The
   // browser may ask permission the first time; a refusal or an empty clipboard
@@ -183,9 +152,9 @@ function CheckRound({
   }, [outcome]);
 
   return (
-    // On a computer the answer goes beside the form, which stays in view.
-    // Before the first answer that place explains the three colours, so the
-    // form doesn't jump sideways when the answer arrives.
+    // On a computer the answer goes beside the form, which stays in view; on
+    // a phone, below it. Before the first answer that place explains the three
+    // colours, so ⚪ isn't read as "safe" and nothing jumps when the answer arrives.
     <div className="mx-auto max-w-xl lg:grid lg:max-w-none lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-8">
       <div className="lg:sticky lg:top-4">
         {intro}
@@ -211,47 +180,11 @@ function CheckRound({
                 {t("paste")}
               </button>
             )}
-            {screenshot ? (
-              <div className="rounded-2xl bg-field p-3">
-                {/* A local blob preview: next/image can't optimise object URLs. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={screenshot.previewUrl}
-                  alt={t("screenshotPreview")}
-                  className="max-h-64 rounded-xl"
-                />
-                <button
-                  type="button"
-                  onClick={() => setScreenshot(null)}
-                  className="mt-2 text-[0.9rem] font-bold text-brand underline underline-offset-4"
-                >
-                  {t("removeScreenshot")}
-                </button>
-              </div>
-            ) : (
-              <>
-                <input
-                  id="screenshot"
-                  type="file"
-                  accept="image/*"
-                  onChange={onFileChosen}
-                  className="peer sr-only"
-                />
-                <label htmlFor="screenshot" className="btn btn-soft justify-start px-4 text-left">
-                  <Icon name="camera" className="size-[1.1rem] text-brand" />
-                  {t("screenshotButton")}
-                </label>
-              </>
-            )}
+            <ScreenshotPicker screenshot={screenshot} onChange={setScreenshot} />
           </div>
           {pasteFailed && (
             <p role="alert" className="mt-2.5 text-[0.9rem] font-bold text-scam">
               {t("pasteFailed")}
-            </p>
-          )}
-          {fileError && (
-            <p role="alert" className="mt-2.5 text-[0.9rem] font-bold text-scam">
-              {t("errors.invalid_image")}
             </p>
           )}
 
@@ -290,7 +223,7 @@ function CheckRound({
 
       <div>
         <div aria-live="polite" ref={answerRef} className="scroll-mt-4">
-          {result ? <CheckResultCard result={result} /> : <VerdictLegend className="hidden lg:block" />}
+          {result ? <CheckResultCard result={result} /> : <VerdictLegend />}
         </div>
         {result && checkAnother}
       </div>

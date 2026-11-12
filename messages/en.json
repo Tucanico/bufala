@@ -35,7 +35,7 @@
     },
     "how": {
       "title": "How it works",
-      "body": "We compare the message's links and numbers with our own list of official sites and numbers, and have an artificial-intelligence system read the message after hiding its most sensitive details. We don't store the message."
+      "body": "We compare the message's links and numbers with our own list of official sites and numbers and of fake sites already reported. For sites we don't know, we ask the domain registry when they were created and Google whether they are reported as dangerous, and for bit.ly and is.gd short links we ask where they lead. Then we have an artificial-intelligence system read the message, after hiding its most sensitive details. We don't store the message."
     },
     "who": {
       "title": "Who is behind it",

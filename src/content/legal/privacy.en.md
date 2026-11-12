@@ -32,7 +32,7 @@ The data controller is **Jacopo Lombardo**. For any privacy question, write to *
 
 ## Who we entrust it to
 
-- **Vercel Inc.** (United States), which hosts the site.
+- **Vercel Inc.** (United States), which hosts the site. Messages are checked on its servers in Frankfurt, Germany.
 - **Mistral AI SAS** (France), which analyses the cleaned text. Mistral may keep it for up to 30 days for abuse monitoring.
 - **Domain registries** (for example Verisign for .com sites), which receive only the name of a site mentioned in the message and tell us when it was created.
 - **Bitly and is.gd**, the link-shortening services, which receive only one of their own short links found in the message and tell us where it leads.

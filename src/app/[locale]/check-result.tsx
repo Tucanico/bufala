@@ -58,13 +58,13 @@ const CARD_TITLE = "font-display text-[1.1rem] font-bold tracking-[-0.01em]";
 const ROW = "flex gap-3 text-[0.9rem] leading-[1.4]";
 const DOT = "grid size-[2rem] shrink-0 place-items-center rounded-xl";
 
-// Before the first check on a computer: what the three answers mean, with
+// Before the first check: what the three answers mean, with
 // the same colours and icons, so ⚪ is understood as "no signs", not "safe".
-export function VerdictLegend({ className = "" }: { className?: string }) {
+export function VerdictLegend() {
   const t = useTranslations("result");
 
   return (
-    <section className={`card mt-5 p-5 ${className}`}>
+    <section className="card mt-5 p-5">
       <h2 className={CARD_TITLE}>{t("legend.title")}</h2>
       <ul className="mt-4 grid gap-4">
         {(Object.keys(VERDICT_STYLE) as Verdict[]).map((verdict) => (

@@ -8,7 +8,8 @@ The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, sho
 
 - "Mistral può conservarlo fino a 30 giorni per controllare gli abusi" and "Presso Mistral: fino a 30 giorni": true without zero data retention. If support approves zero data retention, change both to "non conserva i dati".
 - "Vercel conserva per un periodo limitato i registri tecnici delle richieste al sito, secondo le proprie regole": the period itself is unchecked (it depends on the Vercel plan).
-- Left out, to add once checked: where Vercel runs (EU region), the data processing agreements with Vercel, Mistral and Google, the basis for transfers to the United States (Vercel, Google), which Google company provides Web Risk, and that Mistral doesn't train on our data.
+- "Il controllo dei messaggi avviene sui suoi server di Francoforte": set in `vercel.json` (`fra1`) on 2026-11-12; confirm on the deployment (Functions tab) after the next push.
+- Left out, to add once checked: the data processing agreements with Vercel, Mistral and Google, the basis for transfers to the United States (Vercel, Google), which Google company provides Web Risk, and that Mistral doesn't train on our data.
 - With a lawyer: whether a postal address is needed for the controller, the legal basis (including other people's data in a message), and that technical cookies alone need no consent.
 
 ## The full checklist

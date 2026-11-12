@@ -47,3 +47,13 @@ for (const [path, title] of [
     expect(response.headers()["content-type"]).toBe("image/png");
   });
 }
+
+test("search engines get a sitemap with every page in both languages", async ({ request }) => {
+  const robots = await (await request.get("/robots.txt")).text();
+  expect(robots).toContain("/sitemap.xml");
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  for (const path of ["/chi-siamo<", "/en/about<", "/avvertenze<", "/en/disclaimer<", "/en/privacy<", "/en<"]) {
+    expect(sitemap, path).toContain(path);
+  }
+  expect(sitemap).toContain('hreflang="en"');
+});

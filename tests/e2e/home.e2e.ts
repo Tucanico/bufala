@@ -37,11 +37,24 @@ test("the start screen fits 320 px and wider, in light and dark", async ({ page 
   }
 });
 
-test("the three-answers legend shows only on a computer", async ({ page }, info) => {
+test("the three-answers legend shows before a check, beside the form on a computer and below it on a phone", async ({ page }, info) => {
   await page.goto("/");
   const legend = page.getByRole("heading", { name: "Le tre risposte possibili" });
-  if (info.project.name === "computer") await expect(legend).toBeVisible();
-  else await expect(legend).toBeHidden();
+  await expect(legend).toBeVisible();
+  const form = (await page.locator("form").boundingBox())!;
+  const card = (await legend.boundingBox())!;
+  if (info.project.name === "computer") expect(card.x).toBeGreaterThan(form.x + form.width);
+  else expect(card.y).toBeGreaterThan(form.y + form.height);
+});
+
+test("a chosen screenshot shows its preview and can be removed; a file that isn't an image says so", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#screenshot").setInputFiles("tests/fixtures/made-up-bank-sms-dark.png");
+  await expect(page.getByAltText("Anteprima dello screenshot da controllare")).toBeVisible();
+  await page.getByRole("button", { name: "Togli lo screenshot" }).click();
+  await expect(page.getByAltText("Anteprima dello screenshot da controllare")).toHaveCount(0);
+  await page.locator("#screenshot").setInputFiles({ name: "nota.txt", mimeType: "text/plain", buffer: Buffer.from("ciao") });
+  await expect(page.getByText("Questo file non sembra uno screenshot")).toBeVisible();
 });
 
 test("Incolla pastes the clipboard into the box", async ({ page, context }) => {

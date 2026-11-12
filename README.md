@@ -33,14 +33,13 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 | `npm run typecheck` | Generate route types, then `tsc --noEmit` |
 | `npm test` | Unit tests (Vitest) |
 | `npm run e2e` | Browser tests (Playwright): builds the app, then checks every page and answer at computer and phone size, in light and dark, including automatic accessibility checks (axe). Free: answers are faked, nothing goes to Mistral. Uses the installed Google Chrome |
-| `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 156 calls, about €0.05 a run (`npm run eval -- -t held-` runs only some cases); needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
+| `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 165 calls, about €0.05 a run (`npm run eval -- -t held-` runs only some cases); needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
 
 ## Deploying on Vercel
 
-Not deployed yet. When it is:
 
 1. **Environment variables:** set `MISTRAL_API_KEY` (the Bufala organisation's key) and `WEB_RISK_API_KEY` in the Vercel project (Settings > Environment Variables).
-2. **Region:** run the functions in the EU, to match the privacy notice.
+2. **Region:** the functions run in Frankfurt (`fra1` in `vercel.json`), which the privacy notice states. Pages and images are still served from Vercel's nearest location, as on any site.
 3. **Limit on checks per visitor:** there are no accounts, so the Vercel Firewall counts checks per IP address. The code asks it with the rate limit ID `bufala-check` (`src/lib/check/rate-limit.ts`); the rule itself is set in the dashboard:
    - Project > **Firewall** > **Configure** > **+ New Rule**, named for example "Bufala checks".
    - **If:** `@vercel/firewall`, Rate limit ID `bufala-check`.

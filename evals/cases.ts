@@ -136,4 +136,15 @@ export const CASES: EvalCase[] = [
     text: "Ciao, ho visto il tuo annuncio su Subito e l'ho già pagato. Per ricevere i soldi inserisci i dati della tua carta qui: subito-pagamenti.shop" },
   { id: "held-tax-refund-en", verdict: SCAM, signs: ["prize_or_refund"], sender: "public_body",
     text: "HMRC: you are due a tax refund of £326.40. Claim it now at hmrc-refund-uk.com before it expires." },
+
+  // Sites Agenzia delle Entrate itself lists as fake (knownFakeDomains): caught
+  // by our own check whatever the model reads. The other outside checks (site
+  // age, Google's list, short links) can't be tried on made-up addresses: they
+  // have unit tests with fake registries instead.
+  { id: "tax-office-declared-fake-site", verdict: SCAM, signs: ["prize_or_refund"], sender: "public_body",
+    text: "Agenzia Entrate: le spetta un rimborso IRPEF di 268,40 €. Compili il modulo entro 48 ore su https://agenziaentrate.top/rimborso" },
+  { id: "tax-office-fake-site-no-name", verdict: SCAM, sender: "public_body",
+    text: "Avviso di irregolarità nella sua dichiarazione dei redditi. Verifichi la sua posizione: avenzstr.click/verifica" },
+  { id: "tax-office-fake-subdomain", verdict: SCAM, signs: ["asks_for_payment"], sender: "public_body",
+    text: "Cartella esattoriale n. 4471: paghi 86,20 € entro oggi per evitare il fermo amministrativo. https://gov.irpeff.it.com/paga" },
 ];

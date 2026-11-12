@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-12 14:45 — chore(site): a round of small improvements
+
+From a look around the project. "Chi siamo" now says, like the privacy notice, that for sites we don't know we ask the domain registry, Google and (for bit.ly and is.gd links) the shortener. The "Le tre risposte possibili" card shows on phones too, under the form, so ⚪ is explained before the first check wherever people are. The functions' region is in the code (`vercel.json`: Frankfurt), and the privacy notice says messages are checked there. The paid test set gained three made-up messages with sites Agenzia delle Entrate lists as fake (the other outside checks can't be tried on made-up addresses; they have unit tests). The link preview is drawn in the site's heading font (Lexend ExtraBold, a 105 KB file under the Open Font License). The screenshot button and preview moved out of the form into their own component, now with a browser test. New: `robots.txt` and a sitemap listing every page in both languages. The README no longer says "not deployed yet".
+
 ## 2026-11-12 10:13 — docs(legal): the privacy notice reads as final, dated 12 November 2026
 
 At the founder's request, every "[DA CONFERMARE]" point is out of the privacy notice, in both languages, and it carries the date. Where a point stood for a fact, the text now says what is known (Mistral may keep data up to 30 days for abuse monitoring, as it does without zero data retention; Vercel keeps request logs for a limited period) and leaves out what isn't confirmed (the EU region, the transfer basis, which Google company provides Web Risk). The unconfirmed sentences are listed in `docs/legal/privacy.md` for the founder's and the lawyer's check.
+
+79fb687
 
 ## 2026-11-12 10:00 — feat(check): Google's list of dangerous sites
 

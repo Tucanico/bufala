@@ -20,6 +20,9 @@ test.each([
   ["tax-office-seizure", "Agenzia delle Entrate"],
   ["operator-points-prize", "TIM"],
   ["held-toll-pass-penalty", "Telepass"],
+  ["tax-office-declared-fake-site", "Agenzia delle Entrate"],
+  ["tax-office-fake-site-no-name", "Agenzia delle Entrate"],
+  ["tax-office-fake-subdomain", "Agenzia delle Entrate"],
 ])("%s is caught as a look-alike of %s", (id, name) => {
   const c = CASES.find((each) => each.id === id)!;
   const facts = findFacts(c.text);

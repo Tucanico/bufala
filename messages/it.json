@@ -35,7 +35,7 @@
     },
     "how": {
       "title": "Come funziona",
-      "body": "Confrontiamo i link e i numeri del messaggio con un nostro elenco di siti e numeri ufficiali, e facciamo leggere il messaggio, dopo aver nascosto i dati più delicati, a un sistema di intelligenza artificiale. Non salviamo il messaggio."
+      "body": "Confrontiamo i link e i numeri del messaggio con un nostro elenco di siti e numeri ufficiali e di siti falsi già segnalati. Per i siti che non conosciamo chiediamo al registro dei domini quando sono nati e a Google se sono segnalati come pericolosi, e per i link accorciati di bit.ly e is.gd chiediamo dove portano. Poi facciamo leggere il messaggio, dopo aver nascosto i dati più delicati, a un sistema di intelligenza artificiale. Non salviamo il messaggio."
     },
     "who": {
       "title": "Chi c'è dietro",
