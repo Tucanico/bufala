@@ -19,6 +19,7 @@ const VERDICT_STYLE: Record<Verdict, { icon: IconName; bars: number; text: strin
 const SIGN_ICON: Record<Sign, IconName> = {
   dangerous_link: "octagon",
   lookalike_link: "link",
+  disabled_link: "linkOff",
   premium_number: "phone",
   shortened_link: "link",
   new_domain: "clock",

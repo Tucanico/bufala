@@ -7,10 +7,10 @@ import { ModelError } from "../src/lib/check/mistral";
 
 // No test here may reach the domain registries; the age check has its own tests.
 vi.mock("../src/lib/check/domain-age", () => ({ hasNewDomain: async () => false }));
-vi.mock("../src/lib/check/short-links", () => ({ expandShortLinks: async () => [] }));
+vi.mock("../src/lib/check/short-links", () => ({ expandShortLinks: async () => ({ destinations: [], disabled: false }) }));
 vi.mock("../src/lib/check/web-risk", () => ({ findWebRiskThreats: async () => [] }));
 
-const noOutside = { expandLinks: async () => [], isNewSite: async () => false, findThreats: async () => [] };
+const noOutside = { expandLinks: async () => ({ destinations: [], disabled: false }), isNewSite: async () => false, findThreats: async () => [] };
 
 const scamReply = {
   claimed_sender: "bank",
@@ -108,6 +108,23 @@ test("a payment request on the organisation's own site is a warning, not a scam"
   expect(outcome.ok && outcome.result.genuinePaymentFrom).toBe("ParcelCo");
 });
 
+test("the model's 'suspicious' is dropped only when our facts disproved all it reported and nothing else is asked", async () => {
+  const verdictFor = async (text: string, reply: object) => {
+    const outcome = await analyseMessage(text, async () => reply, (message) => findFacts(message, ORGANISATIONS, PREMIUM));
+    return outcome.ok && outcome.result.verdict;
+  };
+  const tracking = { claimed_sender: "poste", requested_actions: ["click_link"], pressure: "low", warning_signs: ["link_to_act"], verdict: "suspicious" };
+  const ownSite = "Poste Italiane: il tuo pacco arriva oggi. Segui la consegna su https://www.poste.it/cerca";
+  // A reviewed organisation's own link, and nothing else asked.
+  expect(await verdictFor(ownSite, tracking)).toBe("no_signs");
+  // Also asked to reply: a real link must not switch the model's judgement off.
+  expect(await verdictFor(ownSite, { ...tracking, requested_actions: ["click_link", "reply"] })).toBe("suspicious");
+  // The model's doubt wasn't about the link, so it stays.
+  expect(await verdictFor(ownSite, { ...tracking, requested_actions: [], warning_signs: [] })).toBe("suspicious");
+  // An unreviewed organisation's link disproves nothing.
+  expect(await verdictFor("TIM: segui la tua richiesta su https://www.tim.it/richiesta", tracking)).toBe("suspicious");
+});
+
 test("model failures become 'unavailable' and log no message text", async () => {
   const log = vi.spyOn(console, "error").mockImplementation(() => {});
   const outcome = await analyseMessage("Il mio PIN è 1234", async () => {
@@ -164,9 +181,20 @@ test("a short link is judged by where its shortener says it leads", async () => 
     "Il tuo pacco: bit.ly/abc123",
     async () => clearReply,
     (text) => findFacts(text, ORGANISATIONS, PREMIUM),
-    { ...noOutside, expandLinks: async () => ["https://poste-consegne.info/pacco"] },
+    { ...noOutside, expandLinks: async () => ({ destinations: ["https://poste-consegne.info/pacco"], disabled: false }) },
   );
   expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["lookalike_link", "shortened_link"] } });
+});
+
+test("a short link its shortener switched off makes it a scam even when the model sees nothing", async () => {
+  const clearReply = { ...scamReply, claimed_sender: "other", requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const outcome = await analyseMessage(
+    "Guarda qui: is.gd/abc123",
+    async () => clearReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+    { ...noOutside, expandLinks: async () => ({ destinations: [], disabled: true }) },
+  );
+  expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["disabled_link", "shortened_link"] } });
 });
 
 test("a link Google lists as dangerous makes it a scam, and the answer says which threat", async () => {

@@ -49,17 +49,25 @@ export const WARNING_SIGNS = [
 export type WarningSign = (typeof WARNING_SIGNS)[number];
 
 // Signs our own code finds in the links and numbers, never asked of the model.
-export const CHECK_SIGNS = ["dangerous_link", "lookalike_link", "premium_number", "shortened_link", "new_domain"] as const;
+export const CHECK_SIGNS = [
+  "dangerous_link",
+  "lookalike_link",
+  "disabled_link",
+  "premium_number",
+  "shortened_link",
+  "new_domain",
+] as const;
 export type CheckSign = (typeof CHECK_SIGNS)[number];
 
 export type Sign = WarningSign | CheckSign;
 
 // Every sign, most telling first: the answer shows the first two that apply.
-// A link Google lists as dangerous leads, then a look-alike link: facts our
-// code checked, not a reading.
+// A link Google lists as dangerous leads, then a look-alike link and a short
+// link its shortener switched off: facts our code checked, not a reading.
 export const SIGN_ORDER: readonly Sign[] = [
   "dangerous_link",
   "lookalike_link",
+  "disabled_link",
   "asks_for_code",
   "asks_for_payment",
   "asks_for_personal_data",

@@ -155,6 +155,7 @@
     "signs": {
       "dangerous_link": "Secondo Google il link porta probabilmente a un sito pericoloso, che potrebbe rubare i tuoi dati o installare programmi dannosi.",
       "lookalike_link": "Il link porta a un sito che imita quello di un'azienda nota, ma non è il suo sito ufficiale.",
+      "disabled_link": "Il servizio che ha creato il link accorciato lo ha disattivato: lo fa con i link usati per truffe o altri abusi.",
       "premium_number": "Contiene un numero a pagamento: chiamarlo può costare molto.",
       "shortened_link": "Contiene un link accorciato, che nasconde il sito a cui porta davvero.",
       "new_domain": "Il link porta a un sito creato da pochi giorni: i siti veri di banche e aziende esistono da anni.",

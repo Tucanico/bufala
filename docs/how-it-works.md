@@ -36,6 +36,7 @@ For developers. Last updated 2026-11-07. The product reasons behind these choice
 | A linked site we know nothing about that Google's Web Risk lists as phishing, malware or unwanted software ([web-risk.ts](../src/lib/check/web-risk.ts)): Lookup API only, the link sent without what follows `?` or `#`, at most three links, only answers still valid. Off without `WEB_RISK_API_KEY`. The answer then shows "Advisory provided by Google" and a learn-more link per threat, as Google requires | adds "dangerous link" (high risk: 🔴) | no |
 | A link shortener (`bit.ly`, `tinyurl.com`, …) | adds "shortened link" | no |
 | A bit.ly or is.gd link: the shortener is asked where it leads, through bit.ly's info page (`+`) and is.gd's lookup service ([short-links.ts](../src/lib/check/short-links.ts)), never opening the destination. The destination is then checked like a link written in the message (look-alike, declared fake, domain age). If the shortener doesn't answer, nothing changes | as for that link | no |
+| An is.gd link that is.gd says it has switched off ("disabled. It may have been used abusively or in violation of our terms"), from the same lookup. A link that doesn't exist, or any other answer, adds nothing | adds "short link switched off" (high risk: 🔴) | no |
 | A linked site we know nothing about (not official, not a shortener or look-alike) registered under 30 days ago, from its registry's RDAP service ([domain-age.ts](../src/lib/check/domain-age.ts)). Only the site name is sent, asked at the same time as the model; endings without RDAP (.it today) are skipped, and a failed or slow lookup counts as not new | adds "site created days ago" | no |
 | A number starting with a premium-rate prefix (892, 893, 894, 895, 899, from AGCOM's numbering plan) ([phones.ts](../src/lib/check/phones.ts)). Runs of 8 to 11 digits count; a shorter 89x number counts only a few words after a calling word ("chiama il 892 424"), so one-time codes, amounts and dates don't | adds "premium-rate number" (high risk: 🔴) | no |
 | Every link is on a reviewed organisation's official domain | removes the model's "open a link" sign | yes |
@@ -57,12 +58,12 @@ Then:
 
 | Signs | Verdict |
 |---|---|
-| any of: look-alike link, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
+| any of: look-alike link, short link switched off, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
 | two or more of any kind | 🔴 scam |
 | exactly one | 🟠 suspicious |
 | none | ⚪ no warning signs |
 
-The model's own verdict can raise the answer to 🟠 but never to 🔴, so only these rules give 🔴; a milder verdict from the model is ignored. In testing, the model alone called a genuine bank code SMS a scam. The reasons shown are the first two signs in the priority order of `SIGN_ORDER` in [schema.ts](../src/lib/check/schema.ts).
+The model's own verdict can raise the answer to 🟠 but never to 🔴, so only these rules give 🔴; a milder verdict from the model is ignored. In testing, the model alone called a genuine bank code SMS a scam. One exception: when our own checks disproved every sign the model reported (a link or number that is a reviewed organisation's own) and the message asks for nothing beyond using it, the model's verdict is dropped too, so a genuine tracking link can be ⚪. The reasons shown are the first two signs in the priority order of `SIGN_ORDER` in [schema.ts](../src/lib/check/schema.ts).
 
 ## Combining three answers
 

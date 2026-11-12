@@ -9,11 +9,13 @@ import {
 } from "./schema";
 
 // Any one of these is enough for "very likely a scam": legitimate senders do
-// not ask for them by message, and a site posing as a known brand or a
-// premium-rate number is a fact our code checked.
+// not ask for them by message, and a site posing as a known brand, a short
+// link its shortener switched off or a premium-rate number is a fact our code
+// checked.
 const HIGH_RISK_SIGNS = new Set<Sign>([
   "dangerous_link",
   "lookalike_link",
+  "disabled_link",
   "asks_for_code",
   "asks_for_payment",
   "asks_for_personal_data",

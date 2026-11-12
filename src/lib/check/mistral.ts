@@ -27,7 +27,7 @@ Report:
   urgency: insists on acting right away or within a short deadline.
   link_to_act: asks to open a link to fix a problem, verify an account, pay or claim something.
   call_this_number: asks the reader to call a phone number given in the message to sort out a problem, avoid a consequence or claim something. Not a number given for ordinary contact, such as cancelling an appointment.
-  shows_code: shows a one-time or verification code, for example for a payment, a login or a new device.
+  shows_code: shows a one-time or verification code that confirms a login, a payment or a new device. Not a code for collecting a parcel or an order, and not a booking, order or tracking number.
   prize_or_refund: says the reader has won, or is owed, a prize, refund, bonus or gift.
   parcel_problem: says a parcel is held, or needs a fee or new details.
   secrecy: asks the reader to hide the request from family, friends or their bank. Advice to keep a code or password private is not secrecy.

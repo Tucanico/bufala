@@ -1,6 +1,6 @@
 import { combineRuns, type ModelRun } from "./combine";
 import { hasNewDomain } from "./domain-age";
-import { expandShortLinks } from "./short-links";
+import { expandShortLinks, type ShortLinkAnswers } from "./short-links";
 import { findWebRiskThreats, type WebRiskThreat } from "./web-risk";
 import { applyFacts, findFacts, type MessageFacts } from "./facts";
 import { MAX_MESSAGE_LENGTH } from "./limits";
@@ -10,9 +10,11 @@ import { findLinks, redact } from "./redact";
 import {
   parseModelOutput,
   type ModelOutput,
+  type RequestedAction,
   type SenderType,
   type Sign,
   type Verdict,
+  type WarningSign,
 } from "./schema";
 import { collectSigns, decideVerdict } from "./verdict";
 
@@ -40,7 +42,7 @@ export type CheckResult = {
 
 // The checks that ask outside services, each failing safely to "nothing found".
 export type OutsideChecks = {
-  expandLinks: (text: string) => Promise<string[]>;
+  expandLinks: (text: string) => Promise<ShortLinkAnswers>;
   isNewSite: (hosts: string[]) => Promise<boolean>;
   findThreats: (links: string[]) => Promise<WebRiskThreat[]>;
 };
@@ -70,12 +72,41 @@ function reasonFor(error: unknown): string {
   return error instanceof ModelError ? error.message : ((error as Error)?.name ?? "unknown");
 }
 
+// The request each sign our facts can disprove is about: once the link or
+// number is shown to be the organisation's own, being asked to use it is no worry.
+const ACTION_SETTLED_BY: Partial<Record<WarningSign, RequestedAction>> = {
+  link_to_act: "click_link",
+  call_this_number: "call_number",
+};
+
+// The model's verdict follows the signs it reported. When our facts disproved
+// every one of them (see `removeSigns` in facts.ts) and the message asks for
+// nothing beyond using that link or number, its "suspicious" stands on nothing:
+// without this, a reviewed courier's genuine tracking link stayed 🟠. Any other
+// request, such as a reply, keeps the model's verdict, so adding a real link to
+// a scam can't switch the model's judgement off.
+function modelVerdictAfterFacts(
+  output: ModelOutput,
+  reported: Sign[],
+  signs: Sign[],
+  facts: MessageFacts,
+): Verdict {
+  if (reported.length === 0 || signs.length > 0) return output.verdict;
+  const settled = new Set(facts.removeSigns.map((sign) => ACTION_SETTLED_BY[sign]));
+  return output.requested_actions.every((action) => settled.has(action)) ? "no_signs" : output.verdict;
+}
+
 // One model answer plus our own facts, turned into a colour by our rules.
 // Shared with the test set so it measures exactly what the app does.
 export function buildRun(output: ModelOutput, facts: MessageFacts): ModelRun {
-  const signs = applyFacts(collectSigns(output), facts);
+  const reported = collectSigns(output);
+  const signs = applyFacts(reported, facts);
   return {
-    verdict: decideVerdict(signs, output.verdict, facts.paymentMayBeGenuine),
+    verdict: decideVerdict(
+      signs,
+      modelVerdictAfterFacts(output, reported, signs, facts),
+      facts.paymentMayBeGenuine,
+    ),
     modelVerdict: output.verdict,
     signs,
     sender: output.claimed_sender,
@@ -97,7 +128,9 @@ export async function analyseMessage(
   // model, so they add no waiting. Where a short link leads counts like a
   // link written in the message; only the original text goes to the model.
   const ownChecks = async (): Promise<MessageFacts> => {
-    const destinations = await outside.expandLinks(trimmed).catch(() => []);
+    const { destinations, disabled } = await outside
+      .expandLinks(trimmed)
+      .catch((): ShortLinkAnswers => ({ destinations: [], disabled: false }));
     const checked = destinations.length > 0 ? `${trimmed}\n${destinations.join("\n")}` : trimmed;
     const found = findMessageFacts(checked);
     // Only sites we know nothing about: official ones need no lookup, and a
@@ -109,6 +142,7 @@ export async function analyseMessage(
       outside.findThreats(unknownLinks).catch((): WebRiskThreat[] => []),
     ]);
     const addSigns = [...found.addSigns];
+    if (disabled) addSigns.push("disabled_link");
     if (newSite) addSigns.push("new_domain");
     if (threats.length > 0) addSigns.push("dangerous_link");
     return { ...found, addSigns, webRiskThreats: threats };

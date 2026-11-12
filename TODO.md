@@ -1,7 +1,7 @@
 # TODO
 
 ## MVP
-- Review the 30 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴
+- Review the 30 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴. After reviewing UPS, run `npm run eval`: `held-ok-ups-tracking` should turn ⚪ (the rule for it is in since 2026-11-12, not yet seen with the real model)
 - Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, the domain of A2A's bill-payment platform, Mooney (only its group site could be read: no numbers or rules yet), Banca Mediolanum's card-block page, and Edison's contacts page (partly unread)
 - Link checks that need an outside service (Agenzia delle Entrate's list of fake domains is in, with no outside call): domain age is in (not for .it, which has no RDAP service yet); Google Web Risk is built, keyed and tested live (2026-11-12: Google's test malware and phishing pages detected); bit.ly and is.gd links are looked up through their previews (other shorteners keep only the warning)
 - Google Cloud billing: the project runs on the $300 free trial, which ends around 2027-02-10 (90 days from 2026-11-12). Upgrade to a paid account before then (Billing > Overview > "Activate full account"), or Google turns billing off and Web Risk lookups stop. Lookups stay free under 100,000 a month; keep the €5 budget alert

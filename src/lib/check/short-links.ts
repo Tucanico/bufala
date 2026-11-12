@@ -6,12 +6,19 @@ import type { Fetcher } from "./domain-age";
 // shortener that made it; the destination site is never contacted, so a
 // scammer's own server never hears from us. Other shorteners have no such
 // preview, and a link whose shortener doesn't answer stays "shortened" as before.
+// is.gd also says when it has switched a link off, which is a sign of its own.
 
 const TIMEOUT_MS = 2500;
 const MAX_LINKS = 3;
 const SHORT_LINK = /(?:https?:\/\/)?(?:www\.)?(bit\.ly|is\.gd)\/([A-Za-z0-9_-]{2,64})/gi;
 
 type ShortLink = { service: "bit.ly" | "is.gd"; code: string };
+
+// What a shortener said about one link.
+type Answer = { destination: string | null; disabled: boolean };
+
+// What the shorteners said about the links of a message.
+export type ShortLinkAnswers = { destinations: string[]; disabled: boolean };
 
 export function findShortLinks(text: string): ShortLink[] {
   const found = new Map<string, ShortLink>();
@@ -48,15 +55,22 @@ async function bitlyDestination(code: string, fetcher: Fetcher): Promise<string 
   return link ? decodeEntities(link[1]) : null;
 }
 
-// is.gd's documented lookup: https://is.gd/apilookupreference.php
-async function isgdDestination(code: string, fetcher: Fetcher): Promise<string | null> {
+// is.gd's documented lookup: https://is.gd/apilookupreference.php. For a link
+// it has switched off it answers error 2, "The requested shortened URL has been
+// disabled. It may have been used abusively or in violation of our terms."
+// (seen live on 2026-11-12; a link that doesn't exist is error 1). Both the
+// number and the word must match, so a change on is.gd's side can only lose
+// the warning, never invent one.
+async function isgdAnswer(code: string, fetcher: Fetcher): Promise<Answer> {
   const response = await fetcher(`https://is.gd/forward.php?format=json&shorturl=${encodeURIComponent(code)}`, {
     redirect: "manual",
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
-  if (!response.ok) return null;
-  const { url } = (await response.json()) as { url?: unknown };
-  return typeof url === "string" ? url : null;
+  if (!response.ok) return { destination: null, disabled: false };
+  const { url, errorcode, errormessage } = (await response.json()) as Record<string, unknown>;
+  if (typeof url === "string") return { destination: url, disabled: false };
+  const disabled = errorcode === 2 && typeof errormessage === "string" && /\bdisabled\b/i.test(errormessage);
+  return { destination: null, disabled };
 }
 
 function isWebAddress(text: string): boolean {
@@ -67,15 +81,23 @@ function isWebAddress(text: string): boolean {
   }
 }
 
-// The destinations the shorteners gave, as full addresses. A failure, a
-// timeout or an odd answer is simply left out.
-export async function expandShortLinks(text: string, fetcher: Fetcher = fetch): Promise<string[]> {
-  const answers = await Promise.allSettled(
-    findShortLinks(text).map(({ service, code }) =>
-      service === "bit.ly" ? bitlyDestination(code, fetcher) : isgdDestination(code, fetcher),
+// The destinations the shorteners gave, as full addresses, and whether one of
+// the links was switched off. A failure, a timeout or an odd answer is simply
+// left out.
+export async function expandShortLinks(text: string, fetcher: Fetcher = fetch): Promise<ShortLinkAnswers> {
+  const settled = await Promise.allSettled(
+    findShortLinks(text).map(
+      async ({ service, code }): Promise<Answer> =>
+        service === "bit.ly"
+          ? { destination: await bitlyDestination(code, fetcher), disabled: false }
+          : isgdAnswer(code, fetcher),
     ),
   );
-  return answers.flatMap((answer) =>
-    answer.status === "fulfilled" && answer.value && isWebAddress(answer.value) ? [answer.value] : [],
-  );
+  const answers = settled.flatMap((answer) => (answer.status === "fulfilled" ? [answer.value] : []));
+  return {
+    destinations: answers.flatMap(({ destination }) =>
+      destination && isWebAddress(destination) ? [destination] : [],
+    ),
+    disabled: answers.some((answer) => answer.disabled),
+  };
 }

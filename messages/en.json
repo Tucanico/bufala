@@ -155,6 +155,7 @@
     "signs": {
       "dangerous_link": "According to Google, the link probably leads to a dangerous site that may steal your details or install harmful software.",
       "lookalike_link": "The link goes to a site that imitates a well-known company's, but it isn't its official site.",
+      "disabled_link": "The service that made the shortened link has switched it off, which it does with links used for scams or other abuse.",
       "premium_number": "It contains a premium-rate number: calling it can cost a lot.",
       "shortened_link": "It contains a shortened link, which hides the site it really goes to.",
       "new_domain": "The link goes to a site created only days ago: real banks' and companies' sites have been around for years.",

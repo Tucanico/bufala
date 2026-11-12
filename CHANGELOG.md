@@ -1,8 +1,18 @@
 # Changelog
 
+## 2026-11-12 18:16 — feat(check): a short link that is.gd switched off is a warning sign
+
+is.gd's lookup, which we already ask where a link leads, also says when it has switched a link off ("disabled. It may have been used abusively or in violation of our terms"). That now adds "Il servizio che ha creato il link accorciato lo ha disattivato: lo fa con i link usati per truffe o altri abusi", which is 🔴 on its own. It counts only when both is.gd's error number (2) and the word "disabled" match, so a change on is.gd's side can lose the warning but never invent one; a link that doesn't exist (error 1) adds nothing. It is the same request as before, so nothing new leaves the server. bit.ly's page isn't read for this. Tried live on 2026-11-12: `is.gd/example` answered "disabled", a made-up code answered "doesn't exist", and a link made for the test (to example.com) gave its destination in 109 ms, which also confirms the is.gd lookup that had only unit tests.
+
+## 2026-11-12 18:12 — fix(check): a pickup code is not a "code shown", and a reviewed organisation's own link can give ⚪
+
+From the paid test set, run after the three Agenzia delle Entrate messages were added (51 of 55 as expected, the three new ones 🔴 in every run): two genuine messages got 🟠. First, a locker pickup ("Codice di ritiro: 5521") was read as "shows a code" in 2 runs of 3. The model's instructions now say that sign is a one-time or verification code that confirms a login, a payment or a new device, and not a code for collecting a parcel or an order, nor a booking, order or tracking number. Measured with one more paid run: the locker message is ⚪ in 2 runs of 3, so better but not steady yet; the bank and WhatsApp code messages keep the sign in 3 of 3. In that run two cases (`bank-remote-app`, `crypto-investment`) gave no result because Mistral answered 503; both were 🔴 in 3 of 3 the run before. Second, a UPS tracking message ("Puoi seguire la consegna su ups.com") stays 🟠 because UPS isn't reviewed, but the review alone would not have been enough: the model's own "suspicious" kept the answer at 🟠 even after our code removed its "open a link" sign. Now, when our checks disproved every sign the model reported and the message asks for nothing beyond using that link or number, the model's verdict is dropped too. A message that also asks for a reply keeps it, so a real link added to a scam can't switch the model's judgement off. This changes nothing until an organisation is reviewed, so its effect with the real model is still to measure (in the TODO).
+
 ## 2026-11-12 14:45 — chore(site): a round of small improvements
 
 From a look around the project. "Chi siamo" now says, like the privacy notice, that for sites we don't know we ask the domain registry, Google and (for bit.ly and is.gd links) the shortener. The "Le tre risposte possibili" card shows on phones too, under the form, so ⚪ is explained before the first check wherever people are. The functions' region is in the code (`vercel.json`: Frankfurt), and the privacy notice says messages are checked there. The paid test set gained three made-up messages with sites Agenzia delle Entrate lists as fake (the other outside checks can't be tried on made-up addresses; they have unit tests). The link preview is drawn in the site's heading font (Lexend ExtraBold, a 105 KB file under the Open Font License). The screenshot button and preview moved out of the form into their own component, now with a browser test. New: `robots.txt` and a sitemap listing every page in both languages. The README no longer says "not deployed yet".
+
+d4b4bc3
 
 ## 2026-11-12 10:13 — docs(legal): the privacy notice reads as final, dated 12 November 2026
 
@@ -13,6 +23,8 @@ At the founder's request, every "[DA CONFERMARE]" point is out of the privacy no
 ## 2026-11-12 10:00 — feat(check): Google's list of dangerous sites
 
 Links to sites we know nothing about (at most three) are now checked against Google's Web Risk, its list of phishing, malware and unwanted-software sites. A match adds "Secondo Google il link porta probabilmente a un sito pericoloso…", which is 🔴 on its own. Only the Lookup API is used, free for the first 100,000 lookups a month; never the Update API, whose use would make every lookup cost $50 per 1,000. A link goes to Google without what follows "?" or "#", where personal codes usually sit, and never the message. Google's conditions for showing its results are followed: hedged wording, "Advisory provided by Google" linking to its advisory, a learn-more link for each kind of threat (antiphishing.org, Google Search Central, Google's Unwanted Software Policy), answers used only while still valid, and the disclaimer now says the list can be wrong either way. The privacy notice names Google, with the Google company and transfer basis to confirm. The check is off without `WEB_RISK_API_KEY`; tested live with the key: Google's test malware and phishing pages were detected and a normal site came back clean. The Google Cloud project is on the free trial until about 2027-02-10, so upgrading it is in the TODO. Also: a link ending a sentence no longer keeps its full stop or comma when the full link is needed.
+
+f6990dd
 
 ## 2026-11-12 09:36 — feat(app): Bufala on the home screen and in Android's share menu, and short links looked up
 

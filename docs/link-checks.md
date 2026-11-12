@@ -12,7 +12,7 @@ Agenzia delle Entrate lists the domains used for phishing against it, and others
 
 ## 1. Shortened links: option B built (decided 2026-11-12)
 
-bit.ly and is.gd links are looked up through their previews, and the destination is checked like any other link; other shorteners, and these two when they don't answer, keep only the warning. Code: `src/lib/check/short-links.ts`. The findings that led to it:
+bit.ly and is.gd links are looked up through their previews, and the destination is checked like any other link; other shorteners, and these two when they don't answer, keep only the warning. Since 2026-11-12 is.gd's answer "this link has been disabled" (which it gives for links used abusively or against its terms) is a sign of its own, 🔴 alone; it was seen live on `is.gd/example`. Code: `src/lib/check/short-links.ts`. The findings that led to it:
 
 Today a shortened link (bit.ly and others) adds the sign "contiene un link accorciato, che nasconde il sito a cui porta davvero". Finding the real destination means asking the shortener:
 
