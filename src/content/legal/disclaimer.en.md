@@ -2,7 +2,7 @@
 
 Bufala helps you spot the most common signs of a scam in a message. **It can't guarantee that a message is safe**, nor that it is a scam: a message with no warning signs can still be fake, and a genuine message can look suspicious.
 
-The answers are automatic, partly produced by an artificial-intelligence system, and can be wrong. The decision is always yours.
+The answers are automatic, partly produced by an artificial-intelligence system, and can be wrong. For some links we also use Google's list of dangerous sites (Web Risk), which can be wrong either way: flagging a harmless site, or not knowing a dangerous one. The decision is always yours.
 
 ## When in doubt
 

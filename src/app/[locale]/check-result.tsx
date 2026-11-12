@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { CheckResult } from "@/lib/check/analyse";
 import type { Sign, Verdict } from "@/lib/check/schema";
+import type { WebRiskThreat } from "@/lib/check/web-risk";
 import { Icon, type IconName } from "./icons";
 
 // The colour is never the only signal: each verdict also has its own title,
@@ -16,6 +17,7 @@ const VERDICT_STYLE: Record<Verdict, { icon: IconName; bars: number; text: strin
 };
 
 const SIGN_ICON: Record<Sign, IconName> = {
+  dangerous_link: "octagon",
   lookalike_link: "link",
   premium_number: "phone",
   shortened_link: "link",
@@ -34,6 +36,17 @@ const SIGN_ICON: Record<Sign, IconName> = {
   parcel_problem: "package",
   secrecy: "lock",
 };
+
+// Google's conditions for showing Web Risk results: credit it, linking to its
+// advisory, and link a page about each kind of threat found
+// (https://docs.cloud.google.com/web-risk/docs/user-warnings).
+const WEB_RISK_ADVISORY = "https://docs.cloud.google.com/web-risk/docs/advisory";
+const WEB_RISK_LEARN_MORE: Record<WebRiskThreat, string> = {
+  SOCIAL_ENGINEERING: "https://www.antiphishing.org/",
+  MALWARE: "https://developers.google.com/search/docs/monitor-debug/security/malware",
+  UNWANTED_SOFTWARE: "https://www.google.com/about/unwanted-software-policy.html",
+};
+const EXTERNAL = "font-bold text-brand underline underline-offset-4";
 
 const DONTS = [
   { key: "links", icon: "linkOff" },
@@ -151,6 +164,20 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
                   </li>
                 )}
               </ul>
+              {/* Only under a warning that came from Google: its credit must not
+                  appear on warnings from our own checks. */}
+              {result.webRiskThreats && result.reasons.includes("dangerous_link") && (
+                <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.8rem]">
+                  <a href={WEB_RISK_ADVISORY} target="_blank" rel="noopener noreferrer" className={EXTERNAL}>
+                    {t("webRisk.advisory")}
+                  </a>
+                  {result.webRiskThreats.map((threat) => (
+                    <a key={threat} href={WEB_RISK_LEARN_MORE[threat]} target="_blank" rel="noopener noreferrer" className={EXTERNAL}>
+                      {t(`webRisk.learn.${threat}`)}
+                    </a>
+                  ))}
+                </p>
+              )}
               {genuinePayment && <div className="mt-3">{genuinePayment}</div>}
             </section>
           )}

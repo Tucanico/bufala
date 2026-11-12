@@ -5,6 +5,7 @@ import type { Organisation, PremiumPrefix } from "./organisations";
 import { findPhoneNumbers, isPremium, officialOwner } from "./phones";
 import { findHosts } from "./redact";
 import type { CheckSign, Sign, WarningSign } from "./schema";
+import type { WebRiskThreat } from "./web-risk";
 import { inSignOrder } from "./verdict";
 
 // What our own code finds in the links and numbers of a message. It runs once
@@ -23,6 +24,8 @@ export type MessageFacts = {
   // Linked sites that are neither on our list nor a shortener or look-alike:
   // the ones whose age is worth asking the registry for (domain-age.ts).
   unknownHosts: string[];
+  // What Google's Web Risk says about those links, when asked (analyse.ts).
+  webRiskThreats?: WebRiskThreat[];
   // The message is about a reviewed organisation that says it does ask for
   // payment by message, and every link goes to its own site. A payment request
   // then means "check yourself", not "scam".

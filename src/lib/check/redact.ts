@@ -83,3 +83,19 @@ export function findHosts(text: string): { links: string[]; emailDomains: string
   }
   return { links: [...links], emailDomains: [...emailDomains] };
 }
+
+// The same links as full addresses ("http://" added when missing), with the
+// host as findHosts gives it, for checks that need the path too (web-risk.ts).
+export function findLinks(text: string): { link: string; host: string }[] {
+  const found = new Map<string, string>();
+  for (const match of text.matchAll(PATTERN)) {
+    const groups = match.groups ?? {};
+    // A link ending a sentence takes its full stop or comma: not part of it.
+    const raw = (groups.url ?? (groups.domain && isBareLink(groups) ? groups.domain : undefined))?.replace(
+      /[.,;:!?)\]»"']+$/,
+      "",
+    );
+    if (raw) found.set(/^https?:\/\//i.test(raw) ? raw : `http://${raw}`, hostOf(raw));
+  }
+  return [...found].map(([link, host]) => ({ link, host }));
+}

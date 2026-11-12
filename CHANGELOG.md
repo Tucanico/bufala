@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-12 10:00 — feat(check): Google's list of dangerous sites
+
+Links to sites we know nothing about (at most three) are now checked against Google's Web Risk, its list of phishing, malware and unwanted-software sites. A match adds "Secondo Google il link porta probabilmente a un sito pericoloso…", which is 🔴 on its own. Only the Lookup API is used, free for the first 100,000 lookups a month; never the Update API, whose use would make every lookup cost $50 per 1,000. A link goes to Google without what follows "?" or "#", where personal codes usually sit, and never the message. Google's conditions for showing its results are followed: hedged wording, "Advisory provided by Google" linking to its advisory, a learn-more link for each kind of threat (antiphishing.org, Google Search Central, Google's Unwanted Software Policy), answers used only while still valid, and the disclaimer now says the list can be wrong either way. The privacy notice names Google, with the Google company and transfer basis to confirm. The check is off without `WEB_RISK_API_KEY`; with the key now set, a live test against Google's test pages was refused because billing isn't enabled on the Google Cloud project. Also: a link ending a sentence no longer keeps its full stop or comma when the full link is needed.
+
 ## 2026-11-12 09:36 — feat(app): Bufala on the home screen and in Android's share menu, and short links looked up
 
 Bufala can now be installed from the browser ("Aggiungi a schermata Home"): its own icon, full screen, no app store or account. Under the form, a button "Aggiungi Bufala alla schermata Home" appears when Chrome offers installing on a touch screen, and on iPhone Safari a line explains its Share button. On Android an installed Bufala appears in the share menu: long-press a suspicious SMS or WhatsApp message, "Condividi", "Bufala", and it opens with the message in the box and checks it at once, with no copy-paste; the message is then taken out of the address so a reload doesn't check it again. iPhone doesn't allow websites in that menu. Icons: 192 and 512 px, a "maskable" one Android can crop to its own shape, and a 180 px one for iPhone. Also: bit.ly and is.gd links are now looked up through the shorteners' own previews (bit.ly's info page, is.gd's lookup service), never opening the destination, and the destination is checked like any link in the message (look-alike, declared fake, domain age). Other shorteners, or these two when they don't answer, keep only the "shortened link" warning. The privacy notice names Bitly and is.gd. Installing and sharing still need a try on real phones (in the TODO).
+
+a7601e0
 
 ## 2026-11-12 09:13 — feat(check): sites created days ago are a warning sign
 

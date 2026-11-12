@@ -12,6 +12,7 @@ import {
 // not ask for them by message, and a site posing as a known brand or a
 // premium-rate number is a fact our code checked.
 const HIGH_RISK_SIGNS = new Set<Sign>([
+  "dangerous_link",
   "lookalike_link",
   "asks_for_code",
   "asks_for_payment",

@@ -1,11 +1,12 @@
 import { combineRuns, type ModelRun } from "./combine";
 import { hasNewDomain } from "./domain-age";
 import { expandShortLinks } from "./short-links";
+import { findWebRiskThreats, type WebRiskThreat } from "./web-risk";
 import { applyFacts, findFacts, type MessageFacts } from "./facts";
 import { MAX_MESSAGE_LENGTH } from "./limits";
 import { callMistral, ModelError } from "./mistral";
 import type { Organisation, PhoneLabel } from "./organisations";
-import { redact } from "./redact";
+import { findLinks, redact } from "./redact";
 import {
   parseModelOutput,
   type ModelOutput,
@@ -32,6 +33,22 @@ export type CheckResult = {
   // Set when a payment request may be genuine (see facts.ts): the answer says
   // this organisation really can ask, and to check on its site first.
   genuinePaymentFrom?: string;
+  // Set when Google's Web Risk lists a link: the answer then credits Google
+  // and links to a page about each kind of threat, as Google requires.
+  webRiskThreats?: WebRiskThreat[];
+};
+
+// The checks that ask outside services, each failing safely to "nothing found".
+export type OutsideChecks = {
+  expandLinks: (text: string) => Promise<string[]>;
+  isNewSite: (hosts: string[]) => Promise<boolean>;
+  findThreats: (links: string[]) => Promise<WebRiskThreat[]>;
+};
+
+const OUTSIDE_CHECKS: OutsideChecks = {
+  expandLinks: expandShortLinks,
+  isNewSite: hasNewDomain,
+  findThreats: findWebRiskThreats,
 };
 
 export type CheckOutcome =
@@ -69,8 +86,7 @@ export async function analyseMessage(
   text: string,
   callModel: (redactedText: string) => Promise<unknown> = callMistral,
   findMessageFacts: (text: string) => MessageFacts = findFacts,
-  isNewSite: (hosts: string[]) => Promise<boolean> = hasNewDomain,
-  expandLinks: (text: string) => Promise<string[]> = expandShortLinks,
+  outside: OutsideChecks = OUTSIDE_CHECKS,
 ): Promise<CheckOutcome> {
   const trimmed = text.trim();
   if (!trimmed) return { ok: false, error: "empty" };
@@ -81,10 +97,21 @@ export async function analyseMessage(
   // model, so they add no waiting. Where a short link leads counts like a
   // link written in the message; only the original text goes to the model.
   const ownChecks = async (): Promise<MessageFacts> => {
-    const destinations = await expandLinks(trimmed).catch(() => []);
-    const found = findMessageFacts(destinations.length > 0 ? `${trimmed}\n${destinations.join("\n")}` : trimmed);
-    const newSite = await isNewSite(found.unknownHosts).catch(() => false);
-    return newSite ? { ...found, addSigns: [...found.addSigns, "new_domain"] } : found;
+    const destinations = await outside.expandLinks(trimmed).catch(() => []);
+    const checked = destinations.length > 0 ? `${trimmed}\n${destinations.join("\n")}` : trimmed;
+    const found = findMessageFacts(checked);
+    // Only sites we know nothing about: official ones need no lookup, and a
+    // look-alike is already a 🔴.
+    const unknown = new Set(found.unknownHosts);
+    const unknownLinks = findLinks(checked).filter(({ host }) => unknown.has(host)).map(({ link }) => link);
+    const [newSite, threats] = await Promise.all([
+      outside.isNewSite(found.unknownHosts).catch(() => false),
+      outside.findThreats(unknownLinks).catch((): WebRiskThreat[] => []),
+    ]);
+    const addSigns = [...found.addSigns];
+    if (newSite) addSigns.push("new_domain");
+    if (threats.length > 0) addSigns.push("dangerous_link");
+    return { ...found, addSigns, webRiskThreats: threats };
   };
   const [replies, facts] = await Promise.all([
     Promise.allSettled(Array.from({ length: MODEL_RUNS }, () => callModel(redacted))),
@@ -127,6 +154,7 @@ export async function analyseMessage(
       officialPhones: shownPhones(organisation),
       imitatedName: facts.imitated?.name,
       genuinePaymentFrom: facts.paymentMayBeGenuine ? organisation?.name : undefined,
+      webRiskThreats: facts.webRiskThreats?.length ? facts.webRiskThreats : undefined,
     },
   };
 }

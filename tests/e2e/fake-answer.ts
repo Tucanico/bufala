@@ -28,6 +28,10 @@ export const ANSWERS = {
     ok: true,
     result: { verdict: "suspicious", reasons: ["shows_code"], sender: "other" },
   },
+  dangerous: {
+    ok: true,
+    result: { verdict: "scam", reasons: ["dangerous_link"], sender: "other", webRiskThreats: ["SOCIAL_ENGINEERING"] },
+  },
   no_signs: {
     ok: true,
     result: { verdict: "no_signs", reasons: [], sender: "family" },

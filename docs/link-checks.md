@@ -27,7 +27,9 @@ Built as recommended: a site we don't know that was registered under 30 days ago
 - It would add a new sign, for example "Il sito è stato creato da pochi giorni", with a threshold (30 days?) and a weight (🟠 or 🔴). Domain names would go to the registries.
 
 
-## 3. Blocklists of known phishing sites: Google Web Risk chosen (2026-11-12), waiting for the account
+## 3. Blocklists of known phishing sites: Google Web Risk built (2026-11-12)
+
+Built in `src/lib/check/web-risk.ts`, following Google's display rules. It needs `WEB_RISK_API_KEY` and a Google Cloud project with billing enabled (a first live test was refused with BILLING_DISABLED). The findings that led to it:
 
 | Source | Fit | Conditions |
 |---|---|---|

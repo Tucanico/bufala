@@ -8,6 +8,9 @@ import { ModelError } from "../src/lib/check/mistral";
 // No test here may reach the domain registries; the age check has its own tests.
 vi.mock("../src/lib/check/domain-age", () => ({ hasNewDomain: async () => false }));
 vi.mock("../src/lib/check/short-links", () => ({ expandShortLinks: async () => [] }));
+vi.mock("../src/lib/check/web-risk", () => ({ findWebRiskThreats: async () => [] }));
+
+const noOutside = { expandLinks: async () => [], isNewSite: async () => false, findThreats: async () => [] };
 
 const scamReply = {
   claimed_sender: "bank",
@@ -129,19 +132,27 @@ test("a site registered days ago adds its sign, checked alongside the model", as
     "Guarda qui https://offerta-nuova.xyz/p",
     async () => clearReply,
     (text) => findFacts(text, ORGANISATIONS, PREMIUM),
-    async (hosts) => (asked.push(hosts), true),
+    { ...noOutside, isNewSite: async (hosts) => (asked.push(hosts), true) },
   );
   expect(asked).toEqual([["offerta-nuova.xyz"]]);
   expect(outcome).toMatchObject({ ok: true, result: { verdict: "suspicious", reasons: ["new_domain"] } });
 });
 
-test("a failed age lookup changes nothing", async () => {
+test("failed outside lookups change nothing", async () => {
   const outcome = await analyseMessage(
     "Conto bloccato",
     async () => scamReply,
     (text) => findFacts(text, ORGANISATIONS, PREMIUM),
-    async () => {
-      throw new Error("registry down");
+    {
+      expandLinks: async () => {
+        throw new Error("shortener down");
+      },
+      isNewSite: async () => {
+        throw new Error("registry down");
+      },
+      findThreats: async () => {
+        throw new Error("Google down");
+      },
     },
   );
   expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["threat", "urgency"] } });
@@ -153,8 +164,24 @@ test("a short link is judged by where its shortener says it leads", async () => 
     "Il tuo pacco: bit.ly/abc123",
     async () => clearReply,
     (text) => findFacts(text, ORGANISATIONS, PREMIUM),
-    async () => false,
-    async () => ["https://poste-consegne.info/pacco"],
+    { ...noOutside, expandLinks: async () => ["https://poste-consegne.info/pacco"] },
   );
   expect(outcome).toMatchObject({ ok: true, result: { verdict: "scam", reasons: ["lookalike_link", "shortened_link"] } });
+});
+
+test("a link Google lists as dangerous makes it a scam, and the answer says which threat", async () => {
+  const clearReply = { ...scamReply, claimed_sender: "other", requested_actions: [], pressure: "low", warning_signs: [], verdict: "no_signs" };
+  const asked: string[][] = [];
+  const outcome = await analyseMessage(
+    "Guarda poste.it e https://premio-sicuro.xyz/vinci?id=42",
+    async () => clearReply,
+    (text) => findFacts(text, ORGANISATIONS, PREMIUM),
+    { ...noOutside, findThreats: async (links) => (asked.push(links), ["SOCIAL_ENGINEERING"]) },
+  );
+  // Only the link we don't know is asked about, never the official one.
+  expect(asked).toEqual([["https://premio-sicuro.xyz/vinci?id=42"]]);
+  expect(outcome).toMatchObject({
+    ok: true,
+    result: { verdict: "scam", reasons: ["dangerous_link"], webRiskThreats: ["SOCIAL_ENGINEERING"] },
+  });
 });

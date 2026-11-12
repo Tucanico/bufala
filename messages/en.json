@@ -153,6 +153,7 @@
     },
     "genuinePayment": "{name} really can ask for a payment by message. Before paying, check on its official website yourself, typing the address by hand, or call its official number.",
     "signs": {
+      "dangerous_link": "According to Google, the link probably leads to a dangerous site that may steal your details or install harmful software.",
       "lookalike_link": "The link goes to a site that imitates a well-known company's, but it isn't its official site.",
       "premium_number": "It contains a premium-rate number: calling it can cost a lot.",
       "shortened_link": "It contains a shortened link, which hides the site it really goes to.",
@@ -170,6 +171,14 @@
       "prize_or_refund": "It promises a prize, a refund or a bonus you weren't expecting.",
       "parcel_problem": "It talks about a parcel that's held up or a delivery you have to pay for.",
       "secrecy": "It asks you not to tell anyone."
+    },
+    "webRisk": {
+      "advisory": "Advisory provided by Google",
+      "learn": {
+        "SOCIAL_ENGINEERING": "What is phishing",
+        "MALWARE": "What is malware",
+        "UNWANTED_SOFTWARE": "What is unwanted software"
+      }
     },
     "safeStepTitle": "What to do",
     "safeStep": {

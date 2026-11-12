@@ -2,7 +2,7 @@
 
 Bufala ti aiuta a riconoscere i segnali più comuni di una truffa in un messaggio. **Non può garantire che un messaggio sia sicuro**, e nemmeno che sia una truffa: anche un messaggio senza segnali può essere falso, e un messaggio vero può sembrare sospetto.
 
-Le risposte sono indicazioni automatiche, in parte prodotte da un sistema di intelligenza artificiale, e possono sbagliare. La decisione resta sempre tua.
+Le risposte sono indicazioni automatiche, in parte prodotte da un sistema di intelligenza artificiale, e possono sbagliare. Per alcuni link usiamo anche l'elenco di siti pericolosi di Google (Web Risk), che può sbagliare in entrambi i sensi: segnalare un sito innocuo, o non conoscere un sito pericoloso. La decisione resta sempre tua.
 
 ## Nel dubbio
 

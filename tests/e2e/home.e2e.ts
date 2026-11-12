@@ -116,3 +116,17 @@ test("an unknown address shows the Italian not-found page", async ({ page }) => 
   await page.goto("/pagina-che-non-esiste");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Pagina non trovata");
 });
+
+test("a warning from Google credits it and links a page about the threat; ours don't", async ({ page }) => {
+  await check(page, "dangerous");
+  await expect(page.getByText("Secondo Google il link porta probabilmente a un sito pericoloso")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Advisory provided by Google" })).toHaveAttribute(
+    "href",
+    "https://docs.cloud.google.com/web-risk/docs/advisory",
+  );
+  await expect(page.getByRole("link", { name: "Cos'è il phishing" })).toHaveAttribute("href", "https://www.antiphishing.org/");
+
+  await page.unrouteAll();
+  await check(page, "scam");
+  await expect(page.getByRole("link", { name: "Advisory provided by Google" })).toHaveCount(0);
+});

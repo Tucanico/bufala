@@ -15,9 +15,10 @@ Secrets go in `.env.local` (ignored by git). Create it if it's missing:
 
 ```bash
 MISTRAL_API_KEY=your-key-here
+WEB_RISK_API_KEY=your-key-here
 ```
 
-The key comes from the Bufala organisation in the Mistral console (Admin Panel > API > API Keys).
+The Mistral key comes from the Bufala organisation in the Mistral console (Admin Panel > API > API Keys). The Web Risk key (Google's list of dangerous sites) comes from the Google Cloud project, restricted to the Web Risk API, on a project with billing enabled (steps in `docs/link-checks.md`). Without it that check is skipped.
 
 Open http://localhost:3000. Italian is served at `/` and English at `/en`. A browser that prefers another language is redirected to `/en`.
 
@@ -38,7 +39,7 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 
 Not deployed yet. When it is:
 
-1. **Environment variable:** set `MISTRAL_API_KEY` in the Vercel project (Settings > Environment Variables), using the Bufala organisation's key.
+1. **Environment variables:** set `MISTRAL_API_KEY` (the Bufala organisation's key) and `WEB_RISK_API_KEY` in the Vercel project (Settings > Environment Variables).
 2. **Region:** run the functions in the EU, to match the privacy notice.
 3. **Limit on checks per visitor:** there are no accounts, so the Vercel Firewall counts checks per IP address. The code asks it with the rate limit ID `bufala-check` (`src/lib/check/rate-limit.ts`); the rule itself is set in the dashboard:
    - Project > **Firewall** > **Configure** > **+ New Rule**, named for example "Bufala checks".
