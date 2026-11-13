@@ -100,7 +100,7 @@
     },
     "how": {
       "title": "How it works",
-      "body": "We compare the message's links and numbers with our own list of official sites and numbers and of fake sites already reported. For sites we don't know, we ask the domain registry when they were created and Google whether they are reported as dangerous, and for bit.ly and is.gd short links we ask where they lead. Then we have an artificial-intelligence system read the message, after hiding its most sensitive details. We don't store the message."
+      "body": "Bufala checks a message's links, its phone numbers and what it asks you to do, and doesn't store the message. <link>Read how it works</link>"
     },
     "who": {
       "title": "Who is behind it",
@@ -150,6 +150,7 @@
       "noAccount": "No account needed",
       "notStored": "We don't store the message"
     },
+    "howItWorks": "How Bufala works",
     "install": {
       "button": "Add Bufala to your home screen",
       "iphone": "To find Bufala with one tap: press Safari's Share button, then Add to Home Screen."

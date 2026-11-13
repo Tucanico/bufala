@@ -33,6 +33,15 @@ test("the how-it-works page has its English address, and the language switch kee
   await expect(page).toHaveURL(/\/come-funziona$/);
 });
 
+test("the start screen and the about page link to how it works", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("main").getByRole("link", { name: "Come funziona Bufala" }).click();
+  await expect(page).toHaveURL(/\/come-funziona$/);
+  await page.goto("/chi-siamo");
+  await page.getByRole("main").getByRole("link", { name: "Leggi come funziona" }).click();
+  await expect(page).toHaveURL(/\/come-funziona$/);
+});
+
 test("the footer links to both legal pages", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("contentinfo").getByRole("link", { name: "Avvertenze" }).click();

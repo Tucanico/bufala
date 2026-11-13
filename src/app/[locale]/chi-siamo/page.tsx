@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { CONTACT_EMAIL } from "@/lib/contact";
 
@@ -30,7 +31,18 @@ export default function AboutPage() {
         {SECTIONS.map((section) => (
           <section key={section} className="card p-5">
             <h2 className="font-display text-[1.2rem] font-bold tracking-[-0.01em]">{t(`${section}.title`)}</h2>
-            <p className="mt-2">{t(`${section}.body`)}</p>
+            <p className="mt-2">
+              {section === "how"
+                ? // The full explanation has its own page.
+                  t.rich("how.body", {
+                    link: (chunks) => (
+                      <Link href="/come-funziona" className="font-bold text-brand underline underline-offset-4">
+                        {chunks}
+                      </Link>
+                    ),
+                  })
+                : t(`${section}.body`)}
+            </p>
           </section>
         ))}
         <section className="card p-5">

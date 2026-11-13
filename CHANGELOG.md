@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-13 10:23 — chore(site): links to "Come funziona" from the start screen and the about page
+
+The new page was reachable only from the footer, which a first-time visitor rarely reaches before checking a message: the start screen now links to it under the "Gratis, senza account" line. The about page's "Come funziona" card repeated what the page says at length, so it is now one sentence and a link. Also: OCR was confirmed on the deployed site (a made-up screenshot gave its 🔴 answer), so that TODO bullet is gone, with the firewall and spending-cap bullet (both set up); the developer doc's numbers are current (seven examples, 55 test messages, 165 calls). The toll-pass message's missing "threat" reason is left as it is: the answer is 🔴 either way and the two reasons shown would not change.
+
 ## 2026-11-13 10:18 — feat(site): a "Come funziona" page, with how to put Bufala on the phone
 
 Until now the only explanation of Bufala was one paragraph on the about page, and installing was explained only by a one-line hint that shows on iPhone. The new page (`/come-funziona`, `/en/how-it-works`, linked from the footer and in the sitemap) is written for the older person who sets Bufala up alone: how to check a message in four steps, the three answers (the start screen's own legend, reused), what Bufala checks and that it never opens a link, how to add it to the home screen on Android with Chrome and on iPhone with Safari, sharing a message to it on Android, what happens to the message, and why the answer is never "safe". Its privacy sentences repeat the privacy notice and add nothing to it. The phone steps come from Chrome's and Safari's documentation and were not tried on real phones (in the TODO). Also: the TODO's estimate of a model call is now about 2,000 tokens, scaled from the instructions having grown 7% since it was written, not measured.
+
+a349927
 
 ## 2026-11-12 18:25 — fix(check): the locker pickup message is ⚪ in every run
 

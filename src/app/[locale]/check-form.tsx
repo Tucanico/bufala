@@ -9,6 +9,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { Link } from "@/i18n/navigation";
 import { MAX_MESSAGE_LENGTH } from "@/lib/check/limits";
 import { checkMessageAction } from "./actions";
 import { CheckResultCard, VerdictLegend } from "./check-result";
@@ -218,6 +219,14 @@ function CheckRound({
             </li>
           ))}
         </ul>
+        {/* The footer has the same link, but a first-time visitor rarely
+            scrolls that far before checking a message. */}
+        <Link
+          href="/come-funziona"
+          className="mt-3 inline-block px-1 py-1 text-[0.9rem] font-bold text-brand underline underline-offset-4"
+        >
+          {t("howItWorks")}
+        </Link>
         <InstallHint />
       </div>
 

@@ -100,7 +100,7 @@
     },
     "how": {
       "title": "Come funziona",
-      "body": "Confrontiamo i link e i numeri del messaggio con un nostro elenco di siti e numeri ufficiali e di siti falsi già segnalati. Per i siti che non conosciamo chiediamo al registro dei domini quando sono nati e a Google se sono segnalati come pericolosi, e per i link accorciati di bit.ly e is.gd chiediamo dove portano. Poi facciamo leggere il messaggio, dopo aver nascosto i dati più delicati, a un sistema di intelligenza artificiale. Non salviamo il messaggio."
+      "body": "Bufala controlla i link, i numeri e quello che il messaggio ti chiede, senza salvare il messaggio. <link>Leggi come funziona</link>"
     },
     "who": {
       "title": "Chi c'è dietro",
@@ -150,6 +150,7 @@
       "noAccount": "Senza account",
       "notStored": "Non salviamo il messaggio"
     },
+    "howItWorks": "Come funziona Bufala",
     "install": {
       "button": "Aggiungi Bufala alla schermata Home",
       "iphone": "Per ritrovare Bufala con un tocco: premi il tasto Condividi di Safari, poi «Aggiungi alla schermata Home»."
