@@ -22,6 +22,7 @@ async function expectNoViolations(page: Page, what: string) {
 for (const [path, what] of [
   ["/", "start screen"],
   ["/en", "English start screen"],
+  ["/come-funziona", "how-it-works page"],
   ["/chi-siamo", "about page"],
   ["/privacy", "privacy page"],
   ["/en/disclaimer", "English disclaimer"],

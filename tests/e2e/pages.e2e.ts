@@ -13,6 +13,26 @@ test("the disclaimer has its English address", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "When in doubt" })).toBeVisible();
 });
 
+test("the how-it-works page explains checking, the three answers and installing", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("contentinfo").getByRole("link", { name: "Come funziona" }).click();
+  await expect(page).toHaveURL(/\/come-funziona$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Come funziona");
+  for (const name of ["Come controllare un messaggio", "Le tre risposte possibili", "Metti Bufala sul telefono"]) {
+    await expect(page.getByRole("heading", { name })).toBeVisible();
+  }
+  await page.getByRole("main").getByRole("link", { name: "Controlla un messaggio" }).click();
+  await expect(page.getByLabel("Incolla qui il messaggio che hai ricevuto")).toBeVisible();
+});
+
+test("the how-it-works page has its English address, and the language switch keeps the page", async ({ page }) => {
+  await page.goto("/en/how-it-works");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("How it works");
+  await expect(page.getByRole("heading", { name: "Put Bufala on your phone" })).toBeVisible();
+  await page.getByRole("link", { name: "Italiano" }).click();
+  await expect(page).toHaveURL(/\/come-funziona$/);
+});
+
 test("the footer links to both legal pages", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("contentinfo").getByRole("link", { name: "Avvertenze" }).click();
@@ -52,7 +72,7 @@ test("search engines get a sitemap with every page in both languages", async ({ 
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain("/sitemap.xml");
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  for (const path of ["/chi-siamo<", "/en/about<", "/avvertenze<", "/en/disclaimer<", "/en/privacy<", "/en<"]) {
+  for (const path of ["/come-funziona<", "/en/how-it-works<", "/chi-siamo<", "/en/about<", "/avvertenze<", "/en/disclaimer<", "/en/privacy<", "/en<"]) {
     expect(sitemap, path).toContain(path);
   }
   expect(sitemap).toContain('hreflang="en"');

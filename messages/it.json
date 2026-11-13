@@ -10,9 +10,74 @@
   "footer": {
     "label": "Altre pagine",
     "home": "Controlla un messaggio",
+    "howItWorks": "Come funziona",
     "about": "Chi siamo",
     "privacy": "Privacy",
     "disclaimer": "Avvertenze"
+  },
+  "howItWorks": {
+    "metaTitle": "Come funziona · Bufala",
+    "title": "Come funziona",
+    "intro": "Bufala controlla un messaggio in pochi secondi. Qui trovi come usarlo, cosa controlla e come metterlo sul telefono.",
+    "use": {
+      "title": "Come controllare un messaggio",
+      "steps": {
+        "copy": "Copia il messaggio che hai ricevuto: tienilo premuto e scegli «Copia». Non aprire i link che contiene.",
+        "paste": "Apri Bufala e premi «Incolla». Se non riesci a copiare il messaggio, carica uno screenshot, cioè una foto dello schermo.",
+        "check": "Premi «Controlla il messaggio» e aspetta qualche secondo.",
+        "read": "Leggi la risposta: ti dice cosa abbiamo notato e cosa fare."
+      }
+    },
+    "checks": {
+      "title": "Cosa controlla Bufala",
+      "links": {
+        "title": "I link",
+        "body": "Se il sito imita quello di un'azienda nota, se è già segnalato come falso o pericoloso, se è nato da pochi giorni e dove porta davvero un link accorciato."
+      },
+      "numbers": {
+        "title": "I numeri di telefono",
+        "body": "Se sono numeri a pagamento, che costano molto a chi li chiama."
+      },
+      "requests": {
+        "title": "Quello che ti chiede",
+        "body": "Soldi, codici, dati personali, di installare un'app, di fare in fretta o di non dirlo a nessuno. Questa parte la legge un sistema di intelligenza artificiale."
+      },
+      "never": "Bufala non apre mai i link del messaggio: chiede solo ad altri servizi, come Google, che cosa sanno di quel sito."
+    },
+    "install": {
+      "title": "Metti Bufala sul telefono",
+      "intro": "Così lo ritrovi con un tocco, come un'app. Non c'è niente da scaricare da uno store e non serve un account.",
+      "android": {
+        "title": "Su Android, con Chrome",
+        "steps": {
+          "open": "Apri Bufala con Chrome.",
+          "menu": "Premi i tre puntini in alto a destra.",
+          "add": "Scegli «Aggiungi a schermata Home» (su alcuni telefoni «Installa app»), poi «Installa»."
+        },
+        "button": "Se nella pagina principale vedi il pulsante «Aggiungi Bufala alla schermata Home», puoi premere quello: fa la stessa cosa.",
+        "share": "Dopo averlo aggiunto, in molte app puoi mandare un messaggio a Bufala senza copiarlo: tienilo premuto, scegli «Condividi» e poi «Bufala»."
+      },
+      "iphone": {
+        "title": "Su iPhone, con Safari",
+        "steps": {
+          "open": "Apri Bufala con Safari.",
+          "share": "Premi il tasto Condividi: è un quadrato con una freccia verso l'alto. Se non lo vedi, premi prima i tre puntini.",
+          "add": "Scorri l'elenco, scegli «Aggiungi alla schermata Home» e poi «Aggiungi»."
+        },
+        "note": "Su iPhone Bufala non compare nel menu «Condividi» delle altre app: copia il messaggio e incollalo."
+      }
+    },
+    "privacy": {
+      "title": "Cosa succede al tuo messaggio",
+      "body": "Non salviamo né il messaggio né lo screenshot: li usiamo solo per darti la risposta. Prima di far leggere il testo all'intelligenza artificiale nascondiamo IBAN, numeri di carta, la parte personale degli indirizzi email e, dei link, tutto tranne il nome del sito. Se nel messaggio c'è un tuo PIN, una password o un codice, toglilo prima di incollarlo.",
+      "link": "Leggi l'informativa sulla privacy"
+    },
+    "limits": {
+      "title": "Bufala non dice mai «è sicuro»",
+      "body": "Nessun controllo può garantire che un messaggio sia vero. Per questo la risposta migliore possibile è «Nessun segnale di truffa trovato», mai «sicuro». Se ti chiedono soldi, codici o dati personali, contatta tu l'azienda o la persona, con un numero che conosci già.",
+      "link": "Leggi le avvertenze"
+    },
+    "cta": "Controlla un messaggio"
   },
   "about": {
     "metaTitle": "Chi siamo · Bufala",

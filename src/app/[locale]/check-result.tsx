@@ -61,11 +61,12 @@ const DOT = "grid size-[2rem] shrink-0 place-items-center rounded-xl";
 
 // Before the first check: what the three answers mean, with
 // the same colours and icons, so ⚪ is understood as "no signs", not "safe".
-export function VerdictLegend() {
+// `className` is the space around it: the how-it-works page puts it in a grid.
+export function VerdictLegend({ className = "mt-5" }: { className?: string }) {
   const t = useTranslations("result");
 
   return (
-    <section className="card mt-5 p-5">
+    <section className={`card p-5 ${className}`}>
       <h2 className={CARD_TITLE}>{t("legend.title")}</h2>
       <ul className="mt-4 grid gap-4">
         {(Object.keys(VERDICT_STYLE) as Verdict[]).map((verdict) => (

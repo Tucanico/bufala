@@ -9,6 +9,7 @@ export const routing = defineRouting({
   // Page addresses in each language: the keys are the folders under app/[locale].
   pathnames: {
     "/": "/",
+    "/come-funziona": { it: "/come-funziona", en: "/how-it-works" },
     "/chi-siamo": { it: "/chi-siamo", en: "/about" },
     "/privacy": "/privacy",
     "/avvertenze": { it: "/avvertenze", en: "/disclaimer" },

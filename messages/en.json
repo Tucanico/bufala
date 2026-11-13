@@ -10,9 +10,74 @@
   "footer": {
     "label": "Other pages",
     "home": "Check a message",
+    "howItWorks": "How it works",
     "about": "About us",
     "privacy": "Privacy",
     "disclaimer": "Disclaimer"
+  },
+  "howItWorks": {
+    "metaTitle": "How it works · Bufala",
+    "title": "How it works",
+    "intro": "Bufala checks a message in a few seconds. Here is how to use it, what it checks and how to put it on your phone.",
+    "use": {
+      "title": "How to check a message",
+      "steps": {
+        "copy": "Copy the message you received: press and hold it, then choose “Copy”. Don't open any link in it.",
+        "paste": "Open Bufala and press “Paste”. If you can't copy the message, upload a screenshot, which is a picture of your screen.",
+        "check": "Press “Check the message” and wait a few seconds.",
+        "read": "Read the answer: it tells you what we noticed and what to do."
+      }
+    },
+    "checks": {
+      "title": "What Bufala checks",
+      "links": {
+        "title": "Links",
+        "body": "Whether the site imitates a well-known company's, whether it has already been reported as fake or dangerous, whether it was created only days ago, and where a shortened link really leads."
+      },
+      "numbers": {
+        "title": "Phone numbers",
+        "body": "Whether they are premium-rate numbers, which are expensive to call."
+      },
+      "requests": {
+        "title": "What it asks you to do",
+        "body": "Pay money, give codes or personal details, install an app, act in a hurry or keep it secret. An artificial-intelligence system reads this part."
+      },
+      "never": "Bufala never opens the links in a message: it only asks other services, such as Google, what they know about that site."
+    },
+    "install": {
+      "title": "Put Bufala on your phone",
+      "intro": "Then you can find it with one tap, like an app. There is nothing to download from a store and no account to create.",
+      "android": {
+        "title": "On Android, with Chrome",
+        "steps": {
+          "open": "Open Bufala in Chrome.",
+          "menu": "Press the three dots at the top right.",
+          "add": "Choose “Add to Home screen” (on some phones “Install app”), then “Install”."
+        },
+        "button": "If you see the “Add Bufala to your home screen” button on the main page, you can press that instead: it does the same thing.",
+        "share": "Once it is added, in many apps you can send a message to Bufala without copying it: press and hold the message, choose “Share”, then “Bufala”."
+      },
+      "iphone": {
+        "title": "On iPhone, with Safari",
+        "steps": {
+          "open": "Open Bufala in Safari.",
+          "share": "Press the Share button: a square with an arrow pointing up. If you can't see it, press the three dots first.",
+          "add": "Scroll down the list, choose “Add to Home Screen”, then “Add”."
+        },
+        "note": "On iPhone, Bufala doesn't appear in other apps' Share menu: copy the message and paste it."
+      }
+    },
+    "privacy": {
+      "title": "What happens to your message",
+      "body": "We store neither the message nor the screenshot: we only use them to give you the answer. Before the artificial-intelligence system reads the text, we hide IBANs, card numbers, the personal part of email addresses and, in links, everything except the site's name. If the message contains your PIN, a password or a code, remove it before pasting.",
+      "link": "Read the privacy notice"
+    },
+    "limits": {
+      "title": "Bufala never says “it's safe”",
+      "body": "No check can guarantee that a message is genuine. That is why the best possible answer is “No warning signs found”, never “safe”. If you are asked for money, codes or personal details, contact the company or the person yourself, using a number you already know.",
+      "link": "Read the disclaimer"
+    },
+    "cta": "Check a message"
   },
   "about": {
     "metaTitle": "About us · Bufala",

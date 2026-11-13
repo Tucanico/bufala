@@ -75,6 +75,9 @@ export default async function LocaleLayout({
               <Link href="/" className="text-brand underline underline-offset-4">
                 {t("home")}
               </Link>
+              <Link href="/come-funziona" className="text-brand underline underline-offset-4">
+                {t("howItWorks")}
+              </Link>
               <Link href="/chi-siamo" className="text-brand underline underline-offset-4">
                 {t("about")}
               </Link>
