@@ -88,10 +88,6 @@ If one or two calls fail, the others still give an answer. Only if all three fai
 
 Logs only ever contain the error type or HTTP status, never message text or image content.
 
-## Not built yet
-
-Link checks, phone checks and the company database. See [TODO.md](../TODO.md).
-
 ## Tests
 
 | File | Covers |

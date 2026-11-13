@@ -128,7 +128,9 @@ export const CASES: EvalCase[] = [
     text: "Iren: dal 1° dicembre cambia il prezzo della tua offerta luce. Trovi i dettagli nella tua area clienti." },
   { id: "held-ok-ups-tracking", verdict: CLEAR, sender: "courier",
     text: "UPS: il tuo pacco arriva oggi entro le 18. Puoi seguire la consegna su ups.com" },
-  { id: "held-toll-pass-penalty", verdict: SCAM, signs: ["threat"],
+  // No "threat" expected: the model reads the penalty as a payment request, and
+  // the answer is 🔴 with the same two reasons shown either way (2026-11-13).
+  { id: "held-toll-pass-penalty", verdict: SCAM,
     text: "Telepass: il tuo abbonamento è scaduto e ti sarà addebitata una penale di 49 €. Rinnova ora per evitarla: telepass-rinnovo.co/it" },
   { id: "held-voicemail-app", verdict: SCAM, signs: ["install_app"],
     text: "Hai un nuovo messaggio vocale. Per ascoltarlo scarica l'app dal link: vm-ascolta.app/scarica.apk" },

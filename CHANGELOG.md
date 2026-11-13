@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-13 10:30 — chore(evals): the toll-pass message no longer expects "threat"
+
+The fix for it was dropped (see the entry below), so `npm run eval` kept listing that message as a mismatch on every run. Its "threat" expectation is removed, with a comment saying why, so the list shows only real problems; it must still come out 🔴. Also: the developer doc's "Not built yet" section is gone, since the link checks, phone checks and organisation list it named are all built.
+
 ## 2026-11-13 10:23 — chore(site): links to "Come funziona" from the start screen and the about page
 
 The new page was reachable only from the footer, which a first-time visitor rarely reaches before checking a message: the start screen now links to it under the "Gratis, senza account" line. The about page's "Come funziona" card repeated what the page says at length, so it is now one sentence and a link. Also: OCR was confirmed on the deployed site (a made-up screenshot gave its 🔴 answer), so that TODO bullet is gone, with the firewall and spending-cap bullet (both set up); the developer doc's numbers are current (seven examples, 55 test messages, 165 calls). The toll-pass message's missing "threat" reason is left as it is: the answer is 🔴 either way and the two reasons shown would not change.
+
+56fd78f
 
 ## 2026-11-13 10:18 — feat(site): a "Come funziona" page, with how to put Bufala on the phone
 
