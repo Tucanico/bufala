@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-20 10:18 — chore(data): Fineco reviewed, and the paid test set run after the review
+
+Fineco waited on two decisions, both taken today: links to fineco.mobi count as official (Fineco's security page says its own SMS links always start with "Fineco.mobi/"), and 800.52.52.52 keeps "gratis da telefono fisso", because 800 numbers are free for the caller, though no live Fineco page says so any more. That makes 25 of 30 reviewed. Also recorded on the entry: "intesa" stays a brand word for Intesa Sanpaolo although it is an ordinary word, because scammers use it often. The paid test set ran once after the review (each of the 55 messages 3 times): 54 of 55 as expected, the same as before; the one off is still the UPS tracking message, which needs UPS reviewed. The crypto-investment message was 🔴 twice and 🟠 once, both accepted. Also: the plan no longer says the organisations await review.
+
 ## 2026-11-20 10:03 — chore(data): 24 of the 30 organisations reviewed, and the legal texts approved
 
 Until now no organisation was reviewed: no official number was shown, a link to an organisation's own site or a call to its own number still counted as a warning sign, and genuine payment requests (DHL, GLS, Telepass, A2A) were 🔴. Every source page was read again on 2026-11-20 and each fact compared with it; 24 entries now carry `reviewed` (Jacopo Lombardo, 2026-11-20). Fixed along the way: Enel's SMS sender, first two rules and domains are on the scams page's SMS and email sub-pages, not the main page (sources moved, wording confirmed); Fastweb's 146 had a purpose its page doesn't give; Telepass's customer line was said to cover device theft or loss, which its page doesn't say; DHL's 199 number lost per-minute costs the help page doesn't show (still labelled "a pagamento"); Fineco's 800 number pointed at a page that is now gone. Not reviewed: UniCredit, Amazon, UPS, PayPal and Mooney, whose sites refuse automated reading (to check by hand), and Fineco, waiting on two decisions. The privacy notice and the disclaimer are approved by the founder; their texts didn't change, and the lawyer's check is still open. `npm run eval` was not run (it is paid), so the effect on the test messages is not measured yet.
+
+04f7027
 
 ## 2026-11-20 09:31 — chore: one shared card-title style, and device checks in TO_TEST.md
 
