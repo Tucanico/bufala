@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-20 10:03 — chore(data): 24 of the 30 organisations reviewed, and the legal texts approved
+
+Until now no organisation was reviewed: no official number was shown, a link to an organisation's own site or a call to its own number still counted as a warning sign, and genuine payment requests (DHL, GLS, Telepass, A2A) were 🔴. Every source page was read again on 2026-11-20 and each fact compared with it; 24 entries now carry `reviewed` (Jacopo Lombardo, 2026-11-20). Fixed along the way: Enel's SMS sender, first two rules and domains are on the scams page's SMS and email sub-pages, not the main page (sources moved, wording confirmed); Fastweb's 146 had a purpose its page doesn't give; Telepass's customer line was said to cover device theft or loss, which its page doesn't say; DHL's 199 number lost per-minute costs the help page doesn't show (still labelled "a pagamento"); Fineco's 800 number pointed at a page that is now gone. Not reviewed: UniCredit, Amazon, UPS, PayPal and Mooney, whose sites refuse automated reading (to check by hand), and Fineco, waiting on two decisions. The privacy notice and the disclaimer are approved by the founder; their texts didn't change, and the lawyer's check is still open. `npm run eval` was not run (it is paid), so the effect on the test messages is not measured yet.
+
 ## 2026-11-20 09:31 — chore: one shared card-title style, and device checks in TO_TEST.md
 
 The "Come funziona" page had copied the answer screen's card-title style; both now use one `card-title` class next to `card` in `globals.css`, so the two pages can't drift apart. Checked against a build of the previous version: all 24 screenshots (start screen, how-it-works in both languages and about page; computer, 390px and 320px; light and dark) are identical byte for byte, and so are the card titles' computed styles. The real-phone check (install, share, the "Come funziona" steps) moved from TODO.md to a new TO_TEST.md, which holds the checks that need a real device. Also, in 5f5a16e: a local SESSION.md (gitignored, loaded by a new CLAUDE.md) keeps the open threads of the work in progress.
+
+fb13339
 
 ## 2026-11-13 10:30 — chore(evals): the toll-pass message no longer expects "threat"
 

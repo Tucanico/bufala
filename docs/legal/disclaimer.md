@@ -1,6 +1,6 @@
 # Disclaimer: status
 
-**Status:** draft of 2026-11-11, not approved. To be approved by the founder and checked by a lawyer before launch.
+**Status:** written 2026-11-11, approved by the founder on 2026-11-20. To be checked by a lawyer before launch.
 
 There are two parts, both on the site since 2026-11-11:
 

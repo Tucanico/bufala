@@ -1,6 +1,6 @@
 # Privacy notice: status
 
-**Status:** on the site as if final since 2026-11-12 (open points taken out of the text, dated 12 November 2026), not yet approved. To be checked by the founder and a lawyer.
+**Status:** on the site since 2026-11-12 (open points taken out of the text, dated 12 November 2026). Approved by the founder on 2026-11-20. Still to be checked by a lawyer, and the sentences below are still unconfirmed.
 
 The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, shown on the site at `/privacy` and `/en/privacy`. Nothing is highlighted any more: the points below are what the text now states, or leaves out, without having been confirmed. Statements about what Bufala itself does come from the code as of 2026-11-11.
 

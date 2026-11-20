@@ -2,9 +2,11 @@ import type { Organisation } from "../lib/check/organisations";
 
 // Every fact comes from the organisation's own website, read on the date in
 // `checked`. `names` and `brandWords` are our own choices, not facts.
-// Nothing here is reviewed yet: see docs/data-review.md before setting `reviewed`.
+// See docs/data-review.md before setting or renewing `reviewed`.
 
 const ON = "2026-11-07";
+const ON_20 = "2026-11-20";
+const REVIEWED = { by: "Jacopo Lombardo", on: ON_20 };
 
 const POSTE_CALL = "https://www.poste.it/assistenza/chiamaci";
 const POSTE_SECURITY = "https://www.poste.it/sicurezza-online";
@@ -35,6 +37,8 @@ const ENTRATE_SPID_MAR_2026 = "https://www.agenziaentrate.gov.it/portale/avviso-
 const ENTRATE_SPOOFING = "https://www.agenziaentrate.gov.it/portale/avviso-del-1%C2%B0-aprile-2026-nuove-segnalazioni-di-smishing/sms-spoofing";
 
 const ENEL_SCAMS = "https://www.enel.it/it-it/assistenza/luce-gas/truffe";
+const ENEL_SCAMS_SMS = "https://www.enel.it/it-it/assistenza/luce-gas/truffe/sms-social-network";
+const ENEL_SCAMS_EMAIL = "https://www.enel.it/it-it/assistenza/luce-gas/truffe/email";
 const ENEL_CONTACTS = "https://www.enel.it/it-it/assistenza/contatti";
 
 const TIM_CONTACT = "https://www.tim.it/assistenza/per-la-tua-linea/come-contattare-tim";
@@ -91,7 +95,7 @@ const MEDIOLANUM_CONTACTS = "https://www.bancamediolanum.it/contatti-sede-mediol
 const MEDIOLANUM_SMISHING = "https://www.bancamediolanum.it/sicurezza/smishing";
 
 const FINECO_SECURITY = "https://it.finecobank.com/sicurezza/";
-const FINECO_CARDS = "https://help.finecobank.com/it/conto-e-carte/le-carte-fineco.html";
+const FINECO_CARD_BLOCK = "https://it.finecobank.com/contattaci/blocco-carta/";
 const FINECO_HELP_CONTACTS = "https://help.finecobank.com/it/il-conto-fineco/contatti.html";
 
 const SATISPAY_CONTACTS = "https://www.satispay.com/it-it/contatti/";
@@ -159,7 +163,7 @@ export const ORGANISATIONS: Organisation[] = [
       "\"poste\" in names also matches \"vai alle poste\", which means the post office: that is Poste Italiane too.",
       "SDA Express Courier is listed here, not on its own: since 1/11/2019 its consumer courier services are part of Poste Italiane, and sda.it sends private customers to poste.it (https://www.sda.it/wps/portal/SDAit/Assistenza, read 2026-11-11). So an \"SDA\" message gets Poste's numbers, including the parcels line. SDA's 800.210.170 is only for banks, insurers and public bodies: not listed.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "intesa-sanpaolo",
@@ -187,7 +191,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Its pages warn that fake SMS can land inside the bank's real SMS thread.",
       "The card-block page (https://www.intesasanpaolo.com/it/common/footer/emergenza-carte.html) lists the same two numbers as the contacts page: 800.303.303 and +39 011.80.19.200.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "unicredit",
@@ -227,7 +231,7 @@ export const ORGANISATIONS: Organisation[] = [
     brandWords: ["telepass"],
     officialDomains: [{ domain: "telepass.com", source: "https://www.telepass.com/it/gruppo/news-eventi/attenzione-ai-tentativi-di-phishing", checked: ON }],
     phones: [
-      { number: "069 71 666 71", purpose: "Assistenza Clienti (lunedì-venerdì 9:00-17:30), anche furto o smarrimento del dispositivo", source: TELEPASS_SUPPORT, checked: ON, shownAs: "plain" },
+      { number: "069 71 666 71", purpose: "Assistenza Clienti (lunedì-venerdì 9:00-17:30)", source: TELEPASS_SUPPORT, checked: ON_20, shownAs: "plain" },
       { number: "800 713 670", purpose: "Assistenza tecnica TBusiness", source: TELEPASS_FRAUD, checked: ON },
       { number: "068 941 63 60", purpose: "Assistenza Clienti Telepass Assicura", source: TELEPASS_FRAUD, checked: ON },
     ],
@@ -246,7 +250,7 @@ export const ORGANISATIONS: Organisation[] = [
       "A May 2026 article says Telepass may send real payment links for unpaid amounts (requestsPaymentByMessage), and may phone in some cases. Once reviewed, a Telepass payment request whose links all go to telepass.com gets 🟠 with a \"check on its site yourself\" line instead of 🔴.",
       "069 71 666 71 is printed that way; it dials 06 9716 6671.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "inps",
@@ -273,7 +277,7 @@ export const ORGANISATIONS: Organisation[] = [
       "The contact page also lists free numbers for calling from 11 European countries; left out, as they are foreign numbers.",
       "Hours: Monday to Friday 8:00-20:00, Saturday 8:00-14:00.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "agenzia-entrate",
@@ -373,7 +377,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Left out: wp-dev.typhur.com (a lure path on someone else's site, 30 Mar 2026) and the sender domain bsp.mi.it (12 Jun 2026), both probably hijacked third parties. agenzia.it is on the page's list, so its subdomains count too.",
       "The site lists fake domains already used in phishing (https://www.agenziaentrate.gov.it/portale/focus-sul-phishing/domini-estranei-all-agenzia-delle-entrate): useful later as a blocklist.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "enel-energia",
@@ -382,25 +386,26 @@ export const ORGANISATIONS: Organisation[] = [
     names: ["enel energia", "enel"],
     brandWords: ["enel", "enelenergia"],
     officialDomains: [
-      { domain: "enel.it", source: ENEL_SCAMS, checked: ON },
-      { domain: "enel.com", source: ENEL_SCAMS, checked: ON },
+      { domain: "enel.it", source: ENEL_SCAMS_EMAIL, checked: ON_20 },
+      { domain: "enel.com", source: ENEL_SCAMS_EMAIL, checked: ON_20 },
     ],
     phones: [
       { number: "140", purpose: "Servizio clienti, gratuito da fisso e cellulare (tutti i giorni 7:00-22:00, festività escluse)", source: ENEL_CONTACTS, checked: ON, shownAs: "free_any" },
       { number: "+390664511012", purpose: "Servizio clienti dall'estero", source: ENEL_CONTACTS, checked: ON },
     ],
-    smsSenders: [{ name: "Enel Energia", source: ENEL_SCAMS, checked: ON }],
+    smsSenders: [{ name: "Enel Energia", source: ENEL_SCAMS_SMS, checked: ON_20 }],
     rules: [
-      { quote: "Enel Energia non richiede mai password, PIN, OTP o codici di accesso tramite SMS o chat, a meno che non sia tu a contattarci.", source: ENEL_SCAMS, checked: ON },
-      { quote: "Invitiamo a non effettuare alcun pagamento su IBAN o QR code forniti via mail/messaggio/telefono.", source: ENEL_SCAMS, checked: ON },
+      { quote: "Enel Energia non richiede mai password, PIN, OTP o codici di accesso tramite SMS o chat, a meno che non sia tu a contattarci.", source: ENEL_SCAMS_SMS, checked: ON_20 },
+      { quote: "Invitiamo a non effettuare alcun pagamento su IBAN o QR code forniti via mail/messaggio/telefono.", source: ENEL_SCAMS_SMS, checked: ON_20 },
       { quote: "Il numero gratuito 140 è l'unico canale telefonico ufficiale per ricevere assistenza sui servizi Enel.", source: ENEL_SCAMS, checked: ON },
     ],
     reviewNotes: [
       "The old number 800.900.860 is no longer active (https://www.enel.it/it-it/blog/guide/numero-140-enel) but still appears in some boxes on the scams page: not listed.",
       "800.069.850 on the contacts page is for Enel X Way (electric mobility), not Enel Energia: not listed.",
       "\"Enel Energia\" as SMS sender: sender names can be faked, so it proves nothing on its own.",
+      "Sources moved on 2026-11-20: the sender, the first two rules and the domains are on the scams page's sub-pages (SMS e Social Network; email: \"le e-mail ufficiali di Enel Energia terminano con @enel.com, e i link contengono sempre enel.it\"), not on the main page.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "tim",
@@ -430,7 +435,7 @@ export const ORGANISATIONS: Organisation[] = [
       "No page states \"TIM never asks for password/PIN/OTP\".",
       "\"tim\" is short: it only matches a whole part of a site name (tim-premi.xyz yes, ultimate.com no) and a whole word in a message.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "vodafone",
@@ -460,7 +465,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Suspicious SMS can be forwarded for free to 40214 (an SMS-only reporting number, not listed as a phone).",
       "A real Vodafone SMS can contain a link (order status on landing.vodafone.it), so a link alone proves nothing.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "brt",
@@ -482,7 +487,7 @@ export const ORGANISATIONS: Organisation[] = [
       "BRT has no national phone line for consumers: \"Il servizio clienti BRT è fornito localmente\" (https://services.brt.it/it/assistenza). So \"What to do\" keeps the general courier advice.",
       "Real BRT emails and SMS do contain links, for tracking and for releasing a held parcel (FAQ). Safer advice is to type the BRTcode on brt.it.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "dhl",
@@ -500,7 +505,7 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "dhl.fr", source: DHL_FRAUD, checked: ON },
     ],
     phones: [
-      { number: "199.199.345", purpose: "Servizio Clienti DHL Express (lunedì-venerdì 8.00-18.30). A pagamento: fino a 14,49 cent/min da fisso, 48,8 cent/min da cellulare, più 15,75 cent alla risposta", source: DHL_EXPRESS_CONTACT, checked: ON, shownAs: "paid_call" },
+      { number: "199.199.345", purpose: "Servizio Clienti DHL Express (lunedì-venerdì 8.00-18.30)", source: DHL_EXPRESS_CONTACT, checked: ON_20, shownAs: "paid_call" },
       { number: "+39 0230453420", purpose: "Assistenza DHL Express su WhatsApp, 24 ore su 24 (non una linea vocale)", source: "https://mydhl.express.dhl/it/it/ship/solutions/tracking-tools.html", checked: ON },
     ],
     smsSenders: [],
@@ -515,13 +520,13 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "Non aggiungiamo mai link di altri siti web diversi dai nostri", source: DHL_FRAUD, checked: ON },
     ],
     reviewNotes: [
-      "199.199.345 is DHL's only phone line and a paid \"numero unico\" (up to 48.8 cents a minute from a mobile). Shown with the label \"a pagamento\" (decided 2026-11-07).",
+      "199.199.345 is shown with the label \"a pagamento\" (decided 2026-11-07): 199 numbers are paid by the caller. The per-minute costs once in its purpose (up to 48.8 cents a minute from a mobile) weren't on the help page on 2026-11-20, so they were taken out.",
       "DHL really does ask for customs duties by email and SMS, after sending the recipient an OTP (requestsPaymentByMessage). Once reviewed, a DHL payment request whose links all go to DHL's own sites gets 🟠 with a \"check on its site yourself\" line instead of 🔴.",
       "dhl.it, dhl.de and dhl.fr: the page says mail can come from \"indirizzi con domini nazionali dopo @dhl (ad es. @dhl.de, @dhl.fr, @dhl.ae)\". dhl.it isn't named on the page; kept as covered by that rule (decided 2026-11-07).",
       "express.dhl: DHL owns the .dhl ending; the page names the site mydhl.express.dhl.",
       "\"dhl\" is short: it only matches a whole part of a site name and a whole word in a message.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "amazon",
@@ -580,7 +585,7 @@ export const ORGANISATIONS: Organisation[] = [
       "GLS itself names gls-itali.com and gls-consegne.it as fake look-alike domains: both are caught by our look-alike check.",
       "The contact form runs on glsitaly.service-now.com: service-now.com is not a GLS domain and is not listed.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "ups",
@@ -638,7 +643,7 @@ export const ORGANISATIONS: Organisation[] = [
       "159 is free \"per tutti, Clienti e non\", except from abroad. The charter doesn't say mobile or landline; labelled just \"gratis\".",
       "\"wind\" alone is not in names: it is an ordinary English word.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "iliad",
@@ -666,7 +671,7 @@ export const ORGANISATIONS: Organisation[] = [
       "No \"iliad never asks for PIN, OTP or passwords\" statement was found.",
       "brandWholeOnly: \"iliad\" must be a whole part of a site name (iliad-offerta.top counts, iliade-libri.it doesn't). A look-alike written as one word, such as iliadsupporto.com, is missed.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "fastweb",
@@ -678,7 +683,7 @@ export const ORGANISATIONS: Organisation[] = [
     phones: [
       { number: "192.193", purpose: "Servizio clienti amministrativo e tecnico per i clienti Fastweb di rete fissa e mobile, 7 giorni su 7 8.00-24.00, gratuito", source: FASTWEB_CHANNELS, checked: ON_11, shownAs: "free_customers" },
       { number: "+39 3756004193", purpose: "Servizio clienti dall'estero, gratuito dai cellulari Fastweb", source: FASTWEB_CHANNELS, checked: ON_11 },
-      { number: "146", purpose: "Informazioni su nuove offerte (commerciale)", source: "https://www.fastweb.it/assistenza/", checked: ON_11 },
+      { number: "146", purpose: "Indicato in alternativa al modulo \"Richiamami gratis\"; la pagina non dice a cosa serve", source: "https://www.fastweb.it/assistenza/", checked: ON_20 },
       { number: "+393757836519", purpose: "Assistenza su WhatsApp, 24 ore su 24 (solo messaggi)", source: FASTWEB_CHANNELS, checked: ON_11 },
       { number: "3756352311", purpose: "Solo WhatsApp: inviare la prova di un pagamento in ritardo", source: FASTWEB_HELP, checked: ON_11 },
       { number: "02/454445", purpose: "Solo in uscita: il numero da cui il Servizio Clienti richiama chi ha prenotato una chiamata", source: FASTWEB_HELP, checked: ON_11 },
@@ -695,7 +700,7 @@ export const ORGANISATIONS: Organisation[] = [
       "gofw.it is a short-link domain Fastweb uses on its own pages but never calls official: not listed. fastwebvodafone.it is listed under Vodafone.",
       "Suspicious SMS can be forwarded for free to 40214 (SMS only, not listed as a phone).",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "nexi",
@@ -731,7 +736,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Left out: 1 800 473 6896 (USA only), +39 02 345 441 (non-customers), 800 15 11 11 (its heading on the page is garbled).",
       "nexigroup.com appears on the security page as the phishing-report mailbox (segnalazioni.phishing@nexigroup.com).",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "bper",
@@ -769,7 +774,7 @@ export const ORGANISATIONS: Organisation[] = [
       "059 42 42 is also the number BPER calls customers from (\"ti contatteremo dal numero 059 42 42\"). The page doesn't say whether it costs anything or works from mobiles.",
       "The WhatsApp number is only in the brochure (undated), not on the web pages.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "banco-bpm",
@@ -800,7 +805,7 @@ export const ORGANISATIONS: Organisation[] = [
       "800 822 056 (debit-card block) is the same number Poste lists for blocking BancoPosta Ricaricabile cards: probably a shared card processor.",
       "\"bpm\" alone is not a brand word: it would also match unrelated sites (beats per minute).",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "hera",
@@ -833,7 +838,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Unlike A2A, Hera does sell door to door and by phone through authorised agencies. Its site has a tool to check whether a number that called you is authorised.",
       "Hera's scam-warning news pages on gruppohera.it showed a human-verification page, so nothing from them is used. No Hera page on SMS or email phishing was found.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "a2a",
@@ -870,7 +875,7 @@ export const ORGANISATIONS: Organisation[] = [
       "a2aenergia.eu: only a redirect to a2a.it. Please confirm.",
       "Left out: the Tutela Gas number, whose printed digits (02 82 841 575) and link (02 82 841 545) differ.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "mediolanum",
@@ -908,10 +913,10 @@ export const ORGANISATIONS: Organisation[] = [
       "\"mediolanum\" is the Latin name of Milan and is used by unrelated businesses (hotels, shops), so any such site will be flagged as a look-alike. brandWholeOnly is not set: it doesn't help here, because the word isn't the start of an ordinary Italian word. \"bmed\" is not a brand word: 4 letters and too generic.",
       "\"per intero\": the bank says it never asks for secret codes in full by phone or SMS. It may ask for part of a code, for example when identifying a caller.",
       "800.107.107 and 02.9045.1625 are for incoming calls only: the bank never calls from them. The spoofing page (https://www.bancamediolanum.it/sicurezza/spoofing) warns that scammers fake these numbers, and that fake SMS can land in the same thread as the bank's real messages.",
-      "No page names the bank's SMS sender or says whether its own SMS contain links. Not verified: whether the 800 numbers are free from mobiles, and what the asterisk on the abroad number means.",
+      "No page names the bank's SMS sender or says whether its own SMS contain links. Not verified: whether the 800 numbers are free from mobiles. The card-block page (read on 2026-11-20) calls 800 107 107 \"numero verde gratuito\" and the abroad number \"costo dell'operatore\".",
       "Left out: fax 02 9049 2550.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "fineco",
@@ -926,8 +931,8 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "fineco.it", source: "https://it.finecobank.com/", checked: ON_11 },
     ],
     phones: [
-      { number: "800.52.52.52", purpose: "Servizio Clienti e blocco carte, 24 ore su 24; numero verde, solo dall'Italia e da telefono fisso", source: FINECO_CARDS, checked: ON_11, shownAs: "from_landline" },
-      { number: "02.2899.2899", purpose: "Customer Care e blocco carte, 24 ore su 24, da cellulare o dall'estero", source: "https://it.finecobank.com/contattaci/blocco-carta/", checked: ON_11, shownAs: "from_mobile" },
+      { number: "800.52.52.52", purpose: "Servizio Clienti e blocco carte, 24 ore su 24, da telefono fisso in Italia", source: FINECO_CARD_BLOCK, checked: ON_20, shownAs: "from_landline" },
+      { number: "02.2899.2899", purpose: "Customer Care e blocco carte, 24 ore su 24, da cellulare o dall'estero", source: FINECO_CARD_BLOCK, checked: ON_11, shownAs: "from_mobile" },
       { number: "02 30575859", purpose: "Voice Portal, servizi automatici per i titolari di conto Trading", source: FINECO_HELP_CONTACTS, checked: ON_11 },
       { number: "339.994.1888", purpose: "Info SMS: i clienti scrivono a questo numero per informazioni e assistenza sul conto (non per Conto Fineco One e Conto Trading)", source: FINECO_HELP_CONTACTS, checked: ON_11 },
     ],
@@ -943,7 +948,7 @@ export const ORGANISATIONS: Organisation[] = [
       "fineco.it: no page text names it. The homepage links a results PDF on images.fineco.it, and www.fineco.it redirects to it.finecobank.com. Please confirm.",
       "Fineco does call customers from 02 2899 2899 (\"Verrai contattato dal numero 02 2899 2899\", help contacts page) when they ask for a callback (\"Ti telefoniamo\") in the reserved area. A call from that number can be genuine, and it can also be faked.",
       "When the customer calls the Voice Portal, Fineco asks for \"due cifre casuali del tuo Codice PIN\" for transfers, and for the full Codice Utente and Password telefonica when no voice password is set. \"Never asks for codes\" only holds when Fineco makes the contact.",
-      "800.52.52.52 is called \"numero verde valido dall'Italia e da telefono fisso\" on the cards help page; that's the basis for shownAs from_landline (\"gratis da telefono fisso\"). The card-block page only says \"da telefono fisso in italia\". The cost of 02.2899.2899 is not stated.",
+      "800.52.52.52 was called \"numero verde valido dall'Italia e da telefono fisso\" on the cards help page, the basis for shownAs from_landline (\"gratis da telefono fisso\"). That page is gone (404 on 2026-11-20). The card-block page only says \"da telefono fisso in italia\", and the contacts FAQ \"(da rete fissa)\": neither says it is free. The cost of 02.2899.2899 is not stated.",
       "02.3057.5859 (code help, Trading accounts, in the contacts-page FAQ data) and 02 30575859 are the same number written two ways; listed once.",
       "Left out: 800.92.92.92 (mortgage and loan information). It only appears in the contacts page's FAQ structured data and wasn't seen in the page's visible text.",
       "brandWholeOnly: \"fineco\" is the start of the ordinary word \"finecorsa\", and turns up inside joined site names such as \"finecostruzioni\". With brandWholeOnly, fineco-sicurezza.com and finecobank-verifica.com are caught, but a one-word look-alike such as finecosicurezza.com is missed. Fineco's other sites linked from its homepage (finecodays.it, consulentefinecobank.com, fineconomy.it) aren't listed; brandWholeOnly keeps them from being flagged.",
@@ -988,7 +993,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Satispay warns that phone spoofing can show its name or logo on the caller's screen. No page names an SMS sender. Verification codes arrive by SMS and by email.",
       "brandWholeOnly is not set: \"satispay\" isn't the start of any ordinary Italian word.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "iren",
@@ -1025,7 +1030,7 @@ export const ORGANISATIONS: Organisation[] = [
       "requestsPaymentByMessage is not set: the bill-payment page lists direct debit, card in the customer area or app, post offices and bank transfer, and no payment links by message.",
       "\"irenyou\" (7 letters) matches anywhere in a site name, so a name like \"sirenyoung\" would count. That seems unlikely to matter.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "edison",
@@ -1060,7 +1065,7 @@ export const ORGANISATIONS: Organisation[] = [
       "edison.it comes from the PEC address assicurativiedisonenergia@pec.edison.it on the contacts page. servizioclientiedison.it comes from condomini@servizioclientiedison.it on the same page and may belong to an outsourced contact centre.",
       "\"edison\" (6 letters) matches anywhere in a site name. No ordinary Italian word starts with it, so brandWholeOnly is not set. But it is a common name abroad (Thomas Edison, Edison Research, Samsung Medison), so unrelated sites such as \"medison\" would count as look-alikes. brandWholeOnly would avoid that but miss one-word look-alikes like edisonbollette.com.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "sorgenia",
@@ -1094,7 +1099,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Not used: a 2021 press release on gruppo.sorgenia.it saying \"Sorgenia non chiede mai i dati al telefono\" (older), and third-party reports of a September 2025 data breach at a Sorgenia supplier (no Sorgenia notice found).",
       "\"sorgenia\" matches anywhere in a site name. No ordinary word starts with it (\"sorgente\" differs), so brandWholeOnly is not set.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED,
   },
   {
     id: "mooney",

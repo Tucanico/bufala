@@ -1,11 +1,12 @@
 # TODO
 
 ## MVP
-- Review the 30 organisations in `src/data/organisations.ts` (see `docs/data-review.md`). Until then no official number is shown, official links don't lift warnings, and genuine payment requests (DHL, GLS, Telepass, A2A) stay 🔴. After reviewing UPS, run `npm run eval`: `held-ok-ups-tracking` should turn ⚪ (the rule for it is in since 2026-11-12, not yet seen with the real model)
-- Check by hand in a browser what our tools couldn't read: UPS and PayPal (domain only so far, both sites refuse automated reading), WindTre's anti-scam pages, the domain of A2A's bill-payment platform, Mooney (only its group site could be read: no numbers or rules yet), Banca Mediolanum's card-block page, and Edison's contacts page (partly unread)
+- Organisations in `src/data/organisations.ts` (see `docs/data-review.md`): 24 of 30 reviewed on 2026-11-20. Still unreviewed, so their numbers aren't shown and their links and numbers still count as warning signs: UniCredit, Amazon, UPS, PayPal and Mooney (their sites refuse automated reading: next bullet), and Fineco, which waits on two decisions: whether links to fineco.mobi count as official, and whether 800.52.52.52 keeps the label "gratis da telefono fisso" now that the page calling it a numero verde is gone. After reviewing UPS, run `npm run eval`: `held-ok-ups-tracking` should turn ⚪ (the rule for it is in since 2026-11-12, not yet seen with the real model)
+- Check by hand in a browser what our tools couldn't read: UniCredit's contact, card-block and scam pages, Amazon's four help pages, UPS and PayPal (domain only so far), Mooney (mooney.it: no numbers or rules yet), WindTre's anti-scam pages, the domain of A2A's bill-payment platform, Banca Mediolanum's card-block numbers, and Edison's contacts page (what 800 608 331 and 800 608 325 are for)
+- Check the reviewed organisations again around 2027-05-20 (every six months, `docs/data-review.md`)
 - Google Cloud billing: the project runs on the $300 free trial, which ends around 2027-02-10 (90 days from 2026-11-12). Upgrade to a paid account before then (Billing > Overview > "Activate full account"), or Google turns billing off and Web Risk lookups stop. Lookups stay free under 100,000 a month; keep the €5 budget alert
 - Keep Agenzia delle Entrate's fake domains in step with its page and new notices (`knownFakeDomains` in `src/data/organisations.ts`): the page has no feed and no dates
-- Privacy notice and disclaimer: approve the texts in `src/content/legal/` (on the site at `/privacy` and `/avvertenze`; the privacy notice reads as final since 2026-11-12, but the sentences listed in `docs/legal/privacy.md` are unconfirmed), confirm the Vercel and Mistral facts and whether a postal address is needed, and have a lawyer check them (checklist in `docs/legal/privacy.md`)
+- Privacy notice and disclaimer (approved by the founder on 2026-11-20): confirm the Vercel and Mistral facts listed as unconfirmed in `docs/legal/privacy.md` and whether a postal address is needed, and have a lawyer check both texts (checklist in `docs/legal/privacy.md`)
 - Bufala's Mistral organisation: turn on pay-as-you-go (prepaid, €10 minimum), replace the development key in `.env.local` (it belongs to the other organisation), ask support for zero data retention, and check its rate limits: each check is 3 calls of about 2,000 tokens
 - Contact email: once bufala.app is registered, set up free forwarding (Cloudflare Email Routing or the registrar's) for an address such as ciao@bufala.app, then change `CONTACT_EMAIL` in `src/lib/contact.ts` and the address in `docs/legal/privacy.md` (today both use tech@jacopolombardo.com)
 
@@ -13,7 +14,6 @@
 - "Was this answer right?" feedback, so mistakes can improve the data. Needs storage (Supabase) and a line in the privacy notice
 - Usage numbers for grant reports: how many checks and which colours, with no message content and no cookies
 - An alert when checks start failing: today errors only sit in Vercel's logs
-- Try every page with a real screen reader (TalkBack on Android, VoiceOver on iPhone): the automatic checks in `npm run e2e` cover contrast, labels and structure, not how it sounds
 - A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it
 
 ## Undecided
