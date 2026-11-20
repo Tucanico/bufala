@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-20 11:12 — test(e2e): the install-button test no longer races the app
+
+It failed about once per full `npm run e2e` run. The cause, reproduced: the app starts listening for Chrome's install offer only after the page's load event (20 to 50 ms later, about 200 ms with the CPU slowed six times), and the test made its fake offer right at load, so on a busy machine the offer sometimes came first and was lost (2 of 40 runs, 8 in parallel). The test now repeats the offer until the button shows: 100 of 100 under the same load, and the full suite passes. Not known: whether real Chrome can send its offer that early on a slow phone. It never sent one in the automated browser, so that wasn't measured.
+
 ## 2026-11-20 10:55 — feat(evals): real phishing emails as test cases
 
 The made-up messages show how Bufala does on what we imagined; real phishing shows what actually arrives. `npm run eval:import` turns emails saved as `.eml` in `evals/real/` (gitignored) into cases in `evals/real/cases.json`: a "Da:" and an "Oggetto:" line, then the HTML body (what the person sees; a plain-text part can say something else) with the real address after each link's text, cut at 4,000 characters like a paste. The recipient's addresses (also %-encoded or in base64 inside links), full name, first name, surname and address user name become "Mario Rossi" stand-ins, and anything listed in `evals/real/private.json` (a phone number in any spacing, a street) becomes "[privato]"; Mistral still only gets redact()'s output. Each case expects 🟠 or 🔴, and importing again keeps verdicts edited by hand. `npm run eval:real` runs them like `npm run eval`, with results in `evals/real/last-run.txt`. Emails are read with postal-mime 4.2.0 (pinned, no dependencies of its own). It leaves the text empty for an HTML-only email and doesn't export its converter, so a small one here does that, including common named characters such as &egrave; and &euro;. tsconfig now allows `.ts` in import paths, so Node runs the script without a build step. Tested on a made-up email (unit test) and end to end with no model calls (`EVAL_RUNS=0`). Also: the Agenzia delle Entrate fake-domains reminder is gone from the TODO, since its list is complete as of today and look-alike names and Google's blocklist already catch new fakes.
+
+2845e51
 
 ## 2026-11-20 10:18 — chore(data): Fineco reviewed, and the paid test set run after the review
 

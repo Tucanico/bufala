@@ -42,14 +42,20 @@ test("when the phone offers installing, our button opens its dialog once", async
   await page.goto("/");
   const button = page.getByRole("button", { name: "Aggiungi Bufala alla schermata Home" });
   await expect(button).toHaveCount(0);
-  await page.evaluate(() => {
-    const offer = Object.assign(new Event("beforeinstallprompt", { cancelable: true }), {
-      prompt: async () => {
-        (window as unknown as { prompted: number }).prompted = ((window as unknown as { prompted?: number }).prompted ?? 0) + 1;
-      },
+  // The app starts listening only after the load event (20 to 50 ms later, about
+  // 200 ms on a slow CPU), and an offer made before that is lost: 2 runs in 40
+  // failed under load (2026-11-20). So the offer is repeated until the button shows.
+  await expect(async () => {
+    await page.evaluate(() => {
+      const offer = Object.assign(new Event("beforeinstallprompt", { cancelable: true }), {
+        prompt: async () => {
+          (window as unknown as { prompted: number }).prompted = ((window as unknown as { prompted?: number }).prompted ?? 0) + 1;
+        },
+      });
+      window.dispatchEvent(offer);
     });
-    window.dispatchEvent(offer);
-  });
+    await expect(button).toBeVisible({ timeout: 500 });
+  }).toPass();
   await button.click();
   await expect(button).toHaveCount(0);
   expect(await page.evaluate(() => (window as unknown as { prompted: number }).prompted)).toBe(1);
