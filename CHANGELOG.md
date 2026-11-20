@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-20 10:55 — feat(evals): real phishing emails as test cases
+
+The made-up messages show how Bufala does on what we imagined; real phishing shows what actually arrives. `npm run eval:import` turns emails saved as `.eml` in `evals/real/` (gitignored) into cases in `evals/real/cases.json`: a "Da:" and an "Oggetto:" line, then the HTML body (what the person sees; a plain-text part can say something else) with the real address after each link's text, cut at 4,000 characters like a paste. The recipient's addresses (also %-encoded or in base64 inside links), full name, first name, surname and address user name become "Mario Rossi" stand-ins, and anything listed in `evals/real/private.json` (a phone number in any spacing, a street) becomes "[privato]"; Mistral still only gets redact()'s output. Each case expects 🟠 or 🔴, and importing again keeps verdicts edited by hand. `npm run eval:real` runs them like `npm run eval`, with results in `evals/real/last-run.txt`. Emails are read with postal-mime 4.2.0 (pinned, no dependencies of its own). It leaves the text empty for an HTML-only email and doesn't export its converter, so a small one here does that, including common named characters such as &egrave; and &euro;. tsconfig now allows `.ts` in import paths, so Node runs the script without a build step. Tested on a made-up email (unit test) and end to end with no model calls (`EVAL_RUNS=0`). Also: the Agenzia delle Entrate fake-domains reminder is gone from the TODO, since its list is complete as of today and look-alike names and Google's blocklist already catch new fakes.
+
 ## 2026-11-20 10:18 — chore(data): Fineco reviewed, and the paid test set run after the review
 
 Fineco waited on two decisions, both taken today: links to fineco.mobi count as official (Fineco's security page says its own SMS links always start with "Fineco.mobi/"), and 800.52.52.52 keeps "gratis da telefono fisso", because 800 numbers are free for the caller, though no live Fineco page says so any more. That makes 25 of 30 reviewed. Also recorded on the entry: "intesa" stays a brand word for Intesa Sanpaolo although it is an ordinary word, because scammers use it often. The paid test set ran once after the review (each of the 55 messages 3 times): 54 of 55 as expected, the same as before; the one off is still the UPS tracking message, which needs UPS reviewed. The crypto-investment message was 🔴 twice and 🟠 once, both accepted. Also: the plan no longer says the organisations await review.
+
+e468ec4
 
 ## 2026-11-20 10:03 — chore(data): 24 of the 30 organisations reviewed, and the legal texts approved
 

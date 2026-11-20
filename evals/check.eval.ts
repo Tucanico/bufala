@@ -1,5 +1,5 @@
 import { Console } from "node:console";
-import { writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { Writable } from "node:stream";
 import { afterAll, describe, expect, test } from "vitest";
 import { buildRun } from "../src/lib/check/analyse";
@@ -8,7 +8,7 @@ import { findFacts, type MessageFacts } from "../src/lib/check/facts";
 import { callMistral, ModelError } from "../src/lib/check/mistral";
 import { redact } from "../src/lib/check/redact";
 import { parseModelOutput } from "../src/lib/check/schema";
-import { CASES } from "./cases";
+import { CASES, type EvalCase } from "./cases";
 
 // Paid: each case runs RUNS real Mistral calls (about €0.0003 each). Run it with
 // `npm run eval` after changing the prompt, the schema or the model; it is
@@ -19,6 +19,17 @@ import { CASES } from "./cases";
 // colour. A single run can't judge a change, so each case runs several times
 // and is judged by the majority.
 const RUNS = Number(process.env.EVAL_RUNS ?? 3);
+
+// `npm run eval:real` runs real emails instead: the cases `npm run eval:import`
+// made in evals/real/ (gitignored), with their own results file.
+const REAL = process.env.EVAL_SET === "real";
+const SET: EvalCase[] = REAL ? realCases() : CASES;
+
+function realCases(): EvalCase[] {
+  const file = new URL("./real/cases.json", import.meta.url);
+  if (!existsSync(file)) throw new Error("No evals/real/cases.json: run `npm run eval:import` first");
+  return JSON.parse(readFileSync(file, "utf8")) as EvalCase[];
+}
 
 // The account allows 100,000 tokens a minute, and a full run sends 120 calls
 // in quick succession: wait and retry on a rate limit instead of failing the case.
@@ -61,8 +72,8 @@ type Row = {
 
 const rows: Row[] = [];
 
-describe.concurrent("made-up messages through the real model", () => {
-  for (const c of CASES) {
+describe.concurrent(REAL ? "real emails through the real model" : "made-up messages through the real model", () => {
+  for (const c of SET) {
     test(c.id, async () => {
       const facts = findFacts(c.text);
       const results: ModelRun[] = [];
@@ -106,7 +117,7 @@ describe.concurrent("made-up messages through the real model", () => {
 });
 
 afterAll(() => {
-  const order = new Map(CASES.map((c, i) => [c.id, i]));
+  const order = new Map(SET.map((c, i) => [c.id, i]));
   rows.sort((a, b) => order.get(a.id)! - order.get(b.id)!);
   const passed = rows.filter((row) => row.ok).length;
   const unstable = rows.filter((row) => row.runs.includes("unstable")).length;
@@ -122,6 +133,6 @@ afterAll(() => {
   });
   new Console(sink).table(rows.map(({ ok, ...rest }) => ({ ok: ok ? "yes" : "NO", ...rest })));
   report += `${passed}/${rows.length} as expected (majority of ${RUNS} runs); ${unstable} unstable\n`;
-  writeFileSync(new URL("./last-run.txt", import.meta.url), report);
+  writeFileSync(new URL(REAL ? "./real/last-run.txt" : "./last-run.txt", import.meta.url), report);
   console.log(report);
 });
