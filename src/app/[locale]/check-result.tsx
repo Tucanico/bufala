@@ -55,7 +55,6 @@ const DONTS = [
   { key: "reply", icon: "replyOff" },
 ] as const;
 
-const CARD_TITLE = "font-display text-[1.1rem] font-bold tracking-[-0.01em]";
 const ROW = "flex gap-3 text-[0.9rem] leading-[1.4]";
 const DOT = "grid size-[2rem] shrink-0 place-items-center rounded-xl";
 
@@ -67,7 +66,7 @@ export function VerdictLegend({ className = "mt-5" }: { className?: string }) {
 
   return (
     <section className={`card p-5 ${className}`}>
-      <h2 className={CARD_TITLE}>{t("legend.title")}</h2>
+      <h2 className="card-title">{t("legend.title")}</h2>
       <ul className="mt-4 grid gap-4">
         {(Object.keys(VERDICT_STYLE) as Verdict[]).map((verdict) => (
           <li key={verdict} className="flex gap-3.5">
@@ -143,7 +142,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
         <div className="grid gap-3.5 xl:grid-cols-2">
           {hasReasons && (
             <section className="card p-4">
-              <h3 className={CARD_TITLE}>{t("whyTitle")}</h3>
+              <h3 className="card-title">{t("whyTitle")}</h3>
               <ul className="mt-3 grid gap-3">
                 {result.reasons.map((reason) => (
                   <li key={reason} className={ROW}>
@@ -190,7 +189,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
               a warning. */}
           {warning && (
             <section className="card p-4">
-              <h3 className={CARD_TITLE}>{t("safeStepTitle")}</h3>
+              <h3 className="card-title">{t("safeStepTitle")}</h3>
               <div className={`mt-3 ${ROW}`}>
                 <span className={`${DOT} bg-ok/12 text-ok`}>
                   <Icon name="phone" className="size-[1.1rem]" />
@@ -220,7 +219,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
           word that ran out of the box on a 320px screen. */}
       {warning && (
         <section className="card card-acted p-4 [overflow-wrap:anywhere]">
-          <h3 className={CARD_TITLE}>{t("alreadyActed.title")}</h3>
+          <h3 className="card-title">{t("alreadyActed.title")}</h3>
           <ol className="steps mt-3 grid gap-3 xl:grid-cols-3 xl:gap-5">
             {(["bank", "passwords", "report"] as const).map((step) => (
               <li key={step} className={`${ROW} xl:flex-col`}>

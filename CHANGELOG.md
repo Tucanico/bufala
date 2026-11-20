@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-20 09:31 — chore: one shared card-title style, and device checks in TO_TEST.md
+
+The "Come funziona" page had copied the answer screen's card-title style; both now use one `card-title` class next to `card` in `globals.css`, so the two pages can't drift apart. Checked against a build of the previous version: all 24 screenshots (start screen, how-it-works in both languages and about page; computer, 390px and 320px; light and dark) are identical byte for byte, and so are the card titles' computed styles. The real-phone check (install, share, the "Come funziona" steps) moved from TODO.md to a new TO_TEST.md, which holds the checks that need a real device. Also, in 5f5a16e: a local SESSION.md (gitignored, loaded by a new CLAUDE.md) keeps the open threads of the work in progress.
+
 ## 2026-11-13 10:30 — chore(evals): the toll-pass message no longer expects "threat"
 
 The fix for it was dropped (see the entry below), so `npm run eval` kept listing that message as a mismatch on every run. Its "threat" expectation is removed, with a comment saying why, so the list shows only real problems; it must still come out 🔴. Also: the developer doc's "Not built yet" section is gone, since the link checks, phone checks and organisation list it named are all built.

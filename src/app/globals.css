@@ -92,6 +92,15 @@ body {
       0 1rem 2.2rem -1.1rem rgb(42 29 23 / 0.28);
   }
 
+  /* Every card title on the answer screen and the how-it-works page, so the
+     two pages can't drift apart. */
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
   .btn {
     display: flex;
     width: 100%;

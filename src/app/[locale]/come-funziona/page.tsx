@@ -23,8 +23,6 @@ const CHECKS: { key: "links" | "numbers" | "requests"; icon: IconName }[] = [
   { key: "requests", icon: "euro" },
 ];
 
-// Sized like the cards of the start screen, whose legend this page reuses.
-const CARD_TITLE = "font-display text-[1.1rem] font-bold tracking-[-0.01em]";
 const TEXT_LINK = "font-bold text-brand underline underline-offset-4";
 
 function Steps({ items, className = "" }: { items: string[]; className?: string }) {
@@ -53,7 +51,7 @@ export default function HowItWorksPage() {
 
       <div className="mt-6 grid gap-4 text-[0.9rem] leading-[1.4] md:grid-cols-2">
         <section className="card p-5 md:col-span-2">
-          <h2 className={CARD_TITLE}>{t("use.title")}</h2>
+          <h2 className="card-title">{t("use.title")}</h2>
           <Steps
             className="mt-4 md:grid-cols-2 md:gap-x-8"
             items={USE_STEPS.map((step) => t(`use.steps.${step}`))}
@@ -63,7 +61,7 @@ export default function HowItWorksPage() {
         <VerdictLegend className="" />
 
         <section className="card p-5">
-          <h2 className={CARD_TITLE}>{t("checks.title")}</h2>
+          <h2 className="card-title">{t("checks.title")}</h2>
           <ul className="mt-4 grid gap-4">
             {CHECKS.map(({ key, icon }) => (
               <li key={key} className="flex gap-3.5">
@@ -81,7 +79,7 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="card p-5 md:col-span-2">
-          <h2 className={CARD_TITLE}>{t("install.title")}</h2>
+          <h2 className="card-title">{t("install.title")}</h2>
           <p className="mt-2">{t("install.intro")}</p>
           <div className="mt-4 grid gap-6 md:grid-cols-2 md:gap-8">
             <div>
@@ -105,7 +103,7 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="card p-5">
-          <h2 className={CARD_TITLE}>{t("privacy.title")}</h2>
+          <h2 className="card-title">{t("privacy.title")}</h2>
           <p className="mt-2">{t("privacy.body")}</p>
           <p className="mt-3">
             <Link href="/privacy" className={TEXT_LINK}>
@@ -115,7 +113,7 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="card p-5">
-          <h2 className={CARD_TITLE}>{t("limits.title")}</h2>
+          <h2 className="card-title">{t("limits.title")}</h2>
           <p className="mt-2">{t("limits.body")}</p>
           <p className="mt-3">
             <Link href="/avvertenze" className={TEXT_LINK}>
