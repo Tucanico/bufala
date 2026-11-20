@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 import { Icon } from "./icons";
+import { INSTALL_OFFER } from "./install-offer";
 
 // Chrome fires "beforeinstallprompt" when Bufala can be installed; keeping it
 // lets our own button open the install dialog. Only on touch screens, where
@@ -13,6 +14,8 @@ const listeners = new Set<() => void>();
 const notify = () => listeners.forEach((listener) => listener());
 
 if (typeof window !== "undefined") {
+  // An offer that came before this code ran was kept by the page head (install-offer.ts).
+  installPrompt = (window as unknown as Record<string, InstallPrompt | null | undefined>)[INSTALL_OFFER] ?? null;
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     installPrompt = event as InstallPrompt;

@@ -13,7 +13,7 @@
 - "Was this answer right?" feedback, so mistakes can improve the data. Needs storage (Supabase) and a line in the privacy notice
 - Usage numbers for grant reports: how many checks and which colours, with no message content and no cookies
 - An alert when checks start failing: today errors only sit in Vercel's logs
-- A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it
+- A full script policy (CSP `script-src`): with Next.js it needs a per-request nonce, which turns off static rendering; decide whether it's worth it. It must also allow the inline script in the page head that keeps Chrome's install offer (`src/app/[locale]/install-offer.ts`), by nonce or hash
 
 ## Undecided
 - Amazon's own check ("Verifica una chiamata o un messaggio" on account-status.amazon.it, or forwarding to verify@amazon.it): add it to the Amazon advice?

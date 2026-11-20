@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { Logo } from "./icons";
+import { CATCH_INSTALL_OFFER } from "./install-offer";
 import { LanguageSwitch } from "./language-switch";
 import "../globals.css";
 
@@ -54,6 +55,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${heading.variable} ${body.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: CATCH_INSTALL_OFFER }} />
+      </head>
       <body>
         <NextIntlClientProvider>
           <header className="mx-auto flex max-w-page items-center justify-between gap-4 px-5 pt-4">

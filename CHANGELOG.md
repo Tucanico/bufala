@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-20 11:30 — fix(install): Chrome's install offer is kept even when it comes before the app listens
+
+Chrome sends its install offer once per page load, and the app only listens once its code has run, after the load event (20 to 50 ms later, about 200 ms with the CPU slowed six times). On a slow phone the offer could come first and be lost, and the "Aggiungi Bufala alla schermata Home" button would never show. Whether real Chrome sends it that early wasn't measured: it never sends one in the automated browser. A small inline script in the page head (`install-offer.ts`, placed by the layout) now catches the offer before anything else runs, and `install-hint.tsx` picks it up when it starts. The browser test now makes its offer at DOMContentLoaded, when the head script has run but the app's code hasn't, instead of repeating the offer until the button shows (the 11:12 workaround). That way it checks exactly this case: it failed 6 of 6 with the pick-up line taken out, and passed 100 of 100 with it, 8 at a time. The TODO's script-policy item now notes that such a policy must allow this inline script.
+
 ## 2026-11-20 11:12 — test(e2e): the install-button test no longer races the app
 
 It failed about once per full `npm run e2e` run. The cause, reproduced: the app starts listening for Chrome's install offer only after the page's load event (20 to 50 ms later, about 200 ms with the CPU slowed six times), and the test made its fake offer right at load, so on a busy machine the offer sometimes came first and was lost (2 of 40 runs, 8 in parallel). The test now repeats the offer until the button shows: 100 of 100 under the same load, and the full suite passes. Not known: whether real Chrome can send its offer that early on a slow phone. It never sent one in the automated browser, so that wasn't measured.
+
+375e7bc
 
 ## 2026-11-20 10:55 — feat(evals): real phishing emails as test cases
 
