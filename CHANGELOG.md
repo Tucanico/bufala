@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 17:01 — chore(data): three gaps in reviewed organisations closed from pages read by hand
+
+Four reviewed entries had facts our tools couldn't read; Jacopo opened the pages in a browser and pasted them. Edison: the contacts page now gives a number for mobiles, 02 8251 8251, shown as "da cellulare" next to 800 031 141 (still "servizio clienti": the page doesn't say it is free); 800 441 999 is for services, Risolve and policies; the condominium line is added; business lines are left out. Banca Mediolanum: its five card-block numbers are added, unshown (800 822 056 and +39 02 608 437 68 for debit cards; Nexi's 800 15 16 16, +39 02 349 800 20 and 1 800 4736 896 for credit cards). The copied text ended two of them with a footnote mark ("…800 201", "…8962"); the trailing digit was dropped after comparing with the same Nexi lines on UniCredit's page. A2A: the page still doesn't publish the address of its payment platform, so that gap is closed as "not published" and such reminders stay 🔴 unless their link is on a listed domain. WindTre: its page on unwanted calls and SMS has nothing to quote (no sender name, no "never asks" sentence); two notices on its "WINDTRE Informa" page are still to read, and are what the TODO keeps. Mooney's contacts page is a form with no phone number, so it shows none. A test checks that the new numbers count as official. Found on the way, not fixed: a number written with a dot right after +39 ("+39.02.86814900", as UniCredit prints its abroad numbers) isn't recognised as a phone number in a message.
+
 ## 2026-11-24 16:24 — chore(data): all 31 organisations reviewed
 
 Approved by Jacopo Lombardo after the 16:20 hand check: UniCredit, Amazon, UPS and PayPal, and Mooney with its sites only (no number is shown until its customer number is confirmed on mooney.it). Their own links and numbers no longer count as warning signs; UniCredit shows 800.57.57.57 and UPS shows 800 877 877 and +39 02 30 30 30 39. The paid test set ran once after it (each of the 55 made-up messages 3 times): 55 of 55 as expected for the first time. The UPS tracking message, 🟠 until now because UPS wasn't reviewed, is ⚪ in 3 of 3 runs: the rule from 2026-11-12 that drops the model's verdict when our checks disprove its only sign works with the real model. The crypto-investment message was 🔴 twice and 🟠 once, both accepted, as on 2026-11-20. The TODO keeps only the gaps left in reviewed entries and the six-month re-check.
+
+93a5ae2
 
 ## 2026-11-24 16:20 — chore(data): UniCredit, Amazon, UPS and PayPal read by hand, their entries updated
 

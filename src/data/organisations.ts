@@ -100,6 +100,7 @@ const TELEPASS_PHISHING = "https://www.telepass.com/it/sicurezza/phishing";
 
 const MEDIOLANUM_CONTACTS = "https://www.bancamediolanum.it/contatti-sede-mediolanum";
 const MEDIOLANUM_SMISHING = "https://www.bancamediolanum.it/sicurezza/smishing";
+const MEDIOLANUM_CARD_BLOCK = "https://www.bancamediolanum.it/informazioni-al-cliente/blocco-strumenti-di-pagamento";
 
 const FINECO_SECURITY = "https://it.finecobank.com/sicurezza/";
 const FINECO_CARD_BLOCK = "https://it.finecobank.com/contattaci/blocco-carta/";
@@ -115,7 +116,6 @@ const IREN_COMPLAINTS = "https://www.irenlucegas.it/assistenza/gestisci-il-tuo-c
 const IREN_FAQ = "https://www.irenlucegas.it/assistenza/faq";
 
 const EDISON_CONTACTS = "https://www.edisonenergia.it/edison/assistenza/contatti";
-const EDISON_FAQ = "https://www.edisonenergia.it/edison/assistenza/faq";
 const EDISON_SMS = "https://www.edisonenergia.it/edison/servizi-sms";
 
 const SORGENIA_CONTACTS = "https://www.sorgenia.it/contattaci";
@@ -670,7 +670,9 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "manterranno i contatti con i Clienti attraverso diverse modalità: chiamata telefonica APP WINDTRE e WINDTRE BUSINESS comunicazioni via mail o PEC.", source: WINDTRE_CHARTER, checked: ON_11 },
     ],
     reviewNotes: [
-      "WindTre's web pages block automated visitors (they redirect to a bot check on validate.perfdrive.com, not followed). Only the service charter PDF (March 2026) could be read. Please check its anti-scam pages in a browser, for example https://www.windtre.it/chiamate-sms-indesiderati and https://www.windtre.it/windtre-informa, for SMS sender names and \"we never ask\" statements.",
+      "WindTre's web pages block automated visitors (they redirect to a bot check on validate.perfdrive.com, not followed), so only the service charter PDF (March 2026) was read by tool. Its page on unwanted calls and SMS (https://www.windtre.it/chiamate-sms-indesiderati) was read by hand in a browser on 2026-11-24: it describes phishing, smishing, vishing and spoofing in general terms, with no SMS sender name and no \"WINDTRE never asks\" sentence, so nothing was added from it.",
+      "The same page has a \"Verifica il numero di telefono\" box that says whether a number that called you is one of WindTre's operators. It could be pointed to in the advice.",
+      "Not read yet: two notices listed on https://www.windtre.it/windtre-informa, \"Informati e Sicuri: numero verde dedicato 800.900.134 e info su ricezione contenuti fraudolenti\" and \"Pagina di Sicurezza 'Verificato da WINDTRE'\". 800.900.134 is not listed until its notice is read.",
       "159 is free \"per tutti, Clienti e non\", except from abroad. The charter doesn't say mobile or landline; labelled just \"gratis\".",
       "\"wind\" alone is not in names: it is an ordinary English word.",
     ],
@@ -939,7 +941,7 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "Gli unici dati che ti chiediamo di inserire per accedere sono il tuo codice fiscale o la partita iva (non verranno richiesti dati bancari come il codice IBAN).", source: A2A_DIGITAL_REMINDERS, checked: ON_11 },
     ],
     reviewNotes: [
-      "A2A sends payment links itself, by PEC, email or SMS, for bills due or overdue (requestsPaymentByMessage). The payment platform's domain isn't on any fetched page, so such a message only gets 🟠 if its link is on one of the listed domains; otherwise it stays 🔴. Finding that domain would complete this.",
+      "A2A sends payment links itself, by PEC, email or SMS, for bills due or overdue (requestsPaymentByMessage). The payment platform's address isn't published: the page, read again by hand in a browser on 2026-11-24 (now titled \"Avvisi Pagamenti Digitali\"), only says \"Clicca sul link per accedere alla piattaforma\". So such a message gets 🟠 only if its link is on one of the listed domains; otherwise it stays 🔴, the safe side. The page adds that the MyA2A app sends a notification for a bill due or overdue.",
       "02 40707331 is A2A's own anti-scam line; its hours differ between two pages (8.30-17.00 or 9.00-15.00). Could be worth showing for A2A messages instead of, or next to, the customer line.",
       "a2aenergia.eu: only a redirect to a2a.it. Please confirm.",
       "Left out: the Tutela Gas number, whose printed digits (02 82 841 575) and link (02 82 841 545) differ.",
@@ -966,6 +968,11 @@ export const ORGANISATIONS: Organisation[] = [
       { number: "800 107 107", purpose: "Servizio clienti per i clienti (numero verde, Banking Center), dall'Italia", source: MEDIOLANUM_CONTACTS, checked: ON_11, shownAs: "toll_free" },
       { number: "+39 02 9045 1625", purpose: "Servizio clienti per i clienti, dall'estero", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
       { number: "800 60 70 80", purpose: "Linea dedicata a chi non è ancora cliente", source: MEDIOLANUM_CONTACTS, checked: ON_11 },
+      { number: "800 822 056", purpose: "Blocco carta di debito, Centrale di allarme Blocco Carte (24 ore su 24, 365 giorni l'anno), dall'Italia", source: MEDIOLANUM_CARD_BLOCK, checked: ON_24 },
+      { number: "+39 02 608 437 68", purpose: "Blocco carta di debito, dall'estero", source: MEDIOLANUM_CARD_BLOCK, checked: ON_24 },
+      { number: "800 15 16 16", purpose: "Blocco carte di credito multifunzione e carte Mediolanum, Servizio clienti Nexi (numero verde, 24 ore su 24, 365 giorni l'anno), dall'Italia", source: MEDIOLANUM_CARD_BLOCK, checked: ON_24 },
+      { number: "+39 02 349 800 20", purpose: "Blocco carte di credito multifunzione e carte Mediolanum (Nexi), dall'estero", source: MEDIOLANUM_CARD_BLOCK, checked: ON_24 },
+      { number: "1 800 4736 896", purpose: "Blocco carte di credito multifunzione e carte Mediolanum (Nexi), solo da linee telefoniche degli Stati Uniti", source: MEDIOLANUM_CARD_BLOCK, checked: ON_24 },
     ],
     smsSenders: [],
     rules: [
@@ -977,12 +984,12 @@ export const ORGANISATIONS: Organisation[] = [
       { quote: "Ricordati che Banca Mediolanum non ti chiederà mai di inserire i tuoi dati via e-mail o SMS.", source: "https://www.bancamediolanum.it/sicurezza", checked: ON_11 },
     ],
     reviewNotes: [
-      "The card-block page (https://www.bancamediolanum.it/informazioni-al-cliente/blocco-strumenti-di-pagamento) and the anti-phishing vademecum PDF refused automated reading (bot protection, redirect loop). So no card-block numbers are listed. Please read them in a browser.",
+      "The card-block page refuses automated reading (bot protection, redirect loop), so it was read by hand in a browser on 2026-11-24 and its five numbers added, unshown. In the copied text the Nexi abroad and United States numbers ended in a footnote mark (\"+39 02 349 800 201\", \"1 800 4736 8962\"): the last digit is the footnote's number, not part of the phone number. UniCredit's card-block page gives the same Nexi lines as +39 02 34980020 and +1 800 473 68 96. The anti-phishing vademecum PDF is still unread.",
       "Domains: bmedonline.it is where the site's \"Accesso clienti\" link goes (https://www.bmedonline.it/v3/app/ib_flutter_app_banca/index.html#/auth). mediolanum.it comes from the contact emails on the contacts page (info@mediolanum.it, bancamediolanum@pec.mediolanum.it). mediolanumplay.it (\"Premi Play\") and consulentimediolanum.it (\"Trova un Family Banker\") are linked in the header. mediolanumprivatebanking.it, familybanker.it and fondazionemediolanum.it are linked in the footer under \"Altri siti banca mediolanum\". They are listed so the group's own sites aren't flagged as look-alikes of \"mediolanum\". fondazionemediolanum.it belongs to the foundation, not the bank: delete it if unwanted. The footer's \"Tutti i siti del Gruppo\" list loads by script and wasn't read.",
       "\"mediolanum\" is the Latin name of Milan and is used by unrelated businesses (hotels, shops), so any such site will be flagged as a look-alike. brandWholeOnly is not set: it doesn't help here, because the word isn't the start of an ordinary Italian word. \"bmed\" is not a brand word: 4 letters and too generic.",
       "\"per intero\": the bank says it never asks for secret codes in full by phone or SMS. It may ask for part of a code, for example when identifying a caller.",
       "800.107.107 and 02.9045.1625 are for incoming calls only: the bank never calls from them. The spoofing page (https://www.bancamediolanum.it/sicurezza/spoofing) warns that scammers fake these numbers, and that fake SMS can land in the same thread as the bank's real messages.",
-      "No page names the bank's SMS sender or says whether its own SMS contain links. Not verified: whether the 800 numbers are free from mobiles. The card-block page (read on 2026-11-20) calls 800 107 107 \"numero verde gratuito\" and the abroad number \"costo dell'operatore\".",
+      "No page names the bank's SMS sender or says whether its own SMS contain links. The card-block page calls 800 107 107 \"numero verde gratuito\" from Italy, without saying whether that includes mobiles, and the abroad number \"costo operatore\".",
       "Left out: fax 02 9049 2550.",
     ],
     reviewed: REVIEWED,
@@ -1113,9 +1120,11 @@ export const ORGANISATIONS: Organisation[] = [
       { domain: "servizioclientiedison.it", source: EDISON_CONTACTS, checked: ON_11 },
     ],
     phones: [
-      { number: "800.031.141", purpose: "Servizio clienti per chi è già cliente (la pagina non dice se è gratuito né da quali telefoni si chiama)", source: EDISON_FAQ, checked: ON_11, shownAs: "customer_service" },
-      { number: "800.14.14.14", purpose: "Numero verde per chi non è ancora cliente: offerte e nuovi contratti", source: EDISON_FAQ, checked: ON_11 },
-      { number: "800.441.999", purpose: "Accanto al servizio \"Intervento tecnico 24/7\" per la casa, scopo non indicato", source: EDISON_CONTACTS, checked: ON_11 },
+      { number: "800 031 141", purpose: "Servizio clienti Luce e Gas per chi è già cliente, lunedì-sabato 08:00-21:30 (festivi esclusi)", source: EDISON_CONTACTS, checked: ON_24, shownAs: "customer_service" },
+      { number: "02 8251 8251", purpose: "Servizio clienti Luce e Gas da cellulare, stessi orari (costi da operatore mobile)", source: EDISON_CONTACTS, checked: ON_24, shownAs: "from_mobile" },
+      { number: "800 14 14 14", purpose: "Per chi non è ancora cliente, lunedì-sabato 08:00-21:00 (festivi esclusi)", source: EDISON_CONTACTS, checked: ON_24 },
+      { number: "800 441 999", purpose: "Per SERVIZI, RISOLVE e POLIZZE, lunedì-sabato 08:00-20:00; interventi disponibili 24/7", source: EDISON_CONTACTS, checked: ON_24 },
+      { number: "02 825 18 078", purpose: "Condomini: informazioni e assistenza, lunedì-venerdì 09:00-18:00 (festivi esclusi)", source: EDISON_CONTACTS, checked: ON_24 },
       { number: "800 608 331", purpose: "\"Per informazioni\", lunedì-venerdì 8-20, a quanto pare nel riquadro dei servizi assicurativi", source: EDISON_CONTACTS, checked: ON_11 },
       { number: "800 608 325", purpose: "\"Per interventi\", tutti i giorni 24 ore su 24, a quanto pare nel riquadro dei servizi assicurativi", source: EDISON_CONTACTS, checked: ON_11 },
       { number: "+39 339 9942842", purpose: "Numero a cui i clienti domestici inviano per SMS l'autolettura (luce e gas)", source: EDISON_SMS, checked: ON_11 },
@@ -1127,11 +1136,11 @@ export const ORGANISATIONS: Organisation[] = [
     reviewNotes: [
       "No Edison page on SMS or email phishing, or on what Edison never asks for, was found. https://www.edisonenergia.it/edison/informazioni-e-moduli-utili/tutela-del-cliente only says \"Alcuni operatori si fingono Agenti Edison.\" and links a report form. That is a warning, not a rule, so it is not quoted.",
       "Edison's \"Guida Digital\" PDF (https://documenti.edisonenergia.it/getbusinessdoc.ashx?id=CONDECO_guidadigital) reportedly has anti-scam advice, but it is over 10 MB and couldn't be read.",
-      "800.031.141: the FAQ says it is for existing customers but not whether it is free. No customer number for mobiles was found on an official page (third-party sites give one), hence shownAs \"customer_service\" rather than a free or landline label.",
-      "The contacts page is partly drawn by script and came back truncated. 800 608 331 and 800 608 325 sit near serviziassicurativi@edisonenergia.it, so they look like insurance-services lines rather than energy customer care. Please check.",
-      "Left out: 02 82 518 078, printed under \"Numeri di telefono\" with no purpose. Also 800.166.654 on the Tutela del cliente page, which looks like ARERA's consumer helpline rather than Edison's.",
+      "800 031 141 and 02 8251 8251: the contacts page, read by hand in a browser on 2026-11-24, gives the first to existing Luce e Gas customers and the second \"da cellulare\", with \"costi da operatore mobile\". It doesn't say the 800 number is free, so that one keeps the label \"servizio clienti\"; the second is shown as \"da cellulare\".",
+      "The contacts page shows different numbers by customer (Casa, Business, Condominio) and by topic (Luce e Gas, Assicurazioni and others). 800 608 331 and 800 608 325 were read by tool on 2026-11-11 and 2026-11-20 as \"Per informazioni\" and \"Per interventi\", near serviziassicurativi@edisonenergia.it. They weren't in the view read by hand on 2026-11-24, which gives 800 441 999 for services, Risolve and policies. They stay listed, unshown, only so a message quoting them isn't counted as \"call this number\".",
+      "Left out: the business lines on the contacts page (PMI 800 031 121 and 02 82 519 999 from mobiles, Multisito and public bodies 800.135.857, Business Top 800.252.505). Also 800.166.654 on the Tutela del cliente page, which looks like ARERA's consumer helpline rather than Edison's.",
       "The three mobile numbers are numbers customers send SMS to, not numbers Edison sends from. They are listed only so a message quoting them isn't counted as \"call this number\" after review.",
-      "edison.it comes from the PEC address assicurativiedisonenergia@pec.edison.it on the contacts page. servizioclientiedison.it comes from condomini@servizioclientiedison.it on the same page and may belong to an outsourced contact centre.",
+      "edison.it comes from the PEC address assicurativiedisonenergia@pec.edison.it on the contacts page, which also prints diventapartner@edison.it and mobilitysolutionsb2b@edison.it. servizioclientiedison.it comes from condomini@servizioclientiedison.it on the same page and may belong to an outsourced contact centre.",
       "\"edison\" (6 letters) matches anywhere in a site name. No ordinary Italian word starts with it, so brandWholeOnly is not set. But it is a common name abroad (Thomas Edison, Edison Research, Samsung Medison), so unrelated sites such as \"medison\" would count as look-alikes. brandWholeOnly would avoid that but miss one-word look-alikes like edisonbollette.com.",
     ],
     reviewed: REVIEWED,
@@ -1187,9 +1196,9 @@ export const ORGANISATIONS: Organisation[] = [
     rules: [],
     reviewNotes: [
       "www.mooney.it, mooney.it, its documents under mooney.it/cms, www.mymooney.it and www.mooneygo.it all answered HTTP 403 to automated reading on 2026-11-11. So no phone numbers, SMS senders, rules or payment-by-message statement could be collected. Only the group site mooneygroup.it could be read.",
-      "Third-party sites give 800 005 005 (from abroad +39 02 30458205) as Mooney's customer service. It is not verified and not listed: please check it on mooney.it.",
-      "2026-11-24: mooney.it's security guide was read by hand in a browser. It is general advice on phishing, smishing and vishing: no \"Mooney never asks\" sentence, no phone number and no SMS sender, so nothing was added. The contacts page (https://www.mooney.it/about/contatti) wasn't read, so the customer number is still unconfirmed. The same day mooneygroup.it was read again: it links to www.mooney.it, www.mymooney.it and www.mooneygo.it.",
-      "Reviewed on 2026-11-24 with its sites only (decided that day): links to them stop counting as \"open a link\", and no number is shown until the customer number is confirmed on mooney.it.",
+      "Third-party sites give 800 005 005 (from abroad +39 02 30458205) as Mooney's customer service. It is not on mooney.it's contacts page, which is a contact form (seen by hand in a browser on 2026-11-24), so it stays unlisted.",
+      "2026-11-24: mooney.it's security guide was read by hand in a browser. It is general advice on phishing, smishing and vishing: no \"Mooney never asks\" sentence, no phone number and no SMS sender, so nothing was added. The same day mooneygroup.it was read again: it links to www.mooney.it, www.mymooney.it and www.mooneygo.it.",
+      "Reviewed on 2026-11-24 with its sites only (decided that day): links to them stop counting as \"open a link\". No number is shown: Mooney's contacts page (https://www.mooney.it/about/contatti) is a form and prints none, so \"What to do\" keeps the general advice.",
       "Domains come from the \"I siti del gruppo\" footer of mooneygroup.it (\"© Mooney S.p.A.\"). easycassa.it and pluservice.net (business services) are left out. A whistleblowing pop-up on the same site lists sisalpay.it labelled \"MOONEY\", bill.it and rivenditorisisalpay.it: also left out. sisalpay.it was the earlier brand, so it may be worth adding.",
       "mooneygo.it is MooneyGo (tolls, parking, mobility), a group brand. It is included so its links count as official. Drop it if this entry should cover only payments and cards.",
       "The contacts page (https://mooneygroup.it/contatti/) gives only email addresses: media@mooney.it, richiestaautorita@mooney.it and richiesteautorita@pec.mooney.it. All are under mooney.it.",

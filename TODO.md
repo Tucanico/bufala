@@ -1,7 +1,7 @@
 # TODO
 
 ## MVP
-- Gaps left in reviewed organisations, to check by hand in a browser (our tools can't read these pages): Mooney's contacts page (https://www.mooney.it/about/contatti: is 800 005 005 its customer number? Until then Mooney shows no number), WindTre's anti-scam pages, the domain of A2A's bill-payment platform, Banca Mediolanum's card-block numbers, and Edison's contacts page (what 800 608 331 and 800 608 325 are for)
+- WindTre, to read by hand in a browser (its site blocks our tools): two notices listed on https://www.windtre.it/windtre-informa, "Informati e Sicuri: numero verde dedicato 800.900.134 e info su ricezione contenuti fraudolenti" and "Pagina di Sicurezza 'Verificato da WINDTRE'". Look for what 800.900.134 is for, SMS sender names and "WINDTRE non ti chiederà mai" sentences
 - Check all 31 organisations again around 2027-05-20 (every six months, `docs/data-review.md`)
 - Google Cloud billing: the project runs on the $300 free trial, which ends around 2027-02-10 (90 days from 2026-11-12). Upgrade to a paid account before then (Billing > Overview > "Activate full account"), or Google turns billing off and Web Risk lookups stop. Lookups stay free under 100,000 a month; keep the €5 budget alert
 - Privacy notice and disclaimer (approved by the founder on 2026-11-20): confirm the Vercel and Mistral facts listed as unconfirmed in `docs/legal/privacy.md` and whether a postal address is needed, and have a lawyer check both texts (checklist in `docs/legal/privacy.md`)

@@ -139,3 +139,17 @@ test("a message naming BNL in disguised letters is about BNL, with a high-risk s
   expect(found.addSigns).toContain("mixed_alphabets");
   expect(classifyHost("bnl-sicurezza.com", ORGANISATIONS)).toMatchObject({ kind: "lookalike", organisation: byId.bnl });
 });
+
+test("numbers added from the hand checks of 2026-11-24 count as official", () => {
+  for (const [text, id] of [
+    ["Edison: per assistenza chiama da cellulare lo 02 8251 8251", "edison"],
+    ["UPS: per informazioni sul pacco chiama l'800 877 877", "ups"],
+    ["Banca Mediolanum: per bloccare la carta chiama l'800 822 056", "mediolanum"],
+    ["Banca Mediolanum: dall'estero chiama il +39 02 349 800 20", "mediolanum"],
+    ["UniCredit: per bloccare la carta buddy dall'estero chiama il +39 02 86814900", "unicredit"],
+  ]) {
+    const found = findFacts(text);
+    expect(found.organisation?.id, text).toBe(id);
+    expect(found.removeSigns, text).toContain("call_this_number");
+  }
+});
