@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 17:12 — chore(data): a WindTre message also shows its anti-fraud line
+
+Decided today: 800.900.134, WindTre's own toll-free line for fraud, is shown next to 159. "Cosa fare" for a suspicious WindTre message now reads "Chiama WindTre ai numeri ufficiali 159 (gratis) o 800.900.134 (numero verde)…". Seen at 320 px; no sideways scroll at 390 or 1280.
+
 ## 2026-11-24 17:10 — chore(data): WindTre's last gap closed
 
 Jacopo opened the two notices listed on WindTre's "WINDTRE Informa" page and pasted them. "Informati e Sicuri" gives a toll-free line for all customers, 800.900.134, for SIMs or contracts they didn't ask for and for phishing: it is listed, recognised but not shown. The same notice says the SMS about "punti in scadenza" that seem to come from WINDTRE are not its own: quoted as a rule. Neither notice names an SMS sender or has a "never asks" sentence. The "Pagina di Sicurezza" notice says WindTre sends a one-time code by SMS when a customer buys a paid extra service and asks for it, so a WindTre SMS with a code can be genuine: noted on the entry. With this, no reviewed organisation has a page left to read by hand, and that item is out of the TODO.
+
+3a90e09
 
 ## 2026-11-24 17:04 — fix(check): a phone number with a dot or dash after +39 is recognised
 
