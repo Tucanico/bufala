@@ -25,7 +25,7 @@
         "copy": "Copy the message you received: press and hold it, then choose “Copy”. Don't open any link in it.",
         "paste": "Open Bufala and press “Paste”. If you can't copy the message, upload a screenshot, which is a picture of your screen.",
         "check": "Press “Check the message” and wait a few seconds.",
-        "read": "Read the answer: it tells you what we noticed and what to do."
+        "read": "Read the answer: it tells you what we noticed and what to do. If you'd rather hear it, press “Listen to the answer”."
       }
     },
     "checks": {

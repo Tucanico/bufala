@@ -25,7 +25,7 @@
         "copy": "Copia il messaggio che hai ricevuto: tienilo premuto e scegli «Copia». Non aprire i link che contiene.",
         "paste": "Apri Bufala e premi «Incolla». Se non riesci a copiare il messaggio, carica uno screenshot, cioè una foto dello schermo.",
         "check": "Premi «Controlla il messaggio» e aspetta qualche secondo.",
-        "read": "Leggi la risposta: ti dice cosa abbiamo notato e cosa fare."
+        "read": "Leggi la risposta: ti dice cosa abbiamo notato e cosa fare. Se preferisci ascoltarla, premi «Ascolta la risposta»."
       }
     },
     "checks": {
