@@ -147,6 +147,8 @@ test("numbers added from the hand checks of 2026-11-24 count as official", () =>
     ["Banca Mediolanum: per bloccare la carta chiama l'800 822 056", "mediolanum"],
     ["Banca Mediolanum: dall'estero chiama il +39 02 349 800 20", "mediolanum"],
     ["UniCredit: per bloccare la carta buddy dall'estero chiama il +39 02 86814900", "unicredit"],
+    // As UniCredit itself prints it, with a dot after the country code.
+    ["UniCredit: per bloccare la carta dall'estero chiama il +39.045.8064686", "unicredit"],
   ]) {
     const found = findFacts(text);
     expect(found.organisation?.id, text).toBe(id);

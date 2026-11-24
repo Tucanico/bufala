@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 17:04 — fix(check): a phone number with a dot or dash after +39 is recognised
+
+UniCredit prints its numbers from abroad as "+39.02.33408973". The number finder allowed only a space between the country code and the first digit, so with a dot or dash there the code couldn't attach, and the rest was refused as the tail of a longer number: the whole number was missed. A genuine message quoting such a number was then never matched to its organisation, so "asks you to call a number" couldn't be lifted. The pattern in `phones.ts` now allows a space, dot or dash after +39 or 0039. Tests: both written forms are found, "+39.99%" is not a number, and UniCredit's own form now counts as its official number. No test message, made-up or real, contains such a number, so the paid sets can't change.
+
 ## 2026-11-24 17:01 — chore(data): three gaps in reviewed organisations closed from pages read by hand
 
 Four reviewed entries had facts our tools couldn't read; Jacopo opened the pages in a browser and pasted them. Edison: the contacts page now gives a number for mobiles, 02 8251 8251, shown as "da cellulare" next to 800 031 141 (still "servizio clienti": the page doesn't say it is free); 800 441 999 is for services, Risolve and policies; the condominium line is added; business lines are left out. Banca Mediolanum: its five card-block numbers are added, unshown (800 822 056 and +39 02 608 437 68 for debit cards; Nexi's 800 15 16 16, +39 02 349 800 20 and 1 800 4736 896 for credit cards). The copied text ended two of them with a footnote mark ("…800 201", "…8962"); the trailing digit was dropped after comparing with the same Nexi lines on UniCredit's page. A2A: the page still doesn't publish the address of its payment platform, so that gap is closed as "not published" and such reminders stay 🔴 unless their link is on a listed domain. WindTre: its page on unwanted calls and SMS has nothing to quote (no sender name, no "never asks" sentence); two notices on its "WINDTRE Informa" page are still to read, and are what the TODO keeps. Mooney's contacts page is a form with no phone number, so it shows none. A test checks that the new numbers count as official. Found on the way, not fixed: a number written with a dot right after +39 ("+39.02.86814900", as UniCredit prints its abroad numbers) isn't recognised as a phone number in a message.
+
+60a7db5
 
 ## 2026-11-24 16:24 — chore(data): all 31 organisations reviewed
 

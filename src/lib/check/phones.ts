@@ -1,10 +1,11 @@
 import type { Organisation, PremiumPrefix } from "./organisations";
 
 // A phone-looking run: an optional +39 or 0039, then 8 to 11 digits with single
-// spaces, dots or dashes between them. At least 8 digits, so a 6-digit
+// spaces, dots or dashes between them, also right after the country code
+// (UniCredit prints "+39.02.33408973"). At least 8 digits, so a 6-digit
 // one-time code isn't read as a number to call; the lookarounds keep it from
 // starting or ending inside a longer number, such as a card number.
-const PHONE = /(?<![\w+])(?<!\d[ .-])(?:\+39|0039)?[ ]?\d(?:[ .-]?\d){7,10}(?![ .-]?\d)(?!\w)/g;
+const PHONE = /(?<![\w+])(?<!\d[ .-])(?:(?:\+39|0039)[ .-]?|[ ])?\d(?:[ .-]?\d){7,10}(?![ .-]?\d)(?!\w)/g;
 
 export function nationalNumber(raw: string): string {
   // Spaces and brackets go first, so "( +39) 02 …" (as BPER prints it) counts.

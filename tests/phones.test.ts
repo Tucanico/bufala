@@ -10,6 +10,15 @@ test("finds phone numbers in the usual Italian formats", () => {
   ]);
 });
 
+test("a dot or dash right after the country code still gives the number", () => {
+  // UniCredit prints its numbers from abroad as "+39.02.33408973".
+  expect(findPhoneNumbers("Dall'estero chiama il +39.02.33408973 oppure lo 0039-045-8064686.")).toEqual([
+    "0233408973",
+    "0458064686",
+  ]);
+  expect(findPhoneNumbers("Sconto del +39.99% solo oggi")).toEqual([]);
+});
+
 test("ignores amounts, dates, times, one-time codes and card numbers", () => {
   expect(
     findPhoneNumbers("Paga 1.250 € entro il 30/11 alle 10:24. Codice 482913. Carta 4111 1111 1111 1111."),
