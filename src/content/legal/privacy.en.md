@@ -1,4 +1,4 @@
-*Last updated: 12 November 2026*
+*Last updated: 24 November 2026*
 
 ## Who handles your data
 
@@ -24,6 +24,7 @@ The data controller is **Jacopo Lombardo**. For any privacy question, write to *
 - **Checks on links and numbers.** Our server compares the message's links and numbers with a list of official sites and numbers and of fake sites already reported. For a site we don't know, it also asks the domain registry when the site was created, because a site only days old is a sign of a scam: the registry receives only the site name (for example "esempio.xyz"), never the message or the full link. For sites ending in .it this check isn't possible yet. If the message contains a bit.ly or is.gd short link, we ask that service where it leads, without opening the destination site: bit.ly or is.gd receives only the short link. For links to sites we don't know, we also ask Google (its Web Risk service) whether the site is reported as dangerous: Google receives the link without the part after the "?", where personal codes usually sit, never the message.
 - **Analysis by artificial intelligence.** The cleaned text is sent to **Mistral AI** (Paris, France), which returns an analysis. For each check we send it three times, to make the answer more reliable.
 - **Nothing kept by us.** We store neither the message nor the answer. Our technical logs only ever contain error codes, never the message text.
+- **Listen to the answer.** If you press the button, Bufala's answer (not your message) is read out by your phone's or computer's own voice: we send it to no one. On a computer we only use voices that work on the device. On some phones the voice service (for example Google's or Samsung's) may work online, under its own rules and the phone's settings.
 
 ## Why we handle it (legal basis)
 

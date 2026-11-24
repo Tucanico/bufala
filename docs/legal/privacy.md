@@ -1,6 +1,6 @@
 # Privacy notice: status
 
-**Status:** on the site since 2026-11-12 (open points taken out of the text, dated 12 November 2026). Approved by the founder on 2026-11-20. Still to be checked by a lawyer, and the sentences below are still unconfirmed.
+**Status:** on the site since 2026-11-12 (open points taken out of the text). Approved by the founder on 2026-11-20; the "Ascolta la risposta" paragraph was added and approved on 2026-11-24 (dated 24 November 2026). Still to be checked by a lawyer, and the sentences below are still unconfirmed.
 
 The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, shown on the site at `/privacy` and `/en/privacy`. Nothing is highlighted any more: the points below are what the text now states, or leaves out, without having been confirmed. Statements about what Bufala itself does come from the code as of 2026-11-11.
 
@@ -20,4 +20,4 @@ The text itself is in `src/content/legal/privacy.it.md` and `privacy.en.md`, sho
 4. The check limit: decided (10 checks per 10 minutes per IP, counted by Vercel); confirm the published Vercel Firewall rule matches.
 5. With a lawyer: the legal basis (including third parties' data in a message), and that a technical cookie alone needs no banner.
 6. Any change to the code that adds an outside service (blocklists, domain-age lookups) must update this notice first.
-7. The date of the last update, in both files (set to 12 November 2026; change it with every edit).
+7. The date of the last update, in both files (set to 24 November 2026; change it with every edit).

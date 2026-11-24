@@ -6,6 +6,7 @@ import type { CheckResult } from "@/lib/check/analyse";
 import type { Sign, Verdict } from "@/lib/check/schema";
 import type { WebRiskThreat } from "@/lib/check/web-risk";
 import { Icon, type IconName } from "./icons";
+import { ReadAloud } from "./read-aloud";
 
 // The colour is never the only signal: each verdict also has its own title,
 // icon and meter. "No warning signs" is grey, not green, and lights no bar,
@@ -99,7 +100,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
   );
 
   return (
-    <section className="reveal mt-8 grid gap-3.5 lg:mt-5">
+    <section data-read-aloud-root className="reveal mt-8 grid gap-3.5 lg:mt-5">
       <div
         className={`hero hero-${result.verdict} p-5 lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-6 lg:p-7`}
       >
@@ -121,6 +122,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
             {t(`verdict.${result.verdict}.title`)}
           </h2>
           <p className="mt-2 text-[0.95rem] lg:text-[1.05rem]">{t(`verdict.${result.verdict}.body`)}</p>
+          <ReadAloud />
         </div>
       </div>
 
@@ -168,7 +170,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
               {/* Only under a warning that came from Google: its credit must not
                   appear on warnings from our own checks. */}
               {result.webRiskThreats && result.reasons.includes("dangerous_link") && (
-                <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.8rem]">
+                <p data-read-aloud="skip" className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.8rem]">
                   <a href={WEB_RISK_ADVISORY} target="_blank" rel="noopener noreferrer" className={EXTERNAL}>
                     {t("webRisk.advisory")}
                   </a>
@@ -231,7 +233,7 @@ export function CheckResultCard({ result }: { result: CheckResult }) {
       )}
 
       <p className="px-1 text-[0.9rem] font-bold">{t("reminder")}</p>
-      <p className="px-1 text-[0.8rem] text-muted">
+      <p data-read-aloud="skip" className="px-1 text-[0.8rem] text-muted">
         {t.rich("disclaimerLine", {
           link: (chunks) => (
             <Link href="/avvertenze" className="font-bold text-brand underline underline-offset-4">

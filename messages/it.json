@@ -264,6 +264,10 @@
       "passwords": "Cambia le password che potresti aver scritto, a partire da quella della banca e dell'email.",
       "report": "Segnala la truffa alla Polizia Postale su commissariatodips.it, oppure in qualsiasi ufficio di Polizia o stazione dei Carabinieri."
     },
+    "readAloud": {
+      "start": "Ascolta la risposta",
+      "stop": "Ferma la lettura"
+    },
     "reminder": "Ricorda: se ti chiedono soldi o codici, contatta tu l'azienda o la persona, con un numero che conosci già.",
     "disclaimerLine": "Bufala ti aiuta a riconoscere i segnali di truffa, ma non può garantire che un messaggio sia sicuro. <link>Leggi le avvertenze</link>"
   }

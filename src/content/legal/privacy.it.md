@@ -1,4 +1,4 @@
-*Ultimo aggiornamento: 12 novembre 2026*
+*Ultimo aggiornamento: 24 novembre 2026*
 
 ## Chi tratta i tuoi dati
 
@@ -24,6 +24,7 @@ Il titolare del trattamento è **Jacopo Lombardo**. Per qualsiasi domanda sulla 
 - **Controlli sui link e sui numeri.** Il nostro server confronta i link e i numeri del messaggio con un elenco di siti e numeri ufficiali e di siti falsi già segnalati. Per un sito che non conosciamo chiede anche al registro dei domini quando è stato creato, perché un sito nato da pochi giorni è un segnale di truffa: al registro arriva solo il nome del sito (per esempio "esempio.xyz"), mai il messaggio né il link completo. Per i siti che finiscono in .it questa verifica non è ancora possibile. Se il messaggio contiene un link accorciato di bit.ly o is.gd, chiediamo al servizio stesso dove porta, senza aprire il sito di destinazione: a bit.ly o is.gd arriva solo il link accorciato. Per i link a siti che non conosciamo chiediamo anche a Google (servizio Web Risk) se il sito è segnalato come pericoloso: a Google arriva il link senza la parte che segue il «?», dove di solito ci sono i codici personali, mai il messaggio.
 - **Analisi con l'intelligenza artificiale.** Il testo ripulito viene inviato a **Mistral AI** (Parigi, Francia), che restituisce un'analisi. Per ogni controllo lo inviamo tre volte, perché la risposta sia più affidabile.
 - **Nessuna conservazione da parte nostra.** Non salviamo né il messaggio né la risposta. Nei nostri registri tecnici restano solo eventuali codici di errore, mai il testo del messaggio.
+- **Ascolta la risposta.** Se premi il pulsante, la risposta di Bufala (non il tuo messaggio) viene letta dalla voce del tuo telefono o computer: noi non la inviamo a nessuno. Sul computer usiamo solo voci che funzionano sul dispositivo. Su alcuni telefoni il servizio vocale (per esempio quello di Google o di Samsung) può funzionare online, secondo le sue regole e le impostazioni del telefono.
 
 ## Perché li trattiamo (base giuridica)
 

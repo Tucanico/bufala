@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 12:59 — feat(result): "Ascolta la risposta" reads the answer out loud
+
+Made MVP on 2026-11-20, for people who find small text hard to read. A button under the answer's explanation reads the whole answer in screen order: the meter, title and explanation, what not to do, why, what to do, what to do if you already acted, and the reminder. It leaves out Google's credit links and the disclaimer line. The text is taken from the answer on screen (`textContent`, not `innerText`, which applies CSS: the meter's capitals would be spelled out by some voices), one part at a time because some phones cut long texts off, with phone numbers read digit by digit in their groups ("8 0 0, 1 0 7, 1 0 7"), a little slower than normal. It uses the browser's own speech (`speechSynthesis`), so there is no new service and no cost. It only uses voices that run on the device: desktop Chrome's "Google" voices work online, so they are never picked, and with no local voice for the language the button isn't shown. On Android, Chrome marks every voice as local (`tts_android.cc` passes no online flag), so the phone's voice service decides. The privacy notice now says so, in a paragraph approved on 2026-11-24 (dated 24 November 2026). It stops when another message is checked or the page is left. Tested with a stand-in voice (order, what's left out, stop, end, hidden with only online voices) and seen at 1280, 390 and 320 px, light and dark at 320; how the real voices sound is in TO_TEST.md. Also: "Read aloud" is out of the TODO.
+
 ## 2026-11-20 11:30 — fix(install): Chrome's install offer is kept even when it comes before the app listens
 
 Chrome sends its install offer once per page load, and the app only listens once its code has run, after the load event (20 to 50 ms later, about 200 ms with the CPU slowed six times). On a slow phone the offer could come first and be lost, and the "Aggiungi Bufala alla schermata Home" button would never show. Whether real Chrome sends it that early wasn't measured: it never sends one in the automated browser. A small inline script in the page head (`install-offer.ts`, placed by the layout) now catches the offer before anything else runs, and `install-hint.tsx` picks it up when it starts. The browser test now makes its offer at DOMContentLoaded, when the head script has run but the app's code hasn't, instead of repeating the offer until the button shows (the 11:12 workaround). That way it checks exactly this case: it failed 6 of 6 with the pick-up line taken out, and passed 100 of 100 with it, 8 at a time. The TODO's script-policy item now notes that such a policy must allow this inline script.
+
+3c1651a
 
 ## 2026-11-20 11:12 — test(e2e): the install-button test no longer races the app
 

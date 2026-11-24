@@ -17,7 +17,6 @@
 
 ## Undecided
 - Amazon's own check ("Verifica una chiamata o un messaggio" on account-status.amazon.it, or forwarding to verify@amazon.it): add it to the Amazon advice?
-- "Read aloud" on the answer screen: MVP or later
 - Redis queue for link checks: proposed to skip until forwarding arrives
 
 ## Phase 2

@@ -264,6 +264,10 @@
       "passwords": "Change any passwords you may have typed, starting with your bank and email.",
       "report": "Report the scam to the Polizia Postale at commissariatodips.it, or at any police station or Carabinieri station."
     },
+    "readAloud": {
+      "start": "Listen to the answer",
+      "stop": "Stop reading"
+    },
     "reminder": "Remember: if they ask for money or codes, contact the company or the person yourself, on a number you already know.",
     "disclaimerLine": "Bufala helps you spot the signs of a scam, but it can't guarantee that a message is safe. <link>Read the disclaimer</link>"
   }
