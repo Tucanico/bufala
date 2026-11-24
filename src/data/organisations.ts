@@ -82,6 +82,9 @@ const BANCOBPM_ASSIST = "https://youweb.bancobpm.it/assistenza.html";
 const BANCOBPM_CARDS = "https://www.bancobpm.it/blocco-carte/";
 const BANCOBPM_STORNO = "https://www.bancobpm.it/magazine/privati/tutela-la-tua-sicurezza/come-riconoscere-proteggersi-truffa-storno/";
 const BNL_SECURITY = "https://bnl.it/it/Individui-e-Famiglie/BNL-Sicurezza";
+const UPS_CONTACT = "https://www.ups.com/it/it/support/contact-us.page";
+const UPS_FRAUD = "https://www.ups.com/it/it/support/shipping-support/legal-terms-conditions/fight-fraud";
+const PAYPAL_FAKE_MESSAGES = "https://www.paypal.com/it/security/learn-about-fake-messages";
 const BNL_CARDS = "https://bnl.it/it/Individui-e-Famiglie/Carte/Blocco-carte";
 const HERA_CONTACTS = "https://heracomm.gruppohera.it/contatti";
 const HERA_SAFE_NUMBERS = "https://heracomm.gruppohera.it/contatti/numeri-sicuri-hera";
@@ -208,22 +211,28 @@ export const ORGANISATIONS: Organisation[] = [
       { number: "800.57.57.57", purpose: "Servizio Clienti Privati e Famiglie, blocco carte di debito (numero verde)", source: UNICREDIT_CALL, checked: ON, shownAs: "toll_free" },
       { number: "+39.02.33408973", purpose: "Servizio Clienti e blocco carte di debito, dall'estero", source: UNICREDIT_CALL, checked: ON },
       { number: "800.32.32.85", purpose: "Chi non è ancora cliente", source: UNICREDIT_CALL, checked: ON },
-      { number: "800.710.710", purpose: "Private Banking", source: UNICREDIT_CALL, checked: ON },
+      { number: "800.710.710", purpose: "Servizio Clienti Private Banking; blocco carte Visa Infinite, World Elite, Ferrari Metal (numero verde)", source: UNICREDIT_CALL, checked: ON_24 },
+      { number: "+39.02.33408963", purpose: "Private Banking, dall'estero", source: UNICREDIT_CALL, checked: ON_24 },
       { number: "848.88.00.88", purpose: "Imprese, Banca via Internet (tariffa ripartita)", source: UNICREDIT_CALL, checked: ON },
       { number: "+39.02.33408967", purpose: "Imprese, dall'estero e dai cellulari", source: UNICREDIT_CALL, checked: ON },
       { number: "800.078777", purpose: "Blocco carte di credito e prepagate", source: UNICREDIT_CARDS, checked: ON },
       { number: "+39.045.8064686", purpose: "Blocco carte di credito e prepagate, dall'estero", source: UNICREDIT_CARDS, checked: ON },
       { number: "800.290915", purpose: "Blocco carte buddy", source: UNICREDIT_CARDS, checked: ON },
+      { number: "+39.02.86814900", purpose: "Blocco carte buddy, dall'estero", source: UNICREDIT_CARDS, checked: ON_24 },
       { number: "800.044662", purpose: "Blocco Apple Pay, Google Pay, Samsung Pay", source: UNICREDIT_CARDS, checked: ON },
+      { number: "+39.02.89664912", purpose: "Blocco Apple Pay, Google Pay, Samsung Pay, dall'estero", source: UNICREDIT_CARDS, checked: ON_24 },
     ],
     smsSenders: [],
     rules: [
-      { quote: "Ricorda, UniCredit non ti chiederà mai: / password o codici dispositivi / PIN o codici di sicurezza della carta", source: UNICREDIT_SCAMS, checked: ON },
+      { quote: "Ricorda, UniCredit non ti chiederà mai: / password o codici dispositivi / PIN o codici di sicurezza della carta / di fare bonifici “per mettere al sicuro” il tuo denaro o risolvere un’emergenza.", source: UNICREDIT_SCAMS, checked: ON_24 },
       { quote: "Un SMS della banca: / non contiene mai link alla pagina di accesso alla Banca via Internet / non chiede mai dati o operazioni urgenti", source: UNICREDIT_SCAMS, checked: ON },
       { quote: "non riporta mai un numero di cellulare da contattare", source: UNICREDIT_SCAMS, checked: ON },
+      { quote: "Le comunicazioni della banca: / riportano il tuo nome (o ragione sociale) / indicano la tua filiale di riferimento / non chiedono mai dati personali o codici", source: UNICREDIT_SCAMS, checked: ON_24 },
     ],
     reviewNotes: [
-      "800.57.57.57 (customer service) and 800.575757 (debit-card block) are the same number written two ways; listed once.",
+      "800.57.57.57 (customer service) and 800.575757 (debit-card block) are the same number written two ways; listed once. 800.078777 is also written 800.078.777.",
+      "The site refuses automated reading (HTTP 403), so the contacts, card-block and scams pages were read by hand in a browser on 2026-11-24: every number and sentence listed before matched, and the abroad numbers, the transfer line of the first rule and the email rule were added from them.",
+      "Left out, as not meant for private customers: Banca via Internet CBI (848.690.300, abroad +39.045.8064628), businesses not yet customers (800.88.11.77) and the Corporate Banking lines (199.100.952, 199.240.007 and their abroad numbers). Also left out: the block numbers of cards other companies issue (CartaSi 800.15.16.16, which is Nexi's and listed there; BankAmericard 800.207167; Diners 800.393939; American Express 06.72900347).",
     ],
     reviewed: null,
   },
@@ -555,6 +564,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Amazon prints no customer-service phone number; it is reached through the Servizio clienti hub on amazon.it. So \"What to do\" keeps the general advice.",
       "Typed as \"courier\", because Amazon messages are about orders and deliveries and that advice (check on the shop's site yourself) fits.",
       "Amazon offers a check of its own: \"Verifica una chiamata o un messaggio\" on account-status.amazon.it, and forwarding to verify@amazon.it. Could be added to the advice later.",
+      "Automated reading gets HTTP 503, so the four help pages were read by hand in a browser on 2026-11-24, where Amazon showed them in English. Confirmed: the three domains (\"Legitimate Amazon websites contain 'Amazon.it'\", a link example on www.amazon.com, \"All official Amazon job postings can be found at Amazon.jobs\"), that no page prints a phone number, and the meaning of the four rules (\"Amazon will never ask you via text message to provide personal information, payment details, gift card codes, or call a phone number.\"; \"legitimate Amazon representatives will never ask for OTP codes over the phone\"; \"If the email doesn't appear in Message Center, then it wasn't sent by Amazon\"). Their Italian wording is as read on 2026-11-07.",
     ],
     reviewed: null,
   },
@@ -597,12 +607,23 @@ export const ORGANISATIONS: Organisation[] = [
     type: "courier",
     names: ["ups"],
     brandWords: ["ups"],
-    officialDomains: [{ domain: "ups.com", source: "https://www.ups.com/it/it/Home.page", checked: ON_11 }],
-    phones: [],
+    officialDomains: [{ domain: "ups.com", source: UPS_FRAUD, checked: ON_24 }],
+    phones: [
+      { number: "800 877 877", purpose: "Assistenza clienti (lunedì-venerdì 8:00-19:00, sabato 8:00-17:00) e domande sulla fatturazione, Numero Verde", source: UPS_CONTACT, checked: ON_24, shownAs: "toll_free" },
+      { number: "+39 02 30 30 30 39", purpose: "Assistenza clienti e domande sulla fatturazione, stessi orari", source: UPS_CONTACT, checked: ON_24, shownAs: "plain" },
+      { number: "+39 0248270032", purpose: "Assistenza Tecnica, lunedì-venerdì 8:30-18:00", source: UPS_CONTACT, checked: ON_24 },
+      { number: "+39 02 45 28 11 00", purpose: "Assistenza su InfoNotice, lunedì-venerdì 8:00-19:00, sabato 8:30-13:00", source: UPS_CONTACT, checked: ON_24 },
+    ],
     smsSenders: [],
-    rules: [],
+    rules: [
+      { quote: "UPS non chiede pagamenti, informazioni personali o finanziarie, numeri di conto, ID, password o copie delle fatture attraverso e-mail, posta, telefono, fax o, in particolare, in cambio del trasporto di merci o di servizi.", source: UPS_FRAUD, checked: ON_24 },
+      { quote: "Alcune comunicazioni UPS legittime potrebbero essere inviate tramite email con un collegamento “eparcel” all’interno dell’email. […] il collegamento associato comincia sempre con https://ftp2.ups.com.", source: UPS_FRAUD, checked: ON_24 },
+    ],
     reviewNotes: [
-      "UPS's site refused automated reading (\"Access Denied\" on every page). The only evidence for ups.com is that www.ups.it redirects to https://www.ups.com/it/it/Home.page. Please confirm in a normal browser, and look for phone numbers and an anti-fraud page there: https://www.ups.com/it/it/support/contact-us.page and https://www.ups.com/it/it/support/shipping-support/legal-terms-conditions/fight-fraud",
+      "UPS's site refuses automated reading (\"Access Denied\" on every page), so the contact and fraud pages were read by hand in a browser on 2026-11-24. The fraud page calls www.ups.com \"l'indirizzo web legittimo\"; the Italian home page is https://www.ups.com/it/it/home.",
+      "Shown: 800 877 877 as \"numero verde\" and +39 02 30 30 30 39 with no label, both printed under \"Assistenza clienti\". The page doesn't say whether the 800 number works from mobiles, or what the Milan number costs.",
+      "requestsPaymentByMessage is not set: UPS says it doesn't ask for payment by email, post, phone or fax. So a UPS message asking for money stays 🔴 even when its link is on ups.com.",
+      "The fraud page gives www.unitedparcelservices.com as an example of an altered address. Not added to knownFakeDomains: it is an example, not a list of sites used in scams. The contact emails (custsvcitit@ups.com, itfcr@ups.com) are on ups.com.",
       "Listed mainly so real UPS tracking links on ups.com aren't taken for fakes (after review they also stop counting as \"open a link\"), and so look-alikes such as ups-consegna.top are caught.",
       "\"ups\" is short: it only matches a whole part of a site name (backups.com doesn't count) and a whole word in a message.",
     ],
@@ -614,13 +635,18 @@ export const ORGANISATIONS: Organisation[] = [
     type: "other",
     names: ["paypal"],
     brandWords: ["paypal"],
-    officialDomains: [{ domain: "paypal.com", source: "https://www.paypal.com/it/home/", checked: ON_11 }],
+    officialDomains: [{ domain: "paypal.com", source: "https://www.paypal.com/it/home", checked: ON_24 }],
     phones: [],
     smsSenders: [],
-    rules: [],
+    rules: [
+      { quote: "I messaggi inviati da PayPal riportano sempre il nome e cognome indicati sul tuo conto PayPal.", source: PAYPAL_FAKE_MESSAGES, checked: ON_24 },
+      { quote: "Dati del conto, password o codici di convalida sono riservati esclusivamente a te. Nemmeno un rappresentante dell'Assistenza clienti dovrebbe chiederteli.", source: PAYPAL_FAKE_MESSAGES, checked: ON_24 },
+      { quote: "Contatta PayPal solo tramite la pagina Contatti nella sezione Aiuto.", source: PAYPAL_FAKE_MESSAGES, checked: ON_24 },
+    ],
     reviewNotes: [
-      "PayPal's site refused automated reading (HTTP 403 on every page). The only evidence for paypal.com is that www.paypal.it redirects to https://www.paypal.com/it/home/. Please confirm in a normal browser: https://www.paypal.com/it/security/learn-about-fake-messages and https://www.paypal.com/it/smarthelp/contact-us",
-      "Leads to verify, not facts: an article on PayPal's Italian newsroom (newsroom.it.paypal-corp.com/blog?item=12, dated 9 April 2020) says \"PayPal non ti chiederà mai di fornire la tua password, i numeri di carta di credito, i numeri di conto bancario, … tramite SMS o e-mail\" and that its emails always use your name and surname. It isn't on paypal.com and may be outdated, so it isn't used.",
+      "PayPal's site refuses automated reading (HTTP 403 on every page), so the fake-messages and contact pages were read by hand in a browser on 2026-11-24, at https://www.paypal.com/it/home and below it. No page read states the domain in its text, or the domains PayPal's emails come from.",
+      "The contact page prints no phone number: only a chat and a list of help topics. So \"What to do\" keeps the general advice.",
+      "The same page warns that the caller's name proves nothing: \"Solo perché riporta \"PayPal\" non significa necessariamente che la chiamata provenga da noi.\"",
       "Look-alikes such as paypa1-secure.com are caught (1 is read as l).",
     ],
     reviewed: null,
@@ -1161,6 +1187,7 @@ export const ORGANISATIONS: Organisation[] = [
     reviewNotes: [
       "www.mooney.it, mooney.it, its documents under mooney.it/cms, www.mymooney.it and www.mooneygo.it all answered HTTP 403 to automated reading on 2026-11-11. So no phone numbers, SMS senders, rules or payment-by-message statement could be collected. Only the group site mooneygroup.it could be read.",
       "Third-party sites give 800 005 005 (from abroad +39 02 30458205) as Mooney's customer service. It is not verified and not listed: please check it on mooney.it.",
+      "2026-11-24: mooney.it's security guide was read by hand in a browser. It is general advice on phishing, smishing and vishing: no \"Mooney never asks\" sentence, no phone number and no SMS sender, so nothing was added. The contacts page (https://www.mooney.it/about/contatti) wasn't read, so the customer number is still unconfirmed. The same day mooneygroup.it was read again: it links to www.mooney.it, www.mymooney.it and www.mooneygo.it.",
       "Domains come from the \"I siti del gruppo\" footer of mooneygroup.it (\"© Mooney S.p.A.\"). easycassa.it and pluservice.net (business services) are left out. A whistleblowing pop-up on the same site lists sisalpay.it labelled \"MOONEY\", bill.it and rivenditorisisalpay.it: also left out. sisalpay.it was the earlier brand, so it may be worth adding.",
       "mooneygo.it is MooneyGo (tolls, parking, mobility), a group brand. It is included so its links count as official. Drop it if this entry should cover only payments and cards.",
       "The contacts page (https://mooneygroup.it/contatti/) gives only email addresses: media@mooney.it, richiestaautorita@mooney.it and richiesteautorita@pec.mooney.it. All are under mooney.it.",

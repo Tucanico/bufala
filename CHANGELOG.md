@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 16:20 — chore(data): UniCredit, Amazon, UPS and PayPal read by hand, their entries updated
+
+These sites refuse automated reading, so on 2026-11-20 nothing in their entries could be checked again. Jacopo opened their pages in a browser and pasted the text, and each fact was compared with it. UniCredit: every number and sentence matched; added the abroad numbers for Private Banking, buddy cards and digital wallets, the "never asks you to make transfers to keep your money safe" line, and the rule on its emails (your name, your branch, never asks for data or codes). Business and corporate lines, and block numbers of cards other companies issue, are left out. Amazon: the three domains, the absence of a phone number and the meaning of its four rules are confirmed; the pages showed in English, so the Italian wording stays as read on 2026-11-07. UPS had only a domain: it now has 800 877 877 (shown as "numero verde") and +39 02 30 30 30 39 (shown without a label), two more lines, and two rules, including that UPS doesn't ask for payment or personal data by email, post, phone or fax. PayPal had only a domain: it now has three rules (its messages always carry your name and surname; not even customer service should ask for account data, passwords or codes; contact it only through its Contatti page). Its contact page prints no phone number. Mooney's security guide has nothing to quote, and its customer number is still unconfirmed; its group site was read again and links to its three other sites. None of the five is reviewed yet: that waits for approval.
+
 ## 2026-11-24 15:15 — chore(data): BNL reviewed
 
 Approved by Jacopo Lombardo after its facts were checked on bnl.it the same day (entry 13:49). A message about BNL now shows 060.060 as "servizio clienti", and links to bnl.it, infobnl.it or bnlmail.com and calls to its listed numbers no longer count as warning signs. 26 of 31 organisations are reviewed.
+
+454cd3f
 
 ## 2026-11-24 13:49 — feat(check): words in disguised letters give 🔴, BNL is organisation 31, and the email converter shows what a phone shows
 
