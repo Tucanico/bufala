@@ -144,6 +144,7 @@ test("numbers added from the hand checks of 2026-11-24 count as official", () =>
   for (const [text, id] of [
     ["Edison: per assistenza chiama da cellulare lo 02 8251 8251", "edison"],
     ["UPS: per informazioni sul pacco chiama l'800 877 877", "ups"],
+    ["WINDTRE: per segnalare una truffa chiama il numero verde 800.900.134", "windtre"],
     ["Banca Mediolanum: per bloccare la carta chiama l'800 822 056", "mediolanum"],
     ["Banca Mediolanum: dall'estero chiama il +39 02 349 800 20", "mediolanum"],
     ["UniCredit: per bloccare la carta buddy dall'estero chiama il +39 02 86814900", "unicredit"],

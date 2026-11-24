@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 17:10 — chore(data): WindTre's last gap closed
+
+Jacopo opened the two notices listed on WindTre's "WINDTRE Informa" page and pasted them. "Informati e Sicuri" gives a toll-free line for all customers, 800.900.134, for SIMs or contracts they didn't ask for and for phishing: it is listed, recognised but not shown. The same notice says the SMS about "punti in scadenza" that seem to come from WINDTRE are not its own: quoted as a rule. Neither notice names an SMS sender or has a "never asks" sentence. The "Pagina di Sicurezza" notice says WindTre sends a one-time code by SMS when a customer buys a paid extra service and asks for it, so a WindTre SMS with a code can be genuine: noted on the entry. With this, no reviewed organisation has a page left to read by hand, and that item is out of the TODO.
+
 ## 2026-11-24 17:04 — fix(check): a phone number with a dot or dash after +39 is recognised
 
 UniCredit prints its numbers from abroad as "+39.02.33408973". The number finder allowed only a space between the country code and the first digit, so with a dot or dash there the code couldn't attach, and the rest was refused as the tail of a longer number: the whole number was missed. A genuine message quoting such a number was then never matched to its organisation, so "asks you to call a number" couldn't be lifted. The pattern in `phones.ts` now allows a space, dot or dash after +39 or 0039. Tests: both written forms are found, "+39.99%" is not a number, and UniCredit's own form now counts as its official number. No test message, made-up or real, contains such a number, so the paid sets can't change.
+
+2ffcf26
 
 ## 2026-11-24 17:01 — chore(data): three gaps in reviewed organisations closed from pages read by hand
 

@@ -69,6 +69,7 @@ const GLS_MISUSE = "https://gls-group.com/IT/it/misuse-gls-brand-fraud/";
 const GLS_FAQ = "https://gls-group.com/IT/it/faq/";
 
 const WINDTRE_CHARTER = "https://www.windtre.it/Document/footer/carta-servizi-obiettivi-qualita/2026/CdS-W3-marzo-2026.pdf";
+const WINDTRE_INFORMA = "https://www.windtre.it/windtre-informa";
 const ILIAD_CONTACTS = "https://assistenza.iliad.it/privati/mobile/supporto/numero-servizio-clienti-e-contatti-ufficiali";
 const FASTWEB_CHANNELS = "https://www.fastweb.it/adsl-fibra-ottica/info-canali-assistenza/";
 const FASTWEB_HELP = "https://www.fastweb.it/myfastweb/assistenza/guide/come-richiedere-assistenza/";
@@ -664,15 +665,18 @@ export const ORGANISATIONS: Organisation[] = [
     ],
     phones: [
       { number: "159", purpose: "Customer Care clienti Consumer e Professional, operatore tutti i giorni 8.00-22.00, gratuito per tutti", source: WINDTRE_CHARTER, checked: ON_11, shownAs: "free" },
+      { number: "800.900.134", purpose: "Numero verde dedicato \"Informati e Sicuri\", per tutti i clienti in abbonamento o prepagati: disconoscimenti di SIM o contratti non richiesti (team frodi) e phishing", source: WINDTRE_INFORMA, checked: ON_24 },
     ],
     smsSenders: [],
     rules: [
       { quote: "manterranno i contatti con i Clienti attraverso diverse modalità: chiamata telefonica APP WINDTRE e WINDTRE BUSINESS comunicazioni via mail o PEC.", source: WINDTRE_CHARTER, checked: ON_11 },
+      { quote: "è attualmente in corso un’attività fraudolenta operata attraverso l’invio di SMS apparentemente inviati da WINDTRE, relativi a presunti “punti in scadenza”. ATTENZIONE: si tratta di comunicazioni completamente estranee a WINDTRE, non inviate attraverso i propri sistemi né originate dalla propria rete.", source: WINDTRE_INFORMA, checked: ON_24 },
     ],
     reviewNotes: [
       "WindTre's web pages block automated visitors (they redirect to a bot check on validate.perfdrive.com, not followed), so only the service charter PDF (March 2026) was read by tool. Its page on unwanted calls and SMS (https://www.windtre.it/chiamate-sms-indesiderati) was read by hand in a browser on 2026-11-24: it describes phishing, smishing, vishing and spoofing in general terms, with no SMS sender name and no \"WINDTRE never asks\" sentence, so nothing was added from it.",
       "The same page has a \"Verifica il numero di telefono\" box that says whether a number that called you is one of WindTre's operators. It could be pointed to in the advice.",
-      "Not read yet: two notices listed on https://www.windtre.it/windtre-informa, \"Informati e Sicuri: numero verde dedicato 800.900.134 e info su ricezione contenuti fraudolenti\" and \"Pagina di Sicurezza 'Verificato da WINDTRE'\". 800.900.134 is not listed until its notice is read.",
+      "Two notices listed on https://www.windtre.it/windtre-informa were read by hand in a browser on 2026-11-24. Their own addresses weren't noted, so the list page, whose title prints the number, is the source. \"Informati e Sicuri\" gives 800.900.134: listed, unshown. It warns about fake SMS on \"punti in scadenza\", fake courier SMS, messages promising gifts and calls that seem to come from banks, but names no SMS sender and has no \"WINDTRE never asks\" sentence.",
+      "\"Pagina di Sicurezza 'Verificato da WINDTRE'\": when a customer buys a paid extra service (VAS), a WINDTRE-branded page asks for their number and a one-time code, which WindTre sends by SMS after they press \"Richiedi codice di sicurezza\". So a WindTre SMS carrying a code can be genuine, but only right after the customer asked for it.",
       "159 is free \"per tutti, Clienti e non\", except from abroad. The charter doesn't say mobile or landline; labelled just \"gratis\".",
       "\"wind\" alone is not in names: it is an ordinary English word.",
     ],
