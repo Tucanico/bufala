@@ -847,7 +847,7 @@ export const ORGANISATIONS: Organisation[] = [
       "\"bnl\" is 3 letters, so it only matches as a whole part of a site name: bnl-sicurezza.com is caught, bnlbanking.com or mybnl.it are not. infobnl and bnlmail match anywhere.",
       "No page names BNL's SMS sender. requestsPaymentByMessage is not set: the pages only warn against payment requests by message.",
     ],
-    reviewed: null,
+    reviewed: { by: "Jacopo Lombardo", on: ON_24 },
   },
   {
     id: "hera",

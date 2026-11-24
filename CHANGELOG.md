@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-24 15:15 — chore(data): BNL reviewed
+
+Approved by Jacopo Lombardo after its facts were checked on bnl.it the same day (entry 13:49). A message about BNL now shows 060.060 as "servizio clienti", and links to bnl.it, infobnl.it or bnlmail.com and calls to its listed numbers no longer count as warning signs. 26 of 31 organisations are reviewed.
+
 ## 2026-11-24 13:49 — feat(check): words in disguised letters give 🔴, BNL is organisation 31, and the email converter shows what a phone shows
 
 The first real phishing emails (`evals/real/`, 2026-11-24) showed three things.
@@ -9,6 +13,8 @@ A BNL phishing email wrote "ВNL-Confermа dі sіcurezzа" with Cyrillic letter
 BNL wasn't among the organisations. Its entry (`bnl`, a bank) has bnl.it, the two domains its emails come from (infobnl.it, bnlmail.com), five customer numbers with 060.060 shown as "servizio clienti", and five "never asks" sentences, all from bnl.it and checked again on the two source pages today. It is not reviewed yet, so it adds warnings but shows no number. A test checks that the real email's subject is recognised as BNL and gets the new sign.
 
 The email converter (`evals/email-case.ts`) now: takes your own addresses from `private.json` ("me"), since one email's recipient was the scammer's decoy and two had you only as a hidden copy; counts the app's 4,000-character cut on visible text only, so long tracking links no longer push the message out; and leaves out what a phone wouldn't show. Two first attempts at that were wrong and caught on the real emails: dropping every inline-hidden block also dropped a phone-only "Rispondi" button and profile cards that a `@media (max-width: 600px)` rule shows, and `font-size:0` turned out to be a layout trick, not hiding. It now applies the general and narrow-screen style rules, a narrow-screen rule deciding first, so it keeps the phone layout, drops the computer copy and the inbox preview lines, and ignores `mso-hide:all` (desktop Outlook only). With those fixes, the paid run of the 7 real emails (21 calls) gave 7 of 7 as expected: 🔴 for the BNL email, the three casino offers and the decoy dating email, 🔴 in 2 of 3 runs for one dating email, 🟠 for the other. Also: the developer doc lists the two test files added on 2026-11-20 and 2026-11-24 for the converter and read-aloud.
+
+279fa23
 
 ## 2026-11-24 13:15 — chore(site): "Come funziona" mentions "Ascolta la risposta"
 
