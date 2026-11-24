@@ -1,8 +1,20 @@
 # Changelog
 
+## 2026-11-24 13:49 — feat(check): words in disguised letters give 🔴, BNL is organisation 31, and the email converter shows what a phone shows
+
+The first real phishing emails (`evals/real/`, 2026-11-24) showed three things.
+
+A BNL phishing email wrote "ВNL-Confermа dі sіcurezzа" with Cyrillic letters that look Latin, a trick to pose as a brand while slipping past filters. Our own code now finds a word that mixes Latin letters with Cyrillic or Greek ones (`facts.ts`) and adds a new sign, "letters from another alphabet", which gives 🔴 on its own (decided today: in an Italian message it is almost never innocent). Words wholly in another alphabet, accented letters and emoji don't count; none of the 55 made-up test messages contains such letters, so their results can't change. Name matching folds Cyrillic and Greek capitals too (`links.ts`): before, "В" became "в" in lower case and no longer looked like "b", so "ВNL" wasn't BNL.
+
+BNL wasn't among the organisations. Its entry (`bnl`, a bank) has bnl.it, the two domains its emails come from (infobnl.it, bnlmail.com), five customer numbers with 060.060 shown as "servizio clienti", and five "never asks" sentences, all from bnl.it and checked again on the two source pages today. It is not reviewed yet, so it adds warnings but shows no number. A test checks that the real email's subject is recognised as BNL and gets the new sign.
+
+The email converter (`evals/email-case.ts`) now: takes your own addresses from `private.json` ("me"), since one email's recipient was the scammer's decoy and two had you only as a hidden copy; counts the app's 4,000-character cut on visible text only, so long tracking links no longer push the message out; and leaves out what a phone wouldn't show. Two first attempts at that were wrong and caught on the real emails: dropping every inline-hidden block also dropped a phone-only "Rispondi" button and profile cards that a `@media (max-width: 600px)` rule shows, and `font-size:0` turned out to be a layout trick, not hiding. It now applies the general and narrow-screen style rules, a narrow-screen rule deciding first, so it keeps the phone layout, drops the computer copy and the inbox preview lines, and ignores `mso-hide:all` (desktop Outlook only). With those fixes, the paid run of the 7 real emails (21 calls) gave 7 of 7 as expected: 🔴 for the BNL email, the three casino offers and the decoy dating email, 🔴 in 2 of 3 runs for one dating email, 🟠 for the other. Also: the developer doc lists the two test files added on 2026-11-20 and 2026-11-24 for the converter and read-aloud.
+
 ## 2026-11-24 13:15 — chore(site): "Come funziona" mentions "Ascolta la risposta"
 
 Nothing on the page said the button exists. Step 4 of "Come controllare un messaggio" now ends "Se preferisci ascoltarla, premi «Ascolta la risposta»" (in English, "If you'd rather hear it, press “Listen to the answer”"). Seen at 1280 and 320 px; no sideways scroll at 390.
+
+1923549
 
 ## 2026-11-24 12:59 — feat(result): "Ascolta la risposta" reads the answer out loud
 

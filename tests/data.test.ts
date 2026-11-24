@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import { ORGANISATIONS } from "../src/data/organisations";
 import { PREMIUM_PREFIXES } from "../src/data/phone-prefixes";
+import { findFacts } from "../src/lib/check/facts";
 import { classifyHost, isOfficialHost } from "../src/lib/check/links";
 
 const byId = Object.fromEntries(ORGANISATIONS.map((organisation) => [organisation.id, organisation]));
@@ -129,4 +130,12 @@ test("a domain Agenzia delle Entrate declares fake is its look-alike, even witho
     expect(kind.kind, host).toBe("lookalike");
     expect(kind.kind === "lookalike" && kind.organisation.id, host).toBe("agenzia-entrate");
   }
+});
+
+test("a message naming BNL in disguised letters is about BNL, with a high-risk sign", () => {
+  // The subject of a real BNL phishing email (2026-11-24): Cyrillic В, а, і.
+  const found = findFacts("Re: ВNL-Confermа dі sіcurezzа e аccesso all'аreа Clіentі");
+  expect(found.organisation?.id).toBe("bnl");
+  expect(found.addSigns).toContain("mixed_alphabets");
+  expect(classifyHost("bnl-sicurezza.com", ORGANISATIONS)).toMatchObject({ kind: "lookalike", organisation: byId.bnl });
 });

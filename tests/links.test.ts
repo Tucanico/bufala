@@ -46,3 +46,9 @@ test("folding treats swapped letters and digits as the same", () => {
   expect(foldConfusables("paypa1")).toBe("paypal");
   expect(foldConfusables("rnicrosoft")).toBe("microsoft");
 });
+
+test("Cyrillic and Greek capitals fold to the Latin letters they look like", () => {
+  // From a real BNL phishing email: Cyrillic В, а, і.
+  expect(foldConfusables("ВNL-Confermа dі sіcurezzа")).toBe("bnl-conferma di sicurezza");
+  expect(foldConfusables("ΤΙΜ")).toBe("tim");
+});

@@ -43,7 +43,7 @@ const PRIVATE = ["+39 333 123 4567", "Via Garibaldi 12"];
 
 describe("emailToCase", () => {
   test("shows sender, subject and the HTML body with each link's address", async () => {
-    const { case: c } = await emailToCase(eml(PHISHING), "real-poste", PRIVATE);
+    const { case: c } = await emailToCase(eml(PHISHING), "real-poste", { replace: PRIVATE });
     expect(c.text.startsWith("Da: Poste Italiane <no-reply@poste-verifica.top>\nOggetto: Il suo conto è sospeso\n\n")).toBe(true);
     expect(c.text).toContain("il suo conto è sospeso");
     expect(c.text).toContain("https://poste-verifica.top/login");
@@ -54,7 +54,7 @@ describe("emailToCase", () => {
   });
 
   test("replaces the recipient's name, addresses and private details", async () => {
-    const { case: c } = await emailToCase(eml(PHISHING), "real-poste", PRIVATE);
+    const { case: c } = await emailToCase(eml(PHISHING), "real-poste", { replace: PRIVATE });
     for (const personal of ["giulia", "bianchi", "%40example.org", "333 123 4567", "333.123.4567", "via garibaldi"]) {
       expect(c.text.toLowerCase()).not.toContain(personal);
     }
@@ -73,5 +73,50 @@ describe("emailToCase", () => {
     const { case: c, notes } = await emailToCase(eml(long), "real-long");
     expect(c.text).toHaveLength(MAX_MESSAGE_LENGTH);
     expect(notes.some((note) => note.startsWith("cut from"))).toBe(true);
+  });
+
+  test("only the visible text counts towards the cut; long link addresses don't", async () => {
+    const longLink = `https://track.example.top/${"x".repeat(2000)}`;
+    const html = `<p>${"Testo. ".repeat(500)}</p><p><a href="${longLink}">Clicca qui</a></p>`;
+    const { case: c, notes } = await emailToCase(eml(html), "real-long-link");
+    expect(c.text).toContain(`Clicca qui (${longLink})`);
+    expect(notes.some((note) => note.startsWith("cut from"))).toBe(false);
+  });
+
+  test("leaves out text hidden from the reader, and says so", async () => {
+    const html =
+      `<div style="display:none;max-height:0;overflow:hidden">PREVIEW FILLER <div>nested</div></div>` +
+      `<p>Testo visibile.</p><span style="opacity:0">zero</span><img style="display: none" src="x.png">` +
+      `<div style="font-size:0;line-height:0"><span style="font-size:14px">Profilo visibile</span></div>`;
+    const { case: c, notes } = await emailToCase(eml(html), "real-hidden");
+    expect(c.text).toContain("Testo visibile.");
+    // font-size:0 is a layout trick: what's inside sets its own size.
+    expect(c.text).toContain("Profilo visibile");
+    expect(c.text).not.toMatch(/PREVIEW|nested|zero/);
+    expect(notes).toContain("3 hidden block(s) left out");
+  });
+
+  test("shows what a phone shows: the phone layout, not the computer one, and blocks hidden only in Outlook", async () => {
+    const html =
+      `<style>.desk { display: block; } @media screen and (min-width:601px) { .m-hd { display: none; } }` +
+      ` @media screen and (max-width:600px) { .m-h { display: none !important; } .m-hd { display: block !important; } }</style>` +
+      `<a class="m-hd" style="display:none;max-height:0;overflow:hidden" href="https://dating.example.top/r">Rispondi al suo messaggio</a>` +
+      `<div style="mso-hide:all">Solo fuori da Outlook</div><p class="m-h desk">Copia per computer</p>`;
+    const { case: c, notes } = await emailToCase(eml(html), "real-phone-only");
+    expect(c.text).toContain("Rispondi al suo messaggio (https://dating.example.top/r)");
+    expect(c.text).toContain("Solo fuori da Outlook");
+    expect(c.text).not.toContain("Copia per computer");
+    expect(notes).toContain("1 hidden block(s) left out");
+  });
+
+  test("with your own addresses given, a decoy recipient and sender stay as they are", async () => {
+    const decoy = eml(PHISHING)
+      .replace(`From: "Poste Italiane" <no-reply@poste-verifica.top>`, `From: "Chloe Neri" <chloe.neri@example.net>`)
+      .replace(`To: "Giulia Bianchi" <${ADDRESS}>`, `To: "Chloe Neri" <chloe.neri@example.net>`);
+    const { case: c } = await emailToCase(decoy, "real-decoy", { me: [ADDRESS] });
+    expect(c.text.startsWith("Da: Chloe Neri <chloe.neri@example.net>\n")).toBe(true);
+    // Your address in the body and the links is still replaced.
+    expect(c.text.toLowerCase()).not.toContain("giulia.bianchi");
+    expect(c.text).toContain("mario.rossi@example.com");
   });
 });

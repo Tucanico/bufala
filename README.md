@@ -34,7 +34,7 @@ Open http://localhost:3000. Italian is served at `/` and English at `/en`. A bro
 | `npm test` | Unit tests (Vitest) |
 | `npm run e2e` | Browser tests (Playwright): builds the app, then checks every page and answer at computer and phone size, in light and dark, including automatic accessibility checks (axe). Free: answers are faked, nothing goes to Mistral. Uses the installed Google Chrome |
 | `npm run eval` | Run the made-up messages in `evals/` through Mistral and list mismatches. Paid: 165 calls, about €0.05 a run (`npm run eval -- -t held-` runs only some cases); needs the key in `.env.local`. Results also go to `evals/last-run.txt` |
-| `npm run eval:import` | Turn the real emails saved as `.eml` in `evals/real/` (gitignored) into test cases in `evals/real/cases.json`, with the recipient's name and addresses replaced; more to hide goes in `evals/real/private.json` as `{ "replace": [...] }`. Free, nothing leaves the computer. Read the cases before running them |
+| `npm run eval:import` | Turn the real emails saved as `.eml` in `evals/real/` (gitignored) into test cases in `evals/real/cases.json`, with your name and addresses replaced. `evals/real/private.json` lists your own addresses and anything else to hide, as `{ "me": [...], "replace": [...] }`; without "me", every recipient is taken for you. Free, nothing leaves the computer. Read the cases before running them |
 | `npm run eval:real` | Run those cases through Mistral, like `npm run eval`. Paid: 3 calls per email. Results go to `evals/real/last-run.txt` |
 
 ## Deploying on Vercel

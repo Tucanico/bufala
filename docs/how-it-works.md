@@ -31,7 +31,7 @@ For developers. Last updated 2026-11-13. The product reasons behind these choice
 
 | Finding | Effect | Needs a reviewed entry? |
 |---|---|---|
-| A link or email domain borrows an organisation's brand word but isn't its official domain ([links.ts](../src/lib/check/links.ts)). Look-alike letters are folded first: `0`/`o`, `1`/`l`, Cyrillic and Greek look-alikes (through punycode), `rn`/`m`. Brand words under 5 letters must be a whole part of the name. | adds "look-alike link" (high risk: 🔴) | no |
+| A link or email domain borrows an organisation's brand word but isn't its official domain ([links.ts](../src/lib/check/links.ts)). Look-alike letters are folded first: `0`/`o`, `1`/`l`, Cyrillic and Greek look-alikes (through punycode), `rn`/`m`. Brand words under 5 letters must be a whole part of the name. Organisation names in the text are matched after the same folding, Cyrillic and Greek capitals included, so "ВNL" is BNL. | adds "look-alike link" (high risk: 🔴) | no |
 | A link or email domain the organisation itself declares fake (`knownFakeDomains`: Agenzia delle Entrate's 63), or a subdomain of one | adds "look-alike link" (high risk: 🔴), naming that organisation | no |
 | A linked site we know nothing about that Google's Web Risk lists as phishing, malware or unwanted software ([web-risk.ts](../src/lib/check/web-risk.ts)): Lookup API only, the link sent without what follows `?` or `#`, at most three links, only answers still valid. Off without `WEB_RISK_API_KEY`. The answer then shows "Advisory provided by Google" and a learn-more link per threat, as Google requires | adds "dangerous link" (high risk: 🔴) | no |
 | A link shortener (`bit.ly`, `tinyurl.com`, …) | adds "shortened link" | no |
@@ -39,6 +39,7 @@ For developers. Last updated 2026-11-13. The product reasons behind these choice
 | An is.gd link that is.gd says it has switched off ("disabled. It may have been used abusively or in violation of our terms"), from the same lookup. A link that doesn't exist, or any other answer, adds nothing | adds "short link switched off" (high risk: 🔴) | no |
 | A linked site we know nothing about (not official, not a shortener or look-alike) registered under 30 days ago, from its registry's RDAP service ([domain-age.ts](../src/lib/check/domain-age.ts)). Only the site name is sent, asked at the same time as the model; endings without RDAP (.it today) are skipped, and a failed or slow lookup counts as not new | adds "site created days ago" | no |
 | A number starting with a premium-rate prefix (892, 893, 894, 895, 899, from AGCOM's numbering plan) ([phones.ts](../src/lib/check/phones.ts)). Runs of 8 to 11 digits count; a shorter 89x number counts only a few words after a calling word ("chiama il 892 424"), so one-time codes, amounts and dates don't | adds "premium-rate number" (high risk: 🔴) | no |
+| A word mixing Latin letters with Cyrillic or Greek ones that look the same ("ВNL", "Bаncа", from a real phishing email) ([facts.ts](../src/lib/check/facts.ts)). A word wholly in another alphabet, accented letters and emoji don't count | adds "letters from another alphabet" (high risk: 🔴) | no |
 | Every link is on a reviewed organisation's official domain | removes the model's "open a link" sign | yes |
 | Every number is a reviewed organisation's official number | removes the model's "call this number" sign | yes |
 | The message is about a reviewed organisation that says it asks for payment by message (DHL, Telepass), and every link goes to its own site | a payment request alone gives at most 🟠, with a line telling people to check on its site first; any other high-risk sign still gives 🔴 | yes |
@@ -58,7 +59,7 @@ Then:
 
 | Signs | Verdict |
 |---|---|
-| any of: link Google lists as dangerous, look-alike link, short link switched off, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
+| any of: link Google lists as dangerous, look-alike link, short link switched off, letters from another alphabet, asks for a code, asks for payment, asks for personal data, install an app, relative on a new number, premium-rate number | 🔴 scam |
 | two or more of any kind | 🔴 scam |
 | exactly one | 🟠 suspicious |
 | none | ⚪ no warning signs |
@@ -96,10 +97,12 @@ Logs only ever contain the error type or HTTP status, never message text or imag
 | `tests/verdict.test.ts` | the verdict rules and the order of reasons |
 | `tests/schema.test.ts` | checking the model's reply |
 | `tests/mistral.test.ts` | the request (pinned model, quoted data, strict schema) and reply handling, with a fake `fetch` |
-| `tests/links.test.ts` | official, look-alike and shortened links, folding of look-alike letters |
+| `tests/links.test.ts` | official, look-alike and shortened links, folding of look-alike letters (capitals too) |
 | `tests/phones.test.ts` | finding numbers without catching codes, amounts, dates or card numbers; premium and official numbers |
-| `tests/facts.test.ts` | added and removed signs, the review rule, which organisation a message is about |
-| `tests/data.test.ts` | the real organisation list: every source on the organisation's own site, real-looking scam sites caught, real sites and ordinary words left alone |
+| `tests/facts.test.ts` | added and removed signs (words mixing alphabets included), the review rule, which organisation a message is about |
+| `tests/data.test.ts` | the real organisation list: every source on the organisation's own site, real-looking scam sites caught, real sites and ordinary words left alone, BNL named in disguised letters |
+| `tests/read-aloud.test.ts` | "Ascolta la risposta": choosing a voice that runs on the device, phone numbers read digit by digit |
+| `tests/email-case.test.ts` | turning a real email into a test case: what is shown, your details replaced, hidden blocks, the visible-text cut |
 | `tests/combine.test.ts` | the majority of three answers: outvoting a flip, no majority, reasons and sender |
 | `tests/analyse.test.ts` | the whole check with a fake model: three calls, majority, one failed call, and logs without message text |
 | `tests/screenshot.test.ts` | image checks, unreadable images, rejoined links |

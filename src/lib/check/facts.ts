@@ -49,6 +49,17 @@ function namedIn(text: string, organisations: Organisation[]): Organisation | nu
   return best?.organisation ?? null;
 }
 
+// A word mixing Latin letters with Cyrillic or Greek ones that look the same
+// ("ВNL", "Bаncа" in a real BNL phishing email, 2026-11-24): a trick to pose
+// as a brand while slipping past filters. A word wholly in another alphabet (a
+// Russian text) doesn't count, nor do accented letters, which are Latin.
+function mixesAlphabets(text: string): boolean {
+  for (const [word] of text.matchAll(/[\p{L}\p{M}]+/gu)) {
+    if (/\p{Script=Latin}/u.test(word) && /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(word)) return true;
+  }
+  return false;
+}
+
 export function findFacts(
   text: string,
   organisations: Organisation[] = ORGANISATIONS,
@@ -65,6 +76,7 @@ export function findFacts(
   if (lookalike) addSigns.add("lookalike_link");
   if (linkKinds.some((link) => link.kind === "shortened")) addSigns.add("shortened_link");
   if (numbers.some((number) => isPremium(number, premiumPrefixes))) addSigns.add("premium_number");
+  if (mixesAlphabets(text)) addSigns.add("mixed_alphabets");
 
   const removeSigns = new Set<WarningSign>();
   const allLinksOfficial =

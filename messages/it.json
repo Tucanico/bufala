@@ -223,6 +223,7 @@
       "lookalike_link": "Il link porta a un sito che imita quello di un'azienda nota, ma non è il suo sito ufficiale.",
       "disabled_link": "Il servizio che ha creato il link accorciato lo ha disattivato: lo fa con i link usati per truffe o altri abusi.",
       "premium_number": "Contiene un numero a pagamento: chiamarlo può costare molto.",
+      "mixed_alphabets": "Alcune parole usano lettere di un altro alfabeto travestite da lettere normali: è un trucco dei truffatori.",
       "shortened_link": "Contiene un link accorciato, che nasconde il sito a cui porta davvero.",
       "new_domain": "Il link porta a un sito creato da pochi giorni: i siti veri di banche e aziende esistono da anni.",
       "asks_for_code": "Chiede un codice, un PIN o una password. Banche e uffici non li chiedono mai per messaggio.",

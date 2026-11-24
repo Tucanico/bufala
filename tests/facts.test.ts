@@ -71,3 +71,15 @@ test("only sites we know nothing about are left for the age check", () => {
   const found = facts("Vai su poste.it, bit.ly/abc, poste-consegne.info e offerta-nuova.xyz");
   expect(found.unknownHosts).toEqual(["offerta-nuova.xyz"]);
 });
+
+test("a word mixing Latin letters with Cyrillic or Greek look-alikes adds a high-risk sign", () => {
+  // From a real BNL phishing email: Cyrillic В and а inside Latin words.
+  expect(facts("ВNL: conferma l'accesso all'аreа Clienti").addSigns).toContain("mixed_alphabets");
+  expect(facts("Il tuo cοdice è pronto").addSigns).toContain("mixed_alphabets");
+});
+
+test("accented letters, a word wholly in another alphabet and emoji don't count as mixed", () => {
+  for (const text of ["Città, perché è già così", "Привет, ci vediamo a Москва?", "Ciao 🐉💰 a presto"]) {
+    expect(facts(text).addSigns).not.toContain("mixed_alphabets");
+  }
+});

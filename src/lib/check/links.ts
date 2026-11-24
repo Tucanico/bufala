@@ -16,10 +16,21 @@ const CONFUSABLE: Record<string, string> = {
   "α": "a", "ο": "o", "ι": "i", "κ": "k", "ρ": "p", "τ": "t", "ν": "v",
 };
 
+// Cyrillic and Greek capitals that look like Latin ones, folded before lower
+// case: lower case they stop looking alike ("В" is "в"), so "ВNL" (a real BNL
+// phishing subject, 2026-11-24) would not fold to "bnl".
+const CAPITAL_CONFUSABLE: Record<string, string> = {
+  "А": "a", "В": "b", "Е": "e", "К": "k", "М": "m", "Н": "h", "О": "o", "Р": "p", "С": "c", "Т": "t",
+  "У": "y", "Х": "x", "І": "i", "Ј": "j", "Ѕ": "s",
+  "Α": "a", "Β": "b", "Ε": "e", "Ζ": "z", "Η": "h", "Ι": "i", "Κ": "k", "Μ": "m", "Ν": "n", "Ο": "o",
+  "Ρ": "p", "Τ": "t", "Υ": "y", "Χ": "x",
+};
+
 export function foldConfusables(text: string): string {
   let folded = "";
-  for (const char of text.toLowerCase().normalize("NFKD").replace(/\p{M}/gu, "")) {
-    folded += CONFUSABLE[char] ?? char;
+  for (const char of text.normalize("NFKD").replace(/\p{M}/gu, "")) {
+    const lower = char.toLowerCase();
+    folded += CAPITAL_CONFUSABLE[char] ?? CONFUSABLE[lower] ?? lower;
   }
   return folded.replace(/rn/g, "m").replace(/vv/g, "w");
 }

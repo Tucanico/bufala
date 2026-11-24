@@ -53,6 +53,7 @@ export const CHECK_SIGNS = [
   "dangerous_link",
   "lookalike_link",
   "disabled_link",
+  "mixed_alphabets",
   "premium_number",
   "shortened_link",
   "new_domain",
@@ -62,12 +63,14 @@ export type CheckSign = (typeof CHECK_SIGNS)[number];
 export type Sign = WarningSign | CheckSign;
 
 // Every sign, most telling first: the answer shows the first two that apply.
-// A link Google lists as dangerous leads, then a look-alike link and a short
-// link its shortener switched off: facts our code checked, not a reading.
+// A link Google lists as dangerous leads, then a look-alike link, a short link
+// its shortener switched off and words in disguised letters: facts our code
+// checked, not a reading.
 export const SIGN_ORDER: readonly Sign[] = [
   "dangerous_link",
   "lookalike_link",
   "disabled_link",
+  "mixed_alphabets",
   "asks_for_code",
   "asks_for_payment",
   "asks_for_personal_data",

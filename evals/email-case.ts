@@ -20,6 +20,11 @@ type Replacement = [pattern: RegExp, standIn: string];
 
 export type EmailCase = { case: EvalCase; notes: string[] };
 
+// `me`: your own addresses. Without it, every recipient is taken for you, which
+// is wrong when you were only a hidden copy (the scammer's decoy is in "To").
+// `replace`: anything else to hide, such as a phone number or a street.
+export type EmailOptions = { me?: string[]; replace?: string[] };
+
 function escape(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -61,13 +66,19 @@ function mailboxes(addresses: Address[] | undefined): Mailbox[] {
   return (addresses ?? []).flatMap((address) => (address.group ? address.group : [address]));
 }
 
-function personalReplacements(email: Email, privateStrings: string[]): Replacement[] {
+function personalReplacements(email: Email, { me = [], replace = [] }: EmailOptions): Replacement[] {
   const recipients = [...mailboxes(email.to), ...mailboxes(email.cc), ...mailboxes(email.bcc)];
+  const lower = (addresses: string[]) => addresses.map((a) => a.trim().toLowerCase()).filter(Boolean);
   const addresses = new Set(
-    [...recipients.map((m) => m.address), email.deliveredTo ?? ""].map((a) => a.toLowerCase()).filter(Boolean),
+    me.length > 0 ? lower(me) : lower([...recipients.map((m) => m.address), email.deliveredTo ?? ""]),
   );
+  // Only the names written next to your addresses, the sender's too when a
+  // scam is sent "from" you.
   const names = new Set(
-    recipients.map((m) => m.name.trim()).filter((name) => name && !name.includes("@")),
+    [...recipients, ...mailboxes(email.from ? [email.from] : [])]
+      .filter((m) => addresses.has(m.address.toLowerCase()))
+      .map((m) => m.name.trim())
+      .filter((name) => name && !name.includes("@")),
   );
 
   // Addresses first, then each full name before its parts, so the longer match wins.
@@ -82,7 +93,7 @@ function personalReplacements(email: Email, privateStrings: string[]): Replaceme
       if (part.length >= 3) replacements.push([wholeWord(part), i === 0 ? STAND_IN.first : STAND_IN.other]);
     });
   }
-  for (const extra of privateStrings.map((s) => s.trim()).filter(Boolean)) {
+  for (const extra of replace.map((s) => s.trim()).filter(Boolean)) {
     const phoneLike = /^[+\d\s().\/-]+$/.test(extra) && extra.replace(/\D/g, "").length >= 6;
     replacements.push([phoneLike ? loosePhone(extra) : new RegExp(escape(extra), "gi"), PRIVATE]);
   }
@@ -115,16 +126,97 @@ function decodeEntities(text: string): string {
   });
 }
 
+// Inline styles that hide an element from the reader: the preview line and
+// filler meant to fool spam filters are hidden this way. Not mso-hide:all (it
+// only hides in desktop Outlook) and not font-size:0 (a layout trick: the
+// blocks inside set their own size and show).
+const HIDDEN_STYLE = /(?:^|;)\s*(?:display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0(?:\.0+)?\s*(?:!important\s*)?(?:;|$))/i;
+const VOID_TAGS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
+
+// Whether each class is shown (true) or hidden (false) by the <style> rules a
+// phone applies: the general ones, and those for narrow screens (max-width).
+// Real emails (2026-11-24) hide their phone layout inline and show it under
+// max-width 600px with !important, while hiding the computer layout there.
+function phoneRules(html: string): { general: Map<string, boolean>; narrow: Map<string, boolean> } {
+  const general = new Map<string, boolean>();
+  const narrow = new Map<string, boolean>();
+  const media = /@media([^{]*)\{((?:[^{}]*\{[^{}]*\})*[^{}]*)\}/gi;
+  const apply = (css: string, into: Map<string, boolean>) => {
+    for (const [, selectors, declarations] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const display = declarations.match(/display\s*:\s*([a-z-]+)/i)?.[1].toLowerCase();
+      if (display) for (const [, name] of selectors.matchAll(/\.([\w-]+)/g)) into.set(name, display !== "none");
+    }
+  };
+  for (const [, css] of html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi)) {
+    apply(css.replace(media, " "), general);
+    for (const [, condition, rules] of css.matchAll(media)) {
+      if (/max-width/i.test(condition) && !/min-width/i.test(condition)) apply(rules, narrow);
+    }
+  }
+  return { general, narrow };
+}
+
+// Removes each element a phone wouldn't show, with everything inside it. A
+// narrow-screen rule decides first, then the inline style, then general rules.
+function dropHidden(html: string): { html: string; dropped: number } {
+  const rules = phoneRules(html);
+  const opening = /<([a-z][a-z0-9]*)\b([^>]*)>/gi;
+  let kept = "";
+  let from = 0;
+  let dropped = 0;
+  for (let match = opening.exec(html); match; match = opening.exec(html)) {
+    const style = match[2].match(/\bstyle\s*=\s*(["'])([\s\S]*?)\1/i)?.[2] ?? "";
+    const classes = match[2].match(/\bclass\s*=\s*(["'])([^"']*)\1/i)?.[2].split(/\s+/) ?? [];
+    const shownBy = (map: Map<string, boolean>) => {
+      const found = classes.map((name) => map.get(name)).filter((shown) => shown !== undefined);
+      return found.length > 0 ? found.includes(true) : undefined;
+    };
+    const narrow = shownBy(rules.narrow);
+    const hidden = narrow !== undefined ? !narrow : HIDDEN_STYLE.test(style) || shownBy(rules.general) === false;
+    if (!hidden) continue;
+    const tag = match[1].toLowerCase();
+    let end = match.index + match[0].length;
+    if (!VOID_TAGS.has(tag) && !match[0].endsWith("/>")) {
+      const sameTag = new RegExp(`<(/?)${tag}\\b[^>]*?(/?)>`, "gi");
+      sameTag.lastIndex = end;
+      end = html.length;
+      for (let depth = 1, next = sameTag.exec(html); next; next = sameTag.exec(html)) {
+        if (next[1]) depth--;
+        else if (!next[2]) depth++;
+        if (depth === 0) {
+          end = next.index + next[0].length;
+          break;
+        }
+      }
+    }
+    kept += html.slice(from, match.index);
+    from = end;
+    opening.lastIndex = end;
+    dropped++;
+  }
+  return { html: kept + html.slice(from), dropped };
+}
+
+// A link's address stands in the text as a placeholder (two private-use
+// characters around its number) until the text is cut, so only the visible
+// text counts towards the app's limit.
+const OPEN = String.fromCharCode(0xe000);
+const CLOSE = String.fromCharCode(0xe001);
+const LINK_MARK = new RegExp(`${OPEN}(\\d+)${CLOSE}`, "g");
+const LINK_PIECE = new RegExp(`(${OPEN}\\d+${CLOSE})`);
+
 // postal-mime leaves `text` empty for an HTML-only email and doesn't export its
 // own converter, so this one: tags out, each link's address kept after its text.
-function htmlToText(html: string): string {
+function htmlToText(html: string, links: string[]): string {
   const text = html
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<(script|style|head|title)\b[\s\S]*?<\/\1\s*>/gi, " ")
     .replace(/<a\b[^>]*?\bhref\s*=\s*(["'])([\s\S]*?)\1[^>]*>([\s\S]*?)<\/a\s*>/gi, (_, _quote, href: string, inner: string) => {
-      const target = href.trim();
-      const shown = inner.replace(/<[^>]+>/g, " ").trim();
-      return target.toLowerCase().startsWith("mailto:") || shown === target ? inner : `${inner} (${target})`;
+      const target = decodeEntities(href.trim());
+      const shown = decodeEntities(inner.replace(/<[^>]+>/g, " ").trim());
+      if (target.toLowerCase().startsWith("mailto:") || shown === target) return inner;
+      links.push(target);
+      return `${inner}${OPEN}${links.length - 1}${CLOSE}`;
     })
     .replace(/<br\b[^>]*>/gi, "\n")
     .replace(/<\/?(?:p|div|tr|li|ul|ol|table|h[1-6]|blockquote)\b[^>]*>/gi, "\n")
@@ -133,14 +225,31 @@ function htmlToText(html: string): string {
 }
 
 // The HTML part is what the person sees: a plain-text part can say something else.
-function bodyText(email: Email): string {
-  const text = email.html ? htmlToText(email.html) : (email.text ?? "");
-  return text
+function bodyText(email: Email): { text: string; links: string[]; hidden: number } {
+  const links: string[] = [];
+  const shown = email.html ? dropHidden(email.html) : { html: "", dropped: 0 };
+  const text = email.html ? htmlToText(shown.html, links) : (email.text ?? "");
+  const tidy = text
     .split("\n")
-    .map((line) => line.replace(/[ \t ]+/g, " ").trim())
+    .map((line) => line.replace(/[ \t\xa0]+/g, " ").trim())
     .join("\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+  return { text: tidy, links, hidden: shown.dropped };
+}
+
+// The first `max` visible characters, keeping the placeholders of the links they include.
+function cutVisible(text: string, max: number): string {
+  let kept = "";
+  let room = max;
+  for (const piece of text.split(LINK_PIECE)) {
+    if (piece.startsWith(OPEN)) kept += piece;
+    else if (room > 0) {
+      kept += piece.slice(0, room);
+      room -= Math.min(piece.length, room);
+    } else break;
+  }
+  return kept;
 }
 
 function sender(email: Email): string {
@@ -150,19 +259,23 @@ function sender(email: Email): string {
   return from.name ? `${from.name} <${from.address}>` : from.address;
 }
 
-export async function emailToCase(raw: string | Uint8Array, id: string, privateStrings: string[] = []): Promise<EmailCase> {
+export async function emailToCase(raw: string | Uint8Array, id: string, options: EmailOptions = {}): Promise<EmailCase> {
   const email = await PostalMime.parse(raw);
   const body = bodyText(email);
+  const replacements = personalReplacements(email, options);
   const notes: string[] = [];
 
-  const full = anonymise(
-    [`Da: ${sender(email)}`, `Oggetto: ${email.subject ?? ""}`, "", body].join("\n"),
-    personalReplacements(email, privateStrings),
+  const full = anonymise([`Da: ${sender(email)}`, `Oggetto: ${email.subject ?? ""}`, "", body.text].join("\n"), replacements);
+  // The same cut a paste gets in the app, counted on the visible text: a paste
+  // has no link addresses, and long tracking links would push the message out.
+  const visible = full.replace(LINK_MARK, "").length;
+  const text = cutVisible(full, MAX_MESSAGE_LENGTH).replace(
+    LINK_MARK,
+    (_, i: string) => ` (${anonymise(body.links[Number(i)], replacements)})`,
   );
-  // The same cut a paste gets in the app.
-  const text = full.slice(0, MAX_MESSAGE_LENGTH);
-  if (full.length > MAX_MESSAGE_LENGTH) notes.push(`cut from ${full.length} to ${MAX_MESSAGE_LENGTH} characters, as in the app`);
-  if (body.length < LITTLE_TEXT) notes.push("little text: the email may be mostly an image");
+  if (visible > MAX_MESSAGE_LENGTH) notes.push(`cut from ${visible} to ${MAX_MESSAGE_LENGTH} visible characters, as in the app`);
+  if (body.hidden > 0) notes.push(`${body.hidden} hidden block(s) left out`);
+  if (body.text.replace(LINK_MARK, "").length < LITTLE_TEXT) notes.push("little text: the email may be mostly an image");
   if (email.attachments.length > 0) notes.push(`${email.attachments.length} attachment(s), not checked`);
 
   return { case: { id, verdict: WARNING, text }, notes };

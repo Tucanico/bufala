@@ -223,6 +223,7 @@
       "lookalike_link": "The link goes to a site that imitates a well-known company's, but it isn't its official site.",
       "disabled_link": "The service that made the shortened link has switched it off, which it does with links used for scams or other abuse.",
       "premium_number": "It contains a premium-rate number: calling it can cost a lot.",
+      "mixed_alphabets": "Some words use letters from another alphabet disguised as ordinary ones: a scammers' trick.",
       "shortened_link": "It contains a shortened link, which hides the site it really goes to.",
       "new_domain": "The link goes to a site created only days ago: real banks' and companies' sites have been around for years.",
       "asks_for_code": "It asks for a code, a PIN or a password. Banks and public offices never ask for these by message.",

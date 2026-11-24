@@ -6,6 +6,7 @@ import type { Organisation } from "../lib/check/organisations";
 
 const ON = "2026-11-07";
 const ON_20 = "2026-11-20";
+const ON_24 = "2026-11-24";
 const REVIEWED = { by: "Jacopo Lombardo", on: ON_20 };
 
 const POSTE_CALL = "https://www.poste.it/assistenza/chiamaci";
@@ -80,6 +81,8 @@ const BANCOBPM_SHEET = "https://www.bancobpm.it/DWN/trasparenza/Documenti/64243.
 const BANCOBPM_ASSIST = "https://youweb.bancobpm.it/assistenza.html";
 const BANCOBPM_CARDS = "https://www.bancobpm.it/blocco-carte/";
 const BANCOBPM_STORNO = "https://www.bancobpm.it/magazine/privati/tutela-la-tua-sicurezza/come-riconoscere-proteggersi-truffa-storno/";
+const BNL_SECURITY = "https://bnl.it/it/Individui-e-Famiglie/BNL-Sicurezza";
+const BNL_CARDS = "https://bnl.it/it/Individui-e-Famiglie/Carte/Blocco-carte";
 const HERA_CONTACTS = "https://heracomm.gruppohera.it/contatti";
 const HERA_SAFE_NUMBERS = "https://heracomm.gruppohera.it/contatti/numeri-sicuri-hera";
 const A2A_CONTACTS = "https://www.a2a.it/assistenza/contatti";
@@ -807,6 +810,44 @@ export const ORGANISATIONS: Organisation[] = [
       "\"bpm\" alone is not a brand word: it would also match unrelated sites (beats per minute).",
     ],
     reviewed: REVIEWED,
+  },
+  {
+    id: "bnl",
+    name: "BNL",
+    type: "bank",
+    names: ["bnl", "banca nazionale del lavoro"],
+    brandWords: ["bnl", "infobnl", "bnlmail"],
+    officialDomains: [
+      { domain: "bnl.it", source: BNL_SECURITY, checked: ON_24 },
+      { domain: "infobnl.it", source: BNL_SECURITY, checked: ON_24 },
+      { domain: "bnlmail.com", source: BNL_SECURITY, checked: ON_24 },
+    ],
+    phones: [
+      { number: "060.060", purpose: "Assistenza Clienti e blocco carte (24 ore su 24, 7 giorni su 7), dall'Italia e dall'estero (scritto anche +39.060.060)", source: BNL_CARDS, checked: ON_24, shownAs: "customer_service" },
+      { number: "06.8882.9999", purpose: "Clienti Hello bank!, dall'Italia e dall'estero, lunedì-sabato 8:00-22:00", source: BNL_SECURITY, checked: ON_24 },
+      { number: "06.700.700", purpose: "Clienti Private Banking & Wealth Management, dall'Italia e dall'estero; blocco carte 24 ore su 24", source: BNL_SECURITY, checked: ON_24 },
+      { number: "06.8948.4444", purpose: "Clienti Business, dall'Italia e dall'estero", source: BNL_SECURITY, checked: ON_24 },
+      { number: "060.202", purpose: "Clienti Corporate, dall'Italia e dall'estero; blocco carte 24 ore su 24", source: BNL_SECURITY, checked: ON_24 },
+    ],
+    smsSenders: [],
+    rules: [
+      { quote: "Ricorda che BNL non ti chiederà mai questi dati, chiamandoti al telefono o tramite SMS o email.", source: BNL_SECURITY, checked: ON_24 },
+      { quote: "nessun operatore BNL ti chiederà mai i tuoi dati di accesso (Codice Cliente e PIN) o i numeri delle tue carte di pagamento (PIN e cvc2/cvv2)", source: BNL_SECURITY, checked: ON_24 },
+      { quote: "Ricorda che noi di BNL non ti chiederemo mai, in nessun caso, il PIN della tua carta di debito, di credito o prepagata.", source: BNL_SECURITY, checked: ON_24 },
+      { quote: "le mail inviate da BNL non contengono mai link a pagine o applicazioni esterne in cui sia richiesto di inserire le tue credenziali di accesso o i tuoi dati sensibili.", source: BNL_SECURITY, checked: ON_24 },
+      { quote: "Gli operatori BNL non ti chiederanno mai tali dati.", source: BNL_SECURITY, checked: ON_24 },
+    ],
+    reviewNotes: [
+      "Added 2026-11-24 after a real BNL phishing email (subject \"ВNL-Confermа dі sіcurezzа…\", in disguised letters). Facts collected by a research agent and checked again on the two source pages the same day.",
+      "060.060: no page says whether the call is free, and there is no 800 number for ordinary customers. Labelled \"servizio clienti\", which is true. The card-block page gives it as +39.060.060, 24 hours a day, 7 days a week: the same number, listed once.",
+      "BNL warns that scammers fake 060.060 as the calling number (\"ID SPOOFING\"): a call that seems to come from it is no proof. Its app has a \"Verifica chiamata\" feature (not read).",
+      "\"questi dati\" in the first rule are the Codice Cliente and PIN named in the sentence before it on the page.",
+      "Domains: infobnl.it and bnlmail.com are the senders of BNL's own emails (\"@infobnl.it o @bnlmail.com\", security page). The login site banking.bnl.it is covered by bnl.it. Not listed: hellobank.it (the Hello bank! brand, site not read) and bnpparibas.com (the group).",
+      "Left out: the Corporate abroad number and the institutional numbers on the Contatti-Istituzionali page (legal, insurance, foundation), not meant for ordinary customers.",
+      "\"bnl\" is 3 letters, so it only matches as a whole part of a site name: bnl-sicurezza.com is caught, bnlbanking.com or mybnl.it are not. infobnl and bnlmail match anywhere.",
+      "No page names BNL's SMS sender. requestsPaymentByMessage is not set: the pages only warn against payment requests by message.",
+    ],
+    reviewed: null,
   },
   {
     id: "hera",

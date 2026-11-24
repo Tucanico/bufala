@@ -1,11 +1,12 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import type { EvalCase } from "./cases.ts";
-import { emailToCase } from "./email-case.ts";
+import { emailToCase, type EmailOptions } from "./email-case.ts";
 
 // `npm run eval:import`: every .eml file in evals/real/ (gitignored) becomes a
-// test case in evals/real/cases.json, for `npm run eval:real`. The recipient's
-// name and addresses come from the email itself; anything else to hide (a phone
-// number, a street) goes in evals/real/private.json as { "replace": [...] }.
+// test case in evals/real/cases.json, for `npm run eval:real`. Your details are
+// replaced: evals/real/private.json can list your own addresses and anything
+// else to hide, as { "me": ["you@example.it"], "replace": ["+39 333 1234567"] }.
+// Without "me", every recipient of an email is taken for you.
 // Running it again keeps the verdict, signs and sender already edited in
 // cases.json.
 
@@ -36,7 +37,7 @@ if (files.length === 0) {
   process.exit(0);
 }
 
-const privateStrings = readJson<{ replace?: string[] }>(PRIVATE, {}).replace ?? [];
+const options = readJson<EmailOptions>(PRIVATE, {});
 const edited = new Map(readJson<EvalCase[]>(OUT, []).map((c) => [c.id, c]));
 const cases: EvalCase[] = [];
 const taken = new Set<string>();
@@ -46,7 +47,7 @@ for (const file of files) {
   for (let n = 2; taken.has(id); n++) id = `${slug(file)}-${n}`;
   taken.add(id);
 
-  const { case: fresh, notes } = await emailToCase(readFileSync(new URL(file, DIR)), id, privateStrings);
+  const { case: fresh, notes } = await emailToCase(readFileSync(new URL(file, DIR)), id, options);
   const before = edited.get(id);
   cases.push(before ? { ...fresh, verdict: before.verdict, signs: before.signs, sender: before.sender } : fresh);
 

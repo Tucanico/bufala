@@ -16,6 +16,7 @@ const HIGH_RISK_SIGNS = new Set<Sign>([
   "dangerous_link",
   "lookalike_link",
   "disabled_link",
+  "mixed_alphabets",
   "asks_for_code",
   "asks_for_payment",
   "asks_for_personal_data",
