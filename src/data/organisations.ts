@@ -7,6 +7,7 @@ import type { Organisation } from "../lib/check/organisations";
 const ON = "2026-11-07";
 const ON_20 = "2026-11-20";
 const ON_24 = "2026-11-24";
+const REVIEWED_24 = { by: "Jacopo Lombardo", on: ON_24 };
 const REVIEWED = { by: "Jacopo Lombardo", on: ON_20 };
 
 const POSTE_CALL = "https://www.poste.it/assistenza/chiamaci";
@@ -234,7 +235,7 @@ export const ORGANISATIONS: Organisation[] = [
       "The site refuses automated reading (HTTP 403), so the contacts, card-block and scams pages were read by hand in a browser on 2026-11-24: every number and sentence listed before matched, and the abroad numbers, the transfer line of the first rule and the email rule were added from them.",
       "Left out, as not meant for private customers: Banca via Internet CBI (848.690.300, abroad +39.045.8064628), businesses not yet customers (800.88.11.77) and the Corporate Banking lines (199.100.952, 199.240.007 and their abroad numbers). Also left out: the block numbers of cards other companies issue (CartaSi 800.15.16.16, which is Nexi's and listed there; BankAmericard 800.207167; Diners 800.393939; American Express 06.72900347).",
     ],
-    reviewed: null,
+    reviewed: REVIEWED_24,
   },
   {
     id: "telepass",
@@ -566,7 +567,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Amazon offers a check of its own: \"Verifica una chiamata o un messaggio\" on account-status.amazon.it, and forwarding to verify@amazon.it. Could be added to the advice later.",
       "Automated reading gets HTTP 503, so the four help pages were read by hand in a browser on 2026-11-24, where Amazon showed them in English. Confirmed: the three domains (\"Legitimate Amazon websites contain 'Amazon.it'\", a link example on www.amazon.com, \"All official Amazon job postings can be found at Amazon.jobs\"), that no page prints a phone number, and the meaning of the four rules (\"Amazon will never ask you via text message to provide personal information, payment details, gift card codes, or call a phone number.\"; \"legitimate Amazon representatives will never ask for OTP codes over the phone\"; \"If the email doesn't appear in Message Center, then it wasn't sent by Amazon\"). Their Italian wording is as read on 2026-11-07.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED_24,
   },
   {
     id: "gls",
@@ -627,7 +628,7 @@ export const ORGANISATIONS: Organisation[] = [
       "Listed mainly so real UPS tracking links on ups.com aren't taken for fakes (after review they also stop counting as \"open a link\"), and so look-alikes such as ups-consegna.top are caught.",
       "\"ups\" is short: it only matches a whole part of a site name (backups.com doesn't count) and a whole word in a message.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED_24,
   },
   {
     id: "paypal",
@@ -649,7 +650,7 @@ export const ORGANISATIONS: Organisation[] = [
       "The same page warns that the caller's name proves nothing: \"Solo perché riporta \"PayPal\" non significa necessariamente che la chiamata provenga da noi.\"",
       "Look-alikes such as paypa1-secure.com are caught (1 is read as l).",
     ],
-    reviewed: null,
+    reviewed: REVIEWED_24,
   },
   {
     id: "windtre",
@@ -873,7 +874,7 @@ export const ORGANISATIONS: Organisation[] = [
       "\"bnl\" is 3 letters, so it only matches as a whole part of a site name: bnl-sicurezza.com is caught, bnlbanking.com or mybnl.it are not. infobnl and bnlmail match anywhere.",
       "No page names BNL's SMS sender. requestsPaymentByMessage is not set: the pages only warn against payment requests by message.",
     ],
-    reviewed: { by: "Jacopo Lombardo", on: ON_24 },
+    reviewed: REVIEWED_24,
   },
   {
     id: "hera",
@@ -1188,12 +1189,13 @@ export const ORGANISATIONS: Organisation[] = [
       "www.mooney.it, mooney.it, its documents under mooney.it/cms, www.mymooney.it and www.mooneygo.it all answered HTTP 403 to automated reading on 2026-11-11. So no phone numbers, SMS senders, rules or payment-by-message statement could be collected. Only the group site mooneygroup.it could be read.",
       "Third-party sites give 800 005 005 (from abroad +39 02 30458205) as Mooney's customer service. It is not verified and not listed: please check it on mooney.it.",
       "2026-11-24: mooney.it's security guide was read by hand in a browser. It is general advice on phishing, smishing and vishing: no \"Mooney never asks\" sentence, no phone number and no SMS sender, so nothing was added. The contacts page (https://www.mooney.it/about/contatti) wasn't read, so the customer number is still unconfirmed. The same day mooneygroup.it was read again: it links to www.mooney.it, www.mymooney.it and www.mooneygo.it.",
+      "Reviewed on 2026-11-24 with its sites only (decided that day): links to them stop counting as \"open a link\", and no number is shown until the customer number is confirmed on mooney.it.",
       "Domains come from the \"I siti del gruppo\" footer of mooneygroup.it (\"© Mooney S.p.A.\"). easycassa.it and pluservice.net (business services) are left out. A whistleblowing pop-up on the same site lists sisalpay.it labelled \"MOONEY\", bill.it and rivenditorisisalpay.it: also left out. sisalpay.it was the earlier brand, so it may be worth adding.",
       "mooneygo.it is MooneyGo (tolls, parking, mobility), a group brand. It is included so its links count as official. Drop it if this entry should cover only payments and cards.",
       "The contacts page (https://mooneygroup.it/contatti/) gives only email addresses: media@mooney.it, richiestaautorita@mooney.it and richiesteautorita@pec.mooney.it. All are under mooney.it.",
       "type \"bank\": Mooney issues prepaid cards, and the model's prompt files card companies under bank, as Nexi is. \"other\", as for PayPal, would also fit.",
       "\"mooney\" (6 letters) matches anywhere in a site name, which also catches mooneygo and mymooney look-alikes. It isn't an Italian word, so brandWholeOnly is not set, but unrelated sites with the surname in them (e.g. mooneyaircraft) would count as look-alikes.",
     ],
-    reviewed: null,
+    reviewed: REVIEWED_24,
   },
 ];

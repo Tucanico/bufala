@@ -1,8 +1,14 @@
 # Changelog
 
+## 2026-11-24 16:24 — chore(data): all 31 organisations reviewed
+
+Approved by Jacopo Lombardo after the 16:20 hand check: UniCredit, Amazon, UPS and PayPal, and Mooney with its sites only (no number is shown until its customer number is confirmed on mooney.it). Their own links and numbers no longer count as warning signs; UniCredit shows 800.57.57.57 and UPS shows 800 877 877 and +39 02 30 30 30 39. The paid test set ran once after it (each of the 55 made-up messages 3 times): 55 of 55 as expected for the first time. The UPS tracking message, 🟠 until now because UPS wasn't reviewed, is ⚪ in 3 of 3 runs: the rule from 2026-11-12 that drops the model's verdict when our checks disprove its only sign works with the real model. The crypto-investment message was 🔴 twice and 🟠 once, both accepted, as on 2026-11-20. The TODO keeps only the gaps left in reviewed entries and the six-month re-check.
+
 ## 2026-11-24 16:20 — chore(data): UniCredit, Amazon, UPS and PayPal read by hand, their entries updated
 
 These sites refuse automated reading, so on 2026-11-20 nothing in their entries could be checked again. Jacopo opened their pages in a browser and pasted the text, and each fact was compared with it. UniCredit: every number and sentence matched; added the abroad numbers for Private Banking, buddy cards and digital wallets, the "never asks you to make transfers to keep your money safe" line, and the rule on its emails (your name, your branch, never asks for data or codes). Business and corporate lines, and block numbers of cards other companies issue, are left out. Amazon: the three domains, the absence of a phone number and the meaning of its four rules are confirmed; the pages showed in English, so the Italian wording stays as read on 2026-11-07. UPS had only a domain: it now has 800 877 877 (shown as "numero verde") and +39 02 30 30 30 39 (shown without a label), two more lines, and two rules, including that UPS doesn't ask for payment or personal data by email, post, phone or fax. PayPal had only a domain: it now has three rules (its messages always carry your name and surname; not even customer service should ask for account data, passwords or codes; contact it only through its Contatti page). Its contact page prints no phone number. Mooney's security guide has nothing to quote, and its customer number is still unconfirmed; its group site was read again and links to its three other sites. None of the five is reviewed yet: that waits for approval.
+
+552ae36
 
 ## 2026-11-24 15:15 — chore(data): BNL reviewed
 

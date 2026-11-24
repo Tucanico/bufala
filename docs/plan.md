@@ -67,7 +67,7 @@ All made on 2026-11-07.
 
 ## Phases
 
-1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link and phone checks that need no outside service (done), a list of 31 organisations (26 reviewed, 5 to check by hand), Agenzia delle Entrate's list of fake domains (done), link checks that need outside services (shortened links, domain age, blocklists: decisions in `docs/link-checks.md`), a language switcher, and an installable web app (done: home-screen icon, and on Android the share menu).
+1. **MVP.** Paste text or upload a screenshot (done), the AI check with the three-level answer (done), link and phone checks that need no outside service (done), a list of 31 organisations (done: all reviewed, 25 on 2026-11-20 and 6 on 2026-11-24), Agenzia delle Entrate's list of fake domains (done), link checks that need outside services (shortened links, domain age, blocklists: decisions in `docs/link-checks.md`), a language switcher, and an installable web app (done: home-screen icon, and on Android the share menu).
 2. **Next.** Forwarding by WhatsApp and by email, and an "ask a family member" button.
 3. **Later.** A native app for SMS and calls. Android can screen calls; iPhone can only identify or block numbers from a list. Also advise families to agree a safe word against fake voices of relatives.
 
